@@ -5,10 +5,10 @@
 
 #include "CharContainer.h"
 
-#ifndef FILEHANDLER_H_
-#define FILEHANDLER_H_
+#ifndef FileHandlerRead_H_
+#define FileHandlerRead_H_
 
-class FileHandler {
+class FileHandlerRead {
 private:
 	char *filePath_;
 	int file_;
@@ -16,9 +16,9 @@ private:
 	int currentRowPos_;
 
 public:
-	FileHandler();
-	FileHandler(char*);
-	virtual ~FileHandler();
+	FileHandlerRead();
+	FileHandlerRead(char*);
+	virtual ~FileHandlerRead();
 
 	void openFile();
 	void closeFile();
@@ -26,7 +26,6 @@ public:
 	CharContainer* fillCharContainer(int);
 	void setFilePos(int);
 	bool isEOF();
-
 };
 
-#endif /* FILEHANDLER_H_ */
+#endif /* FileHandlerRead_H_ */
