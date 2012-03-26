@@ -47,15 +47,15 @@ bool Automat::isSign (char currentChar) {
 	return (
 		currentChar == '+' ||
 		currentChar == '-' ||
-		currentChar == '/' ||
-		currentChar == '!' ||
+		currentChar == '(' ||
+		currentChar == '=' ||
 		currentChar == '&' ||
 		currentChar == ';' ||
 		currentChar == '{' ||
 		currentChar == '}' ||
 		currentChar == '[' ||
 		currentChar == ']'
-		);
+		); // TODO: noch ) hinzufügen
 }
 //========================================================================
 
@@ -83,17 +83,17 @@ bool Automat::isDelimiter(char currentChar) {
 int Automat::analyseChar (char currentChar) {
 	int returnValue;
 
-	if (isLetter(currentChar))			{ returnValue = 0; }
-	else if (isNumber(currentChar))		{ returnValue = 1; }
-	else if (currentChar == '(')		{ returnValue = 2; }
-	else if (currentChar == '*')		{ returnValue = 3; }
-	else if (currentChar == ')')		{ returnValue = 4; }
-	else if (currentChar == '<')		{ returnValue = 5; }
-	else if (currentChar == '=')		{ returnValue = 6; }
-	else if (currentChar == '>')		{ returnValue = 7; }
-	else if (isSign(currentChar))		{ returnValue = 8; }
-	else if (isDelimiter(currentChar))	{ returnValue = 9; }
-	else								{ returnValue = 10; } // error case
+	if (isLetter(currentChar))			{ returnValue = INPUT_LETTER; }
+	else if (isNumber(currentChar))		{ returnValue = INPUT_NUMBER; }
+	else if (currentChar == '/')		{ returnValue = INPUT_SLASH; }
+	else if (currentChar == '*')		{ returnValue = INPUT_ASTERISK; }
+	else if (currentChar == ')')		{ returnValue = INPUT_UNUSED; } // TODO: noch rauswerfen
+	else if (currentChar == '<')		{ returnValue = INPUT_LESSTHAN; }
+	else if (currentChar == '!')		{ returnValue = INPUT_EXCLAMATIONMARK; }
+	else if (currentChar == '>')		{ returnValue = INPUT_GREATERTHAN; }
+	else if (isSign(currentChar))		{ returnValue = INPUT_SIGN; }
+	else if (isDelimiter(currentChar))	{ returnValue = INPUT_DELIMITER; }
+	else								{ returnValue = INPUT_ERROR; } // error case
 
 	return returnValue;
 }
@@ -179,7 +179,7 @@ Token Automat::nextToken() {
 	char currentChar;
 	bool returnCondition = false;
 	tempTokenLength = 0;
-	currentState = 0;
+	currentState = STATE_START;
 	Token returnToken;
 
 
