@@ -15,7 +15,7 @@ using namespace std;
 int main() {
 	cout<<"Buffer Test starting..."<<endl;
 
-	Buffer *b = new Buffer("/home/tobias/Dokumente/test.txt", "/home/tobias/Dokumente/out.txt", 10);
+	Buffer *b = new Buffer("test2.txt", "out.txt", 10);
 	char c = b->getNextChar();
 	while (c != '\000')
 	{

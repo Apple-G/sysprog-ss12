@@ -3,6 +3,8 @@
 	<name>Scanner</name>
 	<comment></comment>
 	<projects>
+		<project>Automat</project>
+		<project>Buffer</project>
 		<project>SysProgBufferOld</project>
 	</projects>
 	<buildSpec>
