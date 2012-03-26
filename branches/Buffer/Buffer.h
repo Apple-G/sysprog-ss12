@@ -16,6 +16,7 @@
 #define BUFFER_H_
 
 
+
 class Buffer {
 private:
 	FileHandlerRead *file_;

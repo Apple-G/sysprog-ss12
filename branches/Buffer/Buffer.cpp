@@ -11,17 +11,17 @@ Buffer::Buffer() {
 
 }
 
-Buffer::Buffer(char *filePath, unsigned int bufferSize) {
+Buffer::Buffer(char *fileInPath, char *fileOutPath, unsigned int bufferSize) {
 	bufferSize_ = bufferSize;
 	bufferNumber_ = 1;
 	currentBuffer_ = 0;
 	currentBufferPosition_ = -1;
 	try {
-		file_ = new FileHandler(filePath);
+		file_ = new FileHandlerRead(fileInPath);
 		file_->openFile();
+		output_ = new FileHandlerWrite(fileOutPath);
+		output_->openFile();
 		InitializeBuffer();
-	} catch (int i) //Error Buffersize
-	{
 	} catch (...) //Error File
 	{
 	}
@@ -104,6 +104,20 @@ int Buffer::getCurrentRow() {
 
 int Buffer::getCurrentRowPosition() {
 	return buffer_[currentBuffer_][currentBufferPosition_].getPos();
+}
+
+void Buffer::CloseAll()
+{
+	file_->closeFile();
+	output_->closeFile();
+}
+
+void Buffer::writeMessage(char* message) {
+	output_->writeMessage(message);
+}
+
+void Buffer::writeError(char* error) {
+	output_->writeError(error);
 }
 
 
