@@ -19,7 +19,7 @@ int main() {
 	char c = b->getNextChar();
 	while (c != '\000')
 	{
-		cout<<"Char:\t"<<c<<" Line: "<<b->getCurrentRow()<<" Column: "<<b->getCurrentRowPosition()<<endl;
+		cout<<"Char:\t"<<c<<" Line: "<<b->getCurrentRow()<<" Column: "<<b->getCurrentColumn()<<endl;
 		c = b->getNextChar();
 	}
 delete b;

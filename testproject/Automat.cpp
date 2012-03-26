@@ -253,7 +253,7 @@ Token Automat::nextToken() {
 			case INPUT_ERROR: {
 				returnCondition = true;
 				addCharToTempToken(currentChar);
-				returnToken.setType(Token::TType::error);
+				returnToken.setType(Token::error);
 				break;
 					 } 
 			}
