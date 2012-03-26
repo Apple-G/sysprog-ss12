@@ -15,6 +15,7 @@
 #ifndef BUFFER_H_
 #define BUFFER_H_
 
+
 class Buffer {
 private:
 	FileHandlerRead *file_;
