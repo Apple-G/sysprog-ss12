@@ -3,6 +3,8 @@
 	<name>SysProgBufferOld</name>
 	<comment></comment>
 	<projects>
+		<project>Automat</project>
+		<project>Scanner</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
