@@ -1,20 +1,20 @@
-#include "FileHandler.h"
+#include "FileHandlerRead.h"
 
-FileHandler::FileHandler() {
+FileHandlerRead::FileHandlerRead() {
 	// TODO Auto-generated constructor stub
 }
-FileHandler::FileHandler(char *filePath) {
+FileHandlerRead::FileHandlerRead(char *filePath) {
 	filePath_ = filePath;
 }
 
-FileHandler::~FileHandler() {
+FileHandlerRead::~FileHandlerRead() {
 	closeFile();
 }
 
-void FileHandler::openFile() {
+void FileHandlerRead::openFile() {
 	currentRow_ = 1;
 	currentRowPos_ = 1;
-	file_ = open(filePath_, O_RDONLY);
+	file_ = open(filePath_, O_DIRECT);
 	if (file_ == -1) {
 		// ToDo Fehlerbehandlung
 		printf("Error: Can't read from File");
@@ -22,11 +22,11 @@ void FileHandler::openFile() {
 	}
 }
 
-void FileHandler::closeFile() {
+void FileHandlerRead::closeFile() {
 	close(file_);
 }
 
-char *FileHandler::reading(int number) {
+char *FileHandlerRead::reading(int number) {
 	char *buffer = new char[number];
 	int error = read(file_, buffer, number);
 	if (error < 0) {
@@ -41,11 +41,11 @@ char *FileHandler::reading(int number) {
 	return buffer;
 }
 
-void FileHandler::setFilePos(int pos) {
+void FileHandlerRead::setFilePos(int pos) {
 	lseek(file_, pos, SEEK_CUR);
 }
 
-CharContainer* FileHandler::fillCharContainer(int number) {
+CharContainer* FileHandlerRead::fillCharContainer(int number) {
 	CharContainer *container = new CharContainer[number];
 	char *buffer = reading(number);
 
@@ -69,7 +69,6 @@ CharContainer* FileHandler::fillCharContainer(int number) {
 
 }
 
-bool FileHandler::isEOF() {
+bool FileHandlerRead::isEOF() {
 	return SEEK_END == lseek(file_, 0, SEEK_CUR);
 }
-

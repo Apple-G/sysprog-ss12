@@ -42,7 +42,7 @@ public:
 	char getNextChar();
 	void ungetChar(int);
 
-	int getCurrentRowPosition();
+	int getCurrentColumn();
 	int getCurrentRow();
 
 	void writeMessage(char* message);

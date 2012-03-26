@@ -102,7 +102,7 @@ int Buffer::getCurrentRow() {
 	return buffer_[currentBuffer_][currentBufferPosition_].getRow();
 }
 
-int Buffer::getCurrentRowPosition() {
+int Buffer::getCurrentColumn() {
 	return buffer_[currentBuffer_][currentBufferPosition_].getPos();
 }
 
