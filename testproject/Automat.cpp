@@ -530,17 +530,17 @@ Token Automat::nextToken() {
 
 	// Bestimmt Anfansspalte des Rueckgabetokens
 	if (currentChar==EOF) {
-		returnToken.setColumn(myBuffer->getColumn()-(tempTokenLength-2));;
+		returnToken.setColumn(myBuffer->getCurrentColumn()-(tempTokenLength-2));;
 	}
 	else {
-		returnToken.setColumn(myBuffer->getColumn()-(tempTokenLength-1));
+		returnToken.setColumn(myBuffer->getCurrentColumn()-(tempTokenLength-1));
 	}
 
 	// Setzt laenge des Rueckgabetokens
 	returnToken.setLength(tempTokenLength);
 
 	// Setzt Zeile des Rueckgabetokens
-	returnToken.setLine(myBuffer->getLine());
+	returnToken.setLine(myBuffer->getCurrentRow());
 
 	return returnToken;
 }
