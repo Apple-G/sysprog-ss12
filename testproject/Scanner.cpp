@@ -4,13 +4,13 @@
 // Funktion:  Scanner
 // Parameter: char* inFile, char* outFile
 // Return:    -
-// Notiz:     Konstruktor. Es werden die Ein- und Ausgabedatei übergeben.
+// Notiz:     Konstruktor. Es werden die Ein- und Ausgabedatei ï¿½bergeben.
 //*******************************************************
 Scanner::Scanner(char* inFile, char* outFile)
 {
-	//TODO check ob file vorhanden und lesbar eventuell ausgabe, falls outFile überschrieben wird
+	//TODO check ob file vorhanden und lesbar eventuell ausgabe, falls outFile ï¿½berschrieben wird
 
-	buffer = new BufferIO(inFile, outFile);
+	buffer = new Buffer(inFile, outFile, 10);
 	automat = new Automat(buffer);
 	hashtable = new Hashtable<Token>(10);
 }
@@ -49,7 +49,7 @@ void Scanner::initSymbols(){
 	insert("/", Token("division\t", Token::sign, 0,0,9));
 	insert("<", Token("smaller\t", Token::sign, 0,0,8));
 	insert(">", Token("larger\t", Token::sign, 0,0,7));
-	insert("<=>", Token("<=>\t", Token::sign, 0,0,4));
+	insert("<!>", Token("<!>\t", Token::sign, 0,0,4));
 	insert("!", Token("exclamation mark", Token::sign, 0,0,16));
 	insert("&", Token("ampersand\t", Token::sign, 0,0,10));
 	insert(";", Token("semicolon\t", Token::sign, 0,0,10));
@@ -66,7 +66,7 @@ void Scanner::initSymbols(){
 // Funktion:  insert
 // Parameter: char* value, Token token
 // Return:    void
-// Notiz:     Schreibt das übergebene Token in die Haschtabelle.
+// Notiz:     Schreibt das ï¿½bergebene Token in die Haschtabelle.
 //*******************************************************
 void Scanner::insert(char* value, Token token){
 	hashtable->put(value, token);
@@ -145,7 +145,7 @@ bool Scanner::checkFile(){
 				buffer->fileOut("\n",1);
 			}
 			else{
-				std::cout<<"Token unknownSign\tLine: "<<token.getLine()<<" Column: "<<token.getColumn()<<"\tValue: "<<tokenValue<<"##### Error! Zustand nicht möglich #####"<<std::endl;
+				std::cout<<"Token unknownSign\tLine: "<<token.getLine()<<" Column: "<<token.getColumn()<<"\tValue: "<<tokenValue<<"##### Error! Zustand nicht mï¿½glich #####"<<std::endl;
 
 			}
 			break;
