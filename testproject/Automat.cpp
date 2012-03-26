@@ -8,7 +8,7 @@ using namespace std;
 // Funktion:  Automat Konstruktor
 // Parameter: BufferIO *myBuffer
 //*******************************************************
-Automat::Automat(BufferIO *myBuffer) {
+Automat::Automat(Buffer *myBuffer) {
 	this->myBuffer = myBuffer;
 	this->tempToken = new char[1];
 }
