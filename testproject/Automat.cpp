@@ -186,7 +186,7 @@ Token Automat::nextToken() {
 
 
 	// Hauptschleife
-	while (!returnCondition && !myBuffer->getEOF()) {
+	while (!returnCondition && !myBuffer->isEOF()) {
 
 		// holt naechstes Zeichen vom Puffer
 		currentChar = myBuffer->getNextChar();
