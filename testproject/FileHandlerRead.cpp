@@ -14,7 +14,7 @@ FileHandlerRead::~FileHandlerRead() {
 void FileHandlerRead::openFile() {
 	currentRow_ = 1;
 	currentRowPos_ = 1;
-	file_ = open(filePath_, O_DIRECT);
+	file_ = open(filePath_, O_RDONLY);
 	if (file_ == -1) {
 		// ToDo Fehlerbehandlung
 		printf("Error: Can't read from File");
