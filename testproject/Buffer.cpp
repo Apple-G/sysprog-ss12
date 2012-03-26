@@ -106,6 +106,10 @@ int Buffer::getCurrentColumn() {
 	return buffer_[currentBuffer_][currentBufferPosition_].getPos();
 }
 
+bool Buffer::isEOF() {
+	return false;
+}
+
 void Buffer::CloseAll()
 {
 	file_->closeFile();
