@@ -3,6 +3,8 @@
 	<name>Automat</name>
 	<comment></comment>
 	<projects>
+		<project>Buffer</project>
+		<project>Scanner</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
