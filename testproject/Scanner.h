@@ -1,13 +1,13 @@
 #pragma once
 #include "Automat.h"
-#include "BufferIO.h"
+#include "Buffer.h"
 #include "Hashtable.h"
 #include "CharOperation.h"
 
 class Scanner
 {
 private:
-	BufferIO *buffer;
+	Buffer *buffer;
 	Automat *automat;
 	Hashtable <Token>*hashtable;
 
