@@ -9,14 +9,16 @@
 #include <stdio.h>
 
 #include "CharContainer.h"
-#include "FileHandler.h"
+#include "FileHandlerRead.h"
+#include "FileHandlerWrite.h"
 
 #ifndef BUFFER_H_
 #define BUFFER_H_
 
 class Buffer {
 private:
-	FileHandler *file_;
+	FileHandlerRead *file_;
+	FileHandlerWrite *output_;
 
 	unsigned int bufferSize_;
 	unsigned int bufferNumber_;
@@ -32,7 +34,7 @@ private:
 	bool movePointerBackward();
 public:
 	Buffer();
-	Buffer(char*, unsigned int);
+	Buffer(char*, char*, unsigned int);
 	virtual ~Buffer();
 
 	char getNextChar();
@@ -40,6 +42,14 @@ public:
 
 	int getCurrentRowPosition();
 	int getCurrentRow();
+
+	void writeMessage(char* message);
+	void writeError(char* error);
+	void writeToke(void);
+
+	bool isEOF();
+
+	void CloseAll();
 
 };
 
