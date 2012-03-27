@@ -6,117 +6,65 @@
  */
 
 #include "Buffer.h"
-
 Buffer::Buffer() {
 
 }
 
 Buffer::Buffer(char *fileInPath, char *fileOutPath, unsigned int bufferSize) {
-	bufferSize_ = bufferSize;
-	bufferNumber_ = 1;
-	currentBuffer_ = 0;
-	currentBufferPosition_ = -1;
-	try {
-		file_ = new FileHandlerRead(fileInPath);
-		file_->openFile();
-		output_ = new FileHandlerWrite(fileOutPath);
-		output_->openFile();
-		InitializeBuffer();
-	} catch (...) //Error File
-	{
-	}
+	output_ = new OutputBuffer();
+	input_ = new InputBuffer(fileInPath, bufferSize);
 }
 
 Buffer::~Buffer() {
-	delete buffer_; //todo:
-	delete file_;
-}
-
-void Buffer::InitializeBuffer() {
-	if (bufferSize_ < 1) {
-		// ToDo Fehlerbehandlung
-		printf("Error: Buffer Size is null");
-	} else {
-		buffer_ = new CharContainer *[bufferNumber_];
-		fillBuffer(currentBuffer_);
-	}
-}
-
-void Buffer::fillBuffer(int aktiveBuffer) {
-	//ToDo: Error bei 4 4x buffer füllen?!
-	//	delete buffer_[aktiveBuffer];
-
-	//std::cout << "Fill Buffer " << aktiveBuffer << std::endl;
-	buffer_[aktiveBuffer] = file_->fillCharContainer(bufferSize_);
-}
-
-unsigned int Buffer::changeActiveBuffer() {
-	if (currentBuffer_ + 1 > bufferNumber_) {
-		return 0;
-	}
-	return currentBuffer_ + 1;
-
-}
-
-bool Buffer::movePointerBackward() {
-	//ToDo: movePointerBackward
-	return false;
-}
-
-bool Buffer::movePointerForward() {
-	currentBufferPosition_++;
-	if (currentBufferPosition_ >= bufferSize_) {
-		if (file_->isEOF()) {
-			return false;
-		} else {
-			currentBuffer_ = changeActiveBuffer();
-			fillBuffer(currentBuffer_);
-			currentBufferPosition_ = 0;
-			return true;
-		}
-	}
-	return true;
+ delete output_;
+ delete input_;
 }
 
 void Buffer::ungetChar(int number) {
-	for (int i = 0; i < number; i++) {
-		if (!movePointerBackward()) {
-			// ToDo Fehlerbehandlung
-			printf("Error: ungetChar");
-		}
-
-	}
+	input_->ungetChar(number);
 }
 
 char Buffer::getNextChar() {
-
-	if (movePointerForward()) {
-		return buffer_[currentBuffer_][currentBufferPosition_].getSymbole();
-	} else {
-		// ToDo Fehlerbehandlung oder nur endoffile
-		return '\000';
-	}
+	return input_->getNextChar();
 }
 
 int Buffer::getCurrentRow() {
-	return buffer_[currentBuffer_][currentBufferPosition_].getRow();
+	return input_->getCurrentRow();
 }
 
 int Buffer::getCurrentColumn() {
-	return buffer_[currentBuffer_][currentBufferPosition_].getPos();
+	return input_->getCurrentColumn();
 }
 
 bool Buffer::isEOF() {
-	return false;
+	return input_->isEOF();
+}
+
+void Buffer::RegisterMessageHandler(OutputHandlerBase* messageHandler) {
+	output_->RegisterMessageHandler(messageHandler);
+}
+
+void Buffer::RegisterErrorHandler(OutputHandlerBase* errorHandler) {
+	output_->RegisterErrorHandler(errorHandler);
+}
+
+void Buffer::writeToke(void) {
 }
 
 void Buffer::CloseAll()
 {
-	file_->closeFile();
-	output_->closeFile();
+	input_->closeBuffer();
+	output_->closeBuffer();
 }
 
 void Buffer::writeMessage(char* message) {
+	output_->writeMessage(message);
+}
+
+void Buffer::writeMessage(char symbol) {
+	char* message;
+	message= new char[1];
+	message[0]=symbol;
 	output_->writeMessage(message);
 }
 
