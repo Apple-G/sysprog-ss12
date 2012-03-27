@@ -1,13 +1,28 @@
 #summary One-sentence summary of this page.
+<wiki:toc max_depth="1" />
 
-= Introduction =
+= Übersicht =
 
-Add your content here.
+= Public Funktionen =
+	== Buffer(char*, char*, unsigned int) ==
+	== virtual ~Buffer() == 
 
+	== char getNextChar() == 
+	== void ungetChar(int) == 
 
-= Details =
+	== int getCurrentColumn() == 
+	== int getCurrentRow() == 
+	== bool isEOF() == 
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+	== void RegisterMessageHandler(OutputHandlerBase*) == 
+	== void RegisterErrorHandler(OutputHandlerBase*) == 
+	== void writeMessage(char*) == 
+	== void writeMessage(char) == 
+	== void writeError(char*) == 
+	== void writeToke(void) == 
+
+	== void CloseAll() == 
+
+= Funktionen =
+
+= Known Issues =
