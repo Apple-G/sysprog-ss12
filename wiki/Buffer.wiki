@@ -9,11 +9,14 @@ Konstruktor, erstlt den Buffer.
 
 Parameter:
  *inputFile: Pfad der Datei aus der gelesen wird. 
- * outputFile: Pfad der Ausgabe Datei.<wiki:comment>nicht mehr relevant, wird entfernt!</wiki:comment>
+ * outputFile: Pfad der Ausgabe Datei. *nicht mehr relevant, wird entfernt!*
  * BufferSize: Größe des Imput-Buffers
 == virtual ~Buffer() == 
 Destruktor
 == char getNextChar() == 
+Gibt das nächste Zeichen des Buffer's zurück, Dabei wird die BufferPointerPos erhöht.
+
+Ist das Ende einer Datei erreicht wird `\000` zurückgegeben.
 == void ungetChar(int) == 
 == int getCurrentColumn() == 
 == int getCurrentRow() == 
