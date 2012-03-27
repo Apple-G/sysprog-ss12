@@ -6,10 +6,11 @@
 = Public Funktionen =
 == Buffer(char*, char*, unsigned int) ==
 Konstruktor, erstlt den Buffer.
+
 Parameter:
-* inputFile: Pfad der Datei aus der gelesen wird. 
-* outputFile: Pfad der Ausgabe Datei. (nicht mehr relevant, wird entfernt!)
-* BufferSize: Größe des Imput-Buffers
+ *inputFile: Pfad der Datei aus der gelesen wird. 
+ * outputFile: Pfad der Ausgabe Datei.<wiki:comment>nicht mehr relevant, wird entfernt!</wiki:comment>
+ * BufferSize: Größe des Imput-Buffers
 == virtual ~Buffer() == 
 Destruktor
 == char getNextChar() == 
