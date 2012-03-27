@@ -37,3 +37,8 @@ Wenn wir nun das 'H' bekommen wollen, muss der der Bufferpointer um 6 nach links
 = Funktionen =
 
 = Known Issues =
+ * Buffer.h vereint ein und ausgabe (vll umbenennen in IOBUffer
+ * Exceptions funktionieren noch nicht
+ * ungetChar
+ * Fehlerbehandlung
+ * InputBuffer und FileHandlerRead zusammenfassen!
