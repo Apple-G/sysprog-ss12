@@ -5,35 +5,16 @@
  *      Author: tobias
  */
 
-#include <iostream> //printf
-#include <stdio.h>
-
-#include "CharContainer.h"
-#include "FileHandlerRead.h"
-#include "FileHandlerWrite.h"
-
 #ifndef BUFFER_H_
 #define BUFFER_H_
-
-
+#include "OutBuffer/OutputBuffer.h"
+#include "InBuffer/InputBuffer.h"
 
 class Buffer {
 private:
-	FileHandlerRead *file_;
-	FileHandlerWrite *output_;
+	OutputBuffer *output_;
+	InputBuffer *input_;
 
-	unsigned int bufferSize_;
-	unsigned int bufferNumber_;
-	CharContainer **buffer_;
-
-	unsigned int currentBuffer_;
-	unsigned int currentBufferPosition_;
-
-	void InitializeBuffer();
-	unsigned int changeActiveBuffer();
-	void fillBuffer(int);
-	bool movePointerForward();
-	bool movePointerBackward();
 public:
 	Buffer();
 	Buffer(char*, char*, unsigned int);
@@ -44,15 +25,16 @@ public:
 
 	int getCurrentColumn();
 	int getCurrentRow();
-
-	void writeMessage(char* message);
-	void writeError(char* error);
-	void writeToke(void);
-
 	bool isEOF();
 
-	void CloseAll();
+	void RegisterMessageHandler(OutputHandlerBase*);
+	void RegisterErrorHandler(OutputHandlerBase*);
+	void writeMessage(char*);
+	void writeMessage(char);
+	void writeError(char*);
+	void writeToke(void);
 
+	void CloseAll();
 };
 
 #endif /* BUFFER_H_ */

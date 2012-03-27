@@ -14,7 +14,8 @@ FileHandlerRead::~FileHandlerRead() {
 void FileHandlerRead::openFile() {
 	currentRow_ = 1;
 	currentRowPos_ = 1;
-	file_ = open(filePath_, O_DIRECT);
+//	file_ = open(filePath_, O_DIRECT);
+	file_ = open(filePath_, O_RDONLY);
 	if (file_ == -1) {
 		// ToDo Fehlerbehandlung
 		printf("Error: Can't read from File");
@@ -36,7 +37,7 @@ char *FileHandlerRead::reading(int number) {
 		//ToDo: error < number; error = die anzahl der gelesenen Zeichen! vll überarbeiten
 		buffer[error] = '\000';
 		//ToDo End of File
-		printf("End of File!");
+	//	printf("End of File!");
 	}
 	return buffer;
 }
@@ -60,7 +61,7 @@ CharContainer* FileHandlerRead::fillCharContainer(int number) {
 
 		//EOF
 		if (c == '\000') {
-			printf("End of File!");
+		//	printf("End of File!");
 			break;
 		}
 	}

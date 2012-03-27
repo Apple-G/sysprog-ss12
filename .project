@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>SysProgBufferOld</name>
+	<name>SysProgBuffer</name>
 	<comment></comment>
 	<projects>
 		<project>Automat</project>
