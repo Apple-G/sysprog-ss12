@@ -18,6 +18,11 @@ Gibt das nächste Zeichen des Buffer's zurück, Dabei wird die BufferPointerPos 
 
 Ist das Ende einer Datei erreicht wird `\000` zurückgegeben.
 == void ungetChar(int) == 
+Bewegt den Bufferponiter um den Übergabewert nach links (Bufferponiter-Übergabewert)
+Bsp.: Bufferinhalt Hallo (Ponter an Pos 5(o))
+Wenn wir nun das 'H' bekommen wollen, muss der der Bufferpointer um 6 nach links bewegt werden, da bei getNextChar der Bufferpointer erst erhöt wird, anschließend das Zeichen ausgegegeben!
+=> muss nochmal überdacht werden, vermutlich wird erst das Zeichen ausgegeben, anschließed erhöt
+
 == int getCurrentColumn() == 
 == int getCurrentRow() == 
 == bool isEOF() == 
