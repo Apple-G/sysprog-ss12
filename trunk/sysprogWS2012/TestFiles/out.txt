@@ -1,0 +1,66 @@
+Char: H		line:  1	Column: 1
+Char: a		line:  1	Column: 2
+Char: l		line:  1	Column: 3
+Char: l		line:  1	Column: 4
+Char: o		line:  1	Column: 5
+Char:  		line:  1	Column: 6
+Char: D		line:  1	Column: 7
+Char: a		line:  1	Column: 8
+Char: s		line:  1	Column: 9
+Char:  		line:  1	Column:10
+Char: i		line:  1	Column:11
+Char: s		line:  1	Column:12
+Char: t		line:  1	Column:13
+Char:  		line:  1	Column:14
+Char: e		line:  1	Column:15
+Char: i		line:  1	Column:16
+Char: n		line:  1	Column:17
+Char:  		line:  1	Column:18
+Char: T		line:  1	Column:19
+Char: e		line:  1	Column:20
+Char: s		line:  1	Column:21
+Char: t		line:  1	Column:22
+Char: !		line:  1	Column:23
+Char: !		line:  1	Column:24
+Char: !		line:  1	Column:25
+Char: E		line:  3	Column: 1
+Char: n		line:  3	Column: 2
+Char: d		line:  3	Column: 3
+Char: e		line:  3	Column: 4
+Char:  		line:  3	Column: 5
+Char: Z		line:  3	Column: 6
+Char: e		line:  3	Column: 7
+Char: i		line:  3	Column: 8
+Char: l		line:  3	Column: 9
+Char: e		line:  3	Column:10
+Char:  		line:  3	Column:11
+Char: 3		line:  3	Column:12
+Char: :		line:  3	Column:13
+Char: B		line:  5	Column: 1
+Char: e		line:  5	Column: 2
+Char: f		line:  5	Column: 3
+Char: i		line:  5	Column: 4
+Char: n		line:  5	Column: 5
+Char: d		line:  5	Column: 6
+Char: e		line:  5	Column: 7
+Char:  		line:  5	Column: 8
+Char: m		line:  5	Column: 9
+Char: i		line:  5	Column:10
+Char: c		line:  5	Column:11
+Char: h		line:  5	Column:12
+Char:  		line:  5	Column:13
+Char: j		line:  5	Column:14
+Char: e		line:  5	Column:15
+Char: t		line:  5	Column:16
+Char: z		line:  5	Column:17
+Char: t		line:  5	Column:18
+Char:  		line:  5	Column:19
+Char: a		line:  5	Column:20
+Char: n		line:  5	Column:21
+Char:  		line:  5	Column:22
+Char: P		line:  5	Column:23
+Char: o		line:  5	Column:24
+Char: s		line:  5	Column:25
+Char: :		line:  5	Column:26
+Char: 2		line:  5	Column:27
+Char: 7		line:  5	Column:28
