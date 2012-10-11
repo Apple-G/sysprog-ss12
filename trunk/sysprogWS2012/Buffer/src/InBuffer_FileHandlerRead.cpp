@@ -1,4 +1,4 @@
-#include "FileHandlerRead.h"
+#include "InBuffer_FileHandlerRead.h"
 
 FileHandlerRead::FileHandlerRead() {
 	// TODO Auto-generated constructor stub

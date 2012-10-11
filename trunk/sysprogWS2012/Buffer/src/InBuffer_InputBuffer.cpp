@@ -4,7 +4,7 @@
  *  Created on: 27.03.2012
  *      Author: tobias
  */
-#include "InputBuffer.h"
+#include "InBuffer_InputBuffer.h"
 
 InputBuffer::InputBuffer(char* filePath, int bufferSize) {
 	bufferSize_ = bufferSize;
