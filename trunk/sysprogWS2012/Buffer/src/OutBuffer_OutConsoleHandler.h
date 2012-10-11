@@ -8,7 +8,7 @@
 #ifndef OUTCONSOLEHANDLER_H_
 #define OUTCONSOLEHANDLER_H_
 
-#include "OutputHandlerBase.h"
+#include "OutBuffer_OutputHandlerBase.h"
 
 class OutConsoleHandler: public OutputHandlerBase {
 public:

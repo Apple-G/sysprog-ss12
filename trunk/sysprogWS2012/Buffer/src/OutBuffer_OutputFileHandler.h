@@ -8,7 +8,7 @@
 #ifndef OUTPUTFILEHANDLER_H_
 #define OUTPUTFILEHANDLER_H_
 
-#include "OutputHandlerBase.h"
+#include "OutBuffer_OutputHandlerBase.h"
 
 class OutputFileHandler: public OutputHandlerBase {
 private:
