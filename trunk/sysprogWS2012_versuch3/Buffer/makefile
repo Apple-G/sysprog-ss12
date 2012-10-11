@@ -15,15 +15,13 @@ SHAREDLIB = ../sharedlib
 OBJS = $(OBJDIR)/Buffer.o \
 	$(OBJDIR)/TestBuffer.o \
 	$(OBJDIR)/CharHelper.o \
-	$(OBJDIR)/FileNotFoundException.o \
-	$(OBJDIR)/InputOutputException.o \
 	$(OBJDIR)/CharContainer.o \
 	$(OBJDIR)/FileHandlerRead.o \
 	$(OBJDIR)/InputBuffer.o \
 	$(OBJDIR)/OutConsoleHandler.o \
 	$(OBJDIR)/OutputBuffer.o \
-	$(OBJDIR)/OutputFileHandler.o \
-	$(OBJDIR)/OutputHandlerBase.o
+	$(OBJDIR)/OutputFileHandler.o
+	#$(OBJDIR)/OutputHandlerBase.o
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
