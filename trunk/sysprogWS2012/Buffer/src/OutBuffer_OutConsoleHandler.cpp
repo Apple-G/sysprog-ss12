@@ -5,7 +5,7 @@
  *      Author: tobias
  */
 
-#include "OutConsoleHandler.h"
+#include "OutBuffer_OutConsoleHandler.h"
 #include <iostream>
 
 OutConsoleHandler::OutConsoleHandler() {

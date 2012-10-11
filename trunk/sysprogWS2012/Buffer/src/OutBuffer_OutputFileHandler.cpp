@@ -5,7 +5,7 @@
  *      Author: tobias
  */
 
-#include "OutputFileHandler.h"
+#include "OutBuffer_OutputFileHandler.h"
 #include <fcntl.h> //open
 #include <unistd.h> //write
 #include <stdio.h>

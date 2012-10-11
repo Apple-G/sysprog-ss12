@@ -5,7 +5,7 @@
  *      Author: tobias
  */
 
-#include "OutputBuffer.h"
+#include "OutBuffer_OutputBuffer.h"
 
 OutputBuffer::OutputBuffer() {
 	outBuffer_ = new char[OUT_BUFFER_SIZE];
