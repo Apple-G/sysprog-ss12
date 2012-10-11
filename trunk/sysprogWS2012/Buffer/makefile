@@ -12,15 +12,15 @@ SHAREDLIB = ../sharedlib
 ## hier alle Object Files eintragen
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
-OBJS = $(OBJDIR)/Buffer.o \
+OBJS = OBJS = $(OBJDIR)/Buffer.o \
 	$(OBJDIR)/TestBuffer.o \
 	$(OBJDIR)/CharHelper.o \
-	$(OBJDIR)/CharContainer.o \
-	$(OBJDIR)/FileHandlerRead.o \
-	$(OBJDIR)/InputBuffer.o \
-	$(OBJDIR)/OutConsoleHandler.o \
-	$(OBJDIR)/OutputBuffer.o \
-	$(OBJDIR)/OutputFileHandler.o 
+	$(OBJDIR)/InBuffer_CharContainer.o \
+	$(OBJDIR)/InBuffer_FileHandlerRead.o \
+	$(OBJDIR)/InBuffer_InputBuffer.o \
+	$(OBJDIR)/OutBuffer_OutConsoleHandler.o \
+	$(OBJDIR)/OutBuffer_OutputBuffer.o \
+	$(OBJDIR)/OutBuffer_OutputFileHandler.o
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
