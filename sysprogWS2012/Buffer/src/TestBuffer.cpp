@@ -2,8 +2,8 @@
 #include "Buffer.h"
 #include "CharHelper.h"
 
-#include "OutBuffer/OutputFileHandler.h"
-#include "OutBuffer/OutConsoleHandler.h"
+#include "OutBuffer_OutputFileHandler.h"
+#include "OutBuffer_OutConsoleHandler.h"
 
 using namespace std;
 
