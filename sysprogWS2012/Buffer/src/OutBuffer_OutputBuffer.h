@@ -5,7 +5,7 @@
  *      Author: tobias
  */
 
-#include "OutputHandlerBase.h"
+#include "OutBuffer_OutputHandlerBase.h"
 
 #ifndef OutputBuffer_H_
 #define OutputBuffer_H_
