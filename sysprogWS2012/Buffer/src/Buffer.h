@@ -1,7 +1,9 @@
 #ifndef BUFFER_H_
 #define BUFFER_H_
-#include "OutBuffer/OutputBuffer.h"
-#include "InBuffer/InputBuffer.h"
+#include "OutBuffer_OutputBuffer.h"
+#include "OutBuffer_OutputHandlerBase.h"
+#include "InBuffer_InputBuffer.h"
+
 
 class Buffer {
 private:

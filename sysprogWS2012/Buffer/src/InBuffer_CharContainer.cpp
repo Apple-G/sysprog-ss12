@@ -5,7 +5,7 @@
  *      Author: tobias
  */
 
-#include "CharContainer.h"
+#include "InBuffer_CharContainer.h"
 
 CharContainer::CharContainer(){
 }

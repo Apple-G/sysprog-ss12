@@ -3,7 +3,7 @@
 #include <iostream> //printf
 #include <stdio.h>
 
-#include "CharContainer.h"
+#include "InBuffer_CharContainer.h"
 
 #ifndef FileHandlerRead_H_
 #define FileHandlerRead_H_

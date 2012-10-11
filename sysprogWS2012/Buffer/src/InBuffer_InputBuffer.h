@@ -8,8 +8,8 @@
 #ifndef InputBuffer_H_
 #define InputBuffer_H_
 
-#include "CharContainer.h"
-#include "FileHandlerRead.h"
+#include "InBuffer_CharContainer.h"
+#include "InBuffer_FileHandlerRead.h"
 
 class InputBuffer {
 private:
