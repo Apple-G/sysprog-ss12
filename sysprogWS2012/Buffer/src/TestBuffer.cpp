@@ -11,8 +11,8 @@ int main(int argc, char **argv) {
 
 	cout << "Buffer Test starting..." << endl;
 
-		Buffer *b = new Buffer("/home/tobias/Dokumente/test.txt",
-				"/home/tobias/Dokumente/out.txt", 10);
+		Buffer *b = new Buffer("../../TestFiles/test.txt",
+				"../../TestFiles/out.txt", 10);
 
 		//Handler
 
