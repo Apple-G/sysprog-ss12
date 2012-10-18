@@ -14,12 +14,14 @@ SHAREDLIB = ../sharedlib
 
 OBJS = $(OBJDIR)/Symboltable.o \
 	$(OBJDIR)/TestSymboltable.o \
-	$(OBJDIR)/SymboltableEntry.o
+	$(OBJDIR)/SymboltableEntry.o \
+	$(OBJDIR)/Token.o
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
 OBJSFORSYMBOLTABLELIB =  \
-	$(LIBDIR)/Symboltable.o #\
+	$(LIBDIR)/Symboltable.o \
+	$(LIBDIR)/Token.o #\
 
 
 #

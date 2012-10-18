@@ -13,7 +13,7 @@ SHAREDLIB = ../sharedlib
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
 OBJS = $(OBJDIR)/Automat.o \
-	$(OBJDIR)/TestAutomat.o  #\
+	$(OBJDIR)/TestAutomat.o
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
@@ -26,8 +26,8 @@ OBJSFORAUTOMATLIB =  \
 #		Targets zum Bauen des Tests
 #
 
-CFLAGS=-I../Buffer/src/
-LDFLAGS=-L../sharedlibs -lBuffer
+CFLAGS=-I../Symboltable/src -I../Buffer/src 
+LDFLAGS=-L../sharedlibs
 
 makeTestAutomat: $(OBJS)
 	g++ -g $^ -o $(BINDIR)/AutomatTest

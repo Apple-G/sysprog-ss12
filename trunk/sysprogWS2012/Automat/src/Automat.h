@@ -10,6 +10,7 @@
 
 #include "Buffer.h"
 #include "Token.h"
+#include <stdlib.h>
 
 class Automat
 {
