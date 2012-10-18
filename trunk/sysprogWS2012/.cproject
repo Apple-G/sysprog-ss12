@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?>
-
-<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="cdt.managedbuild.toolchain.gnu.base.1369296955">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.base.1369296955" moduleId="org.eclipse.cdt.core.settings" name="Default">
@@ -44,8 +42,18 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<folderInfo id="cdt.managedbuild.toolchain.gnu.base.1369296955.1467475613" name="/" resourcePath="Automat/src">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.base.1969684580" name="cdt.managedbuild.toolchain.gnu.base" superClass="cdt.managedbuild.toolchain.gnu.base" unusedChildren="">
+							<tool id="cdt.managedbuild.tool.gnu.archiver.base.643193811" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base.2037356861"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1942184961" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base.1364383589"/>
+							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.433637437" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base.1512289126"/>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.581626739" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base.1520271500"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.1280066856" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base.468861253"/>
+							<tool id="cdt.managedbuild.tool.gnu.assembler.base.142905048" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base.703222454"/>
+						</toolChain>
+					</folderInfo>
 					<sourceEntries>
-						<entry excluding="automat/src|src|Automat/src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="automat/src|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -57,8 +65,10 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="SysProgProject.null.1013172507" name="SysProgProject"/>
 	</storageModule>
-	<storageModule moduleId="refreshScope" versionNumber="1">
-		<resource resourceType="PROJECT" workspacePath="/SysProgWS2012"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Default">
+			<resource resourceType="PROJECT" workspacePath="/SysProgWS2012"/>
+		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
