@@ -14,7 +14,7 @@ Buffer::~Buffer() {
  delete input_;
 }
 
-void Buffer::ungetChar(int number) {
+void Buffer::ungetChar(unsigned int number) {
 	input_->ungetChar(number);
 }
 

@@ -33,7 +33,7 @@ public:
 	void closeBuffer();
 
 	char getNextChar();
-	void ungetChar(int);
+	void ungetChar(unsigned int);
 
 	int getCurrentColumn();
 	int getCurrentRow();

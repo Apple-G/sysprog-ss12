@@ -51,7 +51,7 @@ public:
 	 * bewgt den Pointer des Buffers um die angegebene Anzahl zurück
 	 * @param number Anzahl der Pointerbewgungen
 	 */
-	void ungetChar(int);
+	void ungetChar(unsigned int);
 
 	/*
 	 * gibt die aktuelle Position des aktuellen Zeichens zurück
