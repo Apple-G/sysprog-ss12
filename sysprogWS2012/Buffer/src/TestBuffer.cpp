@@ -38,10 +38,43 @@ int main(int argc, char **argv) {
 			c = b->getNextChar();
 		}
 		b->CloseAll();
-		delete b;
+
 		//delete outfile;
 		//delete outConsole;
 		cout << "Buffer Test done" << endl;
+
+		//TEST 2
+		cout << "Buffer 2Test start..." << endl;
+		cout << " a => next Char" << endl;
+		cout << " s => ungetChar" << endl;
+		cout << " e => exit" << endl;
+		Buffer *buffer = new Buffer("TestFiles/test.txt",
+						"TestFiles/out.txt", 10);
+		//Handler
+
+		buffer->RegisterMessageHandler(outfile);
+		buffer->RegisterMessageHandler(outConsole);
+
+		char key;
+		while (key != 'e')
+		{
+			cout<< "Insert: ";
+			cin>>key;
+
+			if(key == 'a')
+			{
+				cout<<"GetNextChar: "<<buffer->getNextChar()<<endl;
+			}
+			else if (key == 's')
+			{
+				unsigned int i = 2;
+				buffer->ungetChar(i);
+				cout<<"UngetNextChar: "<<buffer->getNextChar()<<endl;
+			}
+		}
+
+		delete b;
+		delete buffer;
 		return 0;
 
 }

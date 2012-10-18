@@ -57,7 +57,21 @@ bool InputBuffer::movePointerForward() {
 }
 
 bool InputBuffer::movePointerBackward() {
-	//ToDo: movePointerBackward
+	if (currentBufferPosition_> 0)
+	{
+		currentBufferPosition_--;
+		return true;
+	}
+	else
+	{
+		//Fill Buffer
+		currentBuffer_ = changeActiveBuffer();
+		file_->setFilePos(0-bufferSize_);
+		fillBuffer(currentBuffer_);
+		currentBufferPosition_ = bufferSize_-1;
+		return true;
+	}
+		//ToDo: movePointerBackward
 	return false;
 }
 
@@ -75,7 +89,7 @@ char InputBuffer::getNextChar() {
 		}
 }
 
-void InputBuffer::ungetChar(int number) {
+void InputBuffer::ungetChar(unsigned int number) {
 	for (int i = 0; i < number; i++) {
 			if (!movePointerBackward()) {
 				// ToDo Fehlerbehandlung

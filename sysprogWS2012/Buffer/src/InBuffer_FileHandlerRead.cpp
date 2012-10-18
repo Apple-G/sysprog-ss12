@@ -43,7 +43,11 @@ char *FileHandlerRead::reading(int number) {
 }
 
 void FileHandlerRead::setFilePos(int pos) {
-	lseek(file_, pos, SEEK_CUR);
+	int currentpos = lseek(file_, 0, SEEK_CUR);
+	currentpos = currentpos + pos;
+	lseek(file_, currentpos, SEEK_SET);
+	int pos2 = lseek(file_, 0, SEEK_CUR);
+	currentpos= pos2;
 }
 
 CharContainer* FileHandlerRead::fillCharContainer(int number) {
