@@ -13,7 +13,7 @@ SHAREDLIB = ../sharedlib
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
 OBJS = $(OBJDIR)/Automat.o \
-	$(OBJDIR)/TestAutomat.o  #\
+	$(OBJDIR)/TestAutomat.o #\
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
@@ -31,7 +31,6 @@ makeTestAutomat: $(OBJS)
 	g++ -g $^ -o $(BINDIR)/AutomatTest
 	
 # $^ liste der abhaengigkeiten
-
 
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp 
 	@echo "g++ $*.cpp"
