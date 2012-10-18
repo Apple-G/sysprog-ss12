@@ -13,7 +13,7 @@ SHAREDLIB = ../sharedlib
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
 OBJS = $(OBJDIR)/Automat.o \
-	$(OBJDIR)/TestAutomat.o #\
+	$(OBJDIR)/TestAutomat.o  #\
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
@@ -26,15 +26,18 @@ OBJSFORAUTOMATLIB =  \
 #		Targets zum Bauen des Tests
 #
 
+CFLAGS=-I../Buffer/src/
+LDFLAGS=-L../sharedlibs -lBuffer
 
 makeTestAutomat: $(OBJS)
 	g++ -g $^ -o $(BINDIR)/AutomatTest
 	
 # $^ liste der abhaengigkeiten
 
+
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp 
 	@echo "g++ $*.cpp"
-	g++ -g  -c -Wall  -o $@  $<
+	g++ $(CFLAGS) -g  -c -Wall  -o $@  $<
 
 # 
 # $@ name des object files
@@ -54,11 +57,10 @@ cleanAutomat:
 #
 
 AutomatLib:$(OBJSFORAUTOMATLIB)
-		g++ -shared  -o $(SHAREDLIB)/libAutomat.so $^ 
+		g++ -shared $(LDFLAGS) -o $(SHAREDLIB)/libAutomat.so $^ 
 
 	
 $(LIBDIR)/%.o :  $(SRCDIR)/%.cpp 
 #	@mkdir -p `dirname $(OBJDIR)/$*.o`
 	@echo "g++ $*.cpp"
-	g++ -g  -c -fPIC  -o $@  $<
-
+	g++ $(CFLAGS) -g  -c -fPIC  -o $@  $<

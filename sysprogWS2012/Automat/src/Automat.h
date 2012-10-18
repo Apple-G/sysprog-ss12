@@ -8,12 +8,13 @@
 #ifndef Automat_H_
 #define Automat_H_
 
+#include "Buffer.h"
 #include "Token.h"
 
 class Automat
 {
 private:
-	BufferIO* myBuffer;
+	Buffer* myBuffer;
 	char* tempToken;
 	int currentState;
 	int tempTokenLength;
@@ -29,7 +30,7 @@ private:
 	void shrinkTempToken(unsigned int);
 public:
 	Token nextToken();
-	Automat(BufferIO*);
+	Automat(Buffer*);
 	~Automat(void);
 };
 
