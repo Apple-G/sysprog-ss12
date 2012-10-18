@@ -188,7 +188,7 @@ Token Automat::nextToken() {
 
 
 	// Hauptschleife
-	while (!returnCondition && !myBuffer->getEOF()) {
+	while (!returnCondition && !myBuffer->isEOF()) {
 
 		// holt naechstes Zeichen vom Puffer
 		currentChar = myBuffer->getNextChar();
@@ -255,7 +255,7 @@ Token Automat::nextToken() {
 			case 10: {
 				returnCondition = true;
 				addCharToTempToken(currentChar);
-				returnToken.setType(Token::TType::error);
+				returnToken.setType(Token::error);
 				break;
 					 }
 			}
@@ -309,7 +309,7 @@ Token Automat::nextToken() {
 				returnCondition = true;
 				stepBack(1);
 
-				returnToken.setValue(atol(tempToken));
+				returnToken.setValue(strtol(tempToken,NULL,10));
 				returnToken.setType(Token::integer);
 				break;
 					}
@@ -532,17 +532,17 @@ Token Automat::nextToken() {
 
 	// Bestimmt Anfansspalte des Rueckgabetokens
 	if (currentChar==EOF) {
-		returnToken.setColumn(myBuffer->getColumn()-(tempTokenLength-2));;
+		returnToken.setColumn(myBuffer->getCurrentColumn()-(tempTokenLength-2));;
 	}
 	else {
-		returnToken.setColumn(myBuffer->getColumn()-(tempTokenLength-1));
+		returnToken.setColumn(myBuffer->getCurrentColumn()-(tempTokenLength-1));
 	}
 
 	// Setzt laenge des Rueckgabetokens
 	returnToken.setLength(tempTokenLength);
 
 	// Setzt Zeile des Rueckgabetokens
-	returnToken.setLine(myBuffer->getLine());
+	returnToken.setLine(myBuffer->getCurrentRow());
 
 	return returnToken;
 }
