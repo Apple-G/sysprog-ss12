@@ -21,6 +21,7 @@ OBJS = $(OBJDIR)/Symboltable.o \
 
 OBJSFORSYMBOLTABLELIB =  \
 	$(LIBDIR)/Symboltable.o \
+	$(LIBDIR)/SymboltableEntry.o \
 	$(LIBDIR)/Token.o #\
 
 

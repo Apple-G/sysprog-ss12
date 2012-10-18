@@ -27,18 +27,21 @@ OBJSFORAUTOMATLIB =  \
 #
 
 CFLAGS=-I../Symboltable/src -I../Buffer/src 
-LDFLAGS=-L../sharedlibs
+LDFLAGS=-L../sharedlib -lBuffer -lSymboltable
 
 makeTestAutomat: $(OBJS)
-	g++ -g $^ -o $(BINDIR)/AutomatTest
+	@echo "MakeTestAutomat init"
+	g++ -g $^ $(LDFLAGS) -o $(BINDIR)/AutomatTest
+	@echo "MakeTestAutomat finish"
 	
 # $^ liste der abhaengigkeiten
 
 
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp 
 	@echo "g++ $*.cpp"
+	@echo "komisches start"
 	g++ $(CFLAGS) -g  -c -Wall  -o $@  $<
-
+	@echo "komisches finish"
 # 
 # $@ name des object files
 # $< erste abhaengigkeit
