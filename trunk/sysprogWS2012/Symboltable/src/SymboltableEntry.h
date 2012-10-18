@@ -1,5 +1,5 @@
 /**
- * SymtabEntry stellt einen einzelnen Eintrag in der SymTab dar.
+ * SymboltableEntry stellt einen einzelnen Eintrag in der SymTab dar.
  */
 
 #ifndef __SYMTABENTRY__INCLUDED__
@@ -7,7 +7,7 @@
 
 #include "TokenType.h"
 
-class SymtabEntry {
+class SymboltableEntry {
 	/**
 	* Zeiger auf das erste Element des Lexems
 	*/
@@ -23,12 +23,12 @@ public:
 	/**
 	 * Initialisiert einen neuen Eintrag für die Symtable
 	 */
-	SymtabEntry();
+	SymboltableEntry();
 
 	/**
 	 * Initialisiert einen neuen Eintrag mit Werten für die Symtable
 	 */
-	SymtabEntry(char* lexem, TokenTypes::TokenType tokenType);
+	SymboltableEntry(char* lexem, TokenTypes::TokenType tokenType);
 
 
 

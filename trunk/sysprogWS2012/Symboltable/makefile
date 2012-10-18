@@ -13,7 +13,8 @@ SHAREDLIB = ../sharedlib
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
 OBJS = $(OBJDIR)/Symboltable.o \
-	$(OBJDIR)/TestSymboltable.o
+	$(OBJDIR)/TestSymboltable.o \
+	$(OBJDIR)/SymboltableEntry.o
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
