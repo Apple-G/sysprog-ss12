@@ -10,6 +10,7 @@ Symboltable::Symboltable()
 	this->stringTable = new char [SIZE_OF_STRINGTAB];
 	this->stringTablePtr = this->stringTable;
 	this->stringTableFree = SIZE_OF_STRINGTAB;
+	this->initSymbols();
 }
 
 Symboltable::~Symboltable()

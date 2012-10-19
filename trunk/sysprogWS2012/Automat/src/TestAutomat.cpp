@@ -28,4 +28,13 @@ int main (int argc, char* argv[]){
 		t=automat->nextToken();
 		std::cout<<t.getValue() << std::endl;
 	}
+
+	/*Pseudocode
+	 *
+	 * buffer erstellen (mit textdatei mit lexemen)
+	 *
+	 * automat muss tokens lesen
+	 *
+	 *
+	 */
 }

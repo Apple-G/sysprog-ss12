@@ -84,22 +84,22 @@ public:
 	void RegisterErrorHandler(OutputHandlerBase*);
 
 	/*
-	 * schreibt eine Zeichenkette
+	 * schreibt eine Zeichenkette in die registrierten OutputHandler
 	 */
 	void writeMessage(char*);
 
 	/*
-	 * schreibt ein Zeichen
+	 * schreibt ein Zeichen in die registrierten OutputHandler
 	 */
 	void writeMessage(char);
 
 	/*
-	 * schreibt eine Errormeldung
+	 * schreibt eine Errormeldung in die registrierten OutputHandler
 	 */
 	void writeError(char*);
 
 	/*
-	 * schreibt Token
+	 * schreibt Token  //TODO Tobi wohin? Was? Wie;-)
 	 */
 	void writeToke(void);
 
