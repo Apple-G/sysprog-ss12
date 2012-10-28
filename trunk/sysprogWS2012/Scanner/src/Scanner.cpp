@@ -14,19 +14,18 @@ Scanner::Scanner(char* inFile, char* outFile) {
 	//TODO check ob file vorhanden und lesbar eventuell ausgabe, falls outFile �berschrieben wird
 	//Stefan: check ob file vorhanden soll buffer machen
 
-	buffer = new Buffer(inFile, outFile, 4);
+	buffer = new Buffer(inFile, outFile, 10);
 	automat = new Automat(buffer);
 
 	cout << "Test starting..." << endl;
-
 
 	//Handler
 
 	OutputHandlerBase* outfile1 = new OutputFileHandler(outFile);
 	buffer->RegisterMessageHandler(outfile1);
 
-	OutputHandlerBase* outConsole = new OutConsoleHandler();
-	buffer->RegisterMessageHandler(outConsole);
+//	OutputHandlerBase* outConsole = new OutConsoleHandler();
+//	buffer->RegisterMessageHandler(outConsole);
 
 }
 //========================================================================
@@ -102,91 +101,90 @@ bool Scanner::checkFile() {
 	//	initSymbols();
 	Token token;
 	char* tokenValue;
-	buffer->writeMessage("*****************************TEST******************");
+	buffer->writeMessage(
+			"*****************************TEST******************\n");
 
 	while (!buffer->isEOF()) {
-
 		token = automat->nextToken();
-		cout << "Lexem: ";
-		cout << token.getLexem();
-		cout << "\n";
+		buffer->writeMessage("Column: ");
+		buffer->writeMessage(token.getColumn());
+		buffer->writeMessage("Row: ");
+		buffer->writeMessage(token.getRow());
+		buffer->writeMessage("Lexem: ");
+		buffer->writeMessage(token.getLexem());
+		buffer->writeMessage("\n");
 		/*
-		tokenValue = copyChar(token.getValue());
-		char temp[50];
-		switch (token.getType()) {
-		//error
-		case -1:
-			buffer->errorOut(token);
-			break;
-			//integer
-		case 0:
+		 tokenValue = copyChar(token.getValue());
+		 char temp[50];
+		 switch (token.getType()) {
+		 //error
+		 case -1:
+		 buffer->errorOut(token);
+		 break;
+		 //integer
+		 case 0:
 
-			//Ausgabe
-			buffer->fileOut("Token Integer\t\tLine: ", 21);
-			itoa(token.getLine(), temp, 10);
-			buffer->fileOut(temp, getCharLength(temp));
+		 //Ausgabe
+		 buffer->fileOut("Token Integer\t\tLine: ", 21);
+		 itoa(token.getLine(), temp, 10);
+		 buffer->fileOut(temp, getCharLength(temp));
 
-			buffer->fileOut(" Column: ", 9);
-			itoa(token.getColumn(), temp, 10);
-			buffer->fileOut(temp, getCharLength(temp));
-			buffer->fileOut("\tValue: ", 8);
-			itoa(token.getIntValue(), temp, 10);
-			buffer->fileOut(temp, getCharLength(temp));
-			buffer->fileOut("\n", 1);
-			break;
+		 buffer->fileOut(" Column: ", 9);
+		 itoa(token.getColumn(), temp, 10);
+		 buffer->fileOut(temp, getCharLength(temp));
+		 buffer->fileOut("\tValue: ", 8);
+		 itoa(token.getIntValue(), temp, 10);
+		 buffer->fileOut(temp, getCharLength(temp));
+		 buffer->fileOut("\n", 1);
+		 break;
 
-			//identifier
-		case 1:
+		 //identifier
+		 case 1:
 
-			if (!hashtable->contains(tokenValue)) {
-				hashtable->put(tokenValue, token);
-			}
-			//Ausgabe
-			buffer->fileOut("Token Identifier\tLine: ", 23);
-			itoa(token.getLine(), temp, 10);
-			buffer->fileOut(temp, getCharLength(temp));
+		 if (!hashtable->contains(tokenValue)) {
+		 hashtable->put(tokenValue, token);
+		 }
+		 //Ausgabe
+		 buffer->fileOut("Token Identifier\tLine: ", 23);
+		 itoa(token.getLine(), temp, 10);
+		 buffer->fileOut(temp, getCharLength(temp));
 
-			buffer->fileOut(" Column: ", 9);
-			itoa(token.getColumn(), temp, 10);
-			buffer->fileOut(temp, getCharLength(temp));
-			buffer->fileOut("\tLexem: ", 8);
-			buffer->fileOut(tokenValue, token.getLength());
-			buffer->fileOut("\n", 1);
-			break;
+		 buffer->fileOut(" Column: ", 9);
+		 itoa(token.getColumn(), temp, 10);
+		 buffer->fileOut(temp, getCharLength(temp));
+		 buffer->fileOut("\tLexem: ", 8);
+		 buffer->fileOut(tokenValue, token.getLength());
+		 buffer->fileOut("\n", 1);
+		 break;
 
-			//Sign
-		case 2:
-			if (hashtable->contains(tokenValue)) {
-				//Ausgabe
-				buffer->fileOut("Token ", 6);
-				buffer->fileOut(hashtable->get(tokenValue).getValue(),
-						hashtable->get(tokenValue).getLength());
-				buffer->fileOut("\tLine: ", 7);
-				itoa(token.getLine(), temp, 10);
-				buffer->fileOut(temp, getCharLength(temp));
-				buffer->fileOut(" Column: ", 9);
-				itoa(token.getColumn(), temp, 10);
-				buffer->fileOut(temp, getCharLength(temp));
-				buffer->fileOut("\n", 1);
-			} else {
-				std::cout << "Token unknownSign\tLine: " << token.getLine()
-						<< " Column: " << token.getColumn() << "\tValue: "
-						<< tokenValue
-						<< "##### Error! Zustand nicht m�glich #####"
-						<< std::endl;
+		 //Sign
+		 case 2:
+		 if (hashtable->contains(tokenValue)) {
+		 //Ausgabe
+		 buffer->fileOut("Token ", 6);
+		 buffer->fileOut(hashtable->get(tokenValue).getValue(),
+		 hashtable->get(tokenValue).getLength());
+		 buffer->fileOut("\tLine: ", 7);
+		 itoa(token.getLine(), temp, 10);
+		 buffer->fileOut(temp, getCharLength(temp));
+		 buffer->fileOut(" Column: ", 9);
+		 itoa(token.getColumn(), temp, 10);
+		 buffer->fileOut(temp, getCharLength(temp));
+		 buffer->fileOut("\n", 1);
+		 } else {
+		 std::cout << "Token unknownSign\tLine: " << token.getLine()
+		 << " Column: " << token.getColumn() << "\tValue: "
+		 << tokenValue
+		 << "##### Error! Zustand nicht m�glich #####"
+		 << std::endl;
 
-			}
-			break;
-		}
-*/
+		 }
+		 break;
+		 }
+		 */
 	}
 //	buffer->writeToFile();
 //	buffer->out("stop");
 	return true;
 }
-
-
-
-
-
 

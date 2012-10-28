@@ -233,6 +233,7 @@ Token Automat::nextToken() {
 		// mit zehn inneren Faellen, welche zeichenabhaengig bearbeitet werden
 		switch (currentState) {
 
+		// TODO: Überlegung, wie wir die zeile und reihe des tokens speichern!
 		case 0: { // Zustand: Start
 			switch (analyseChar(currentChar)) {
 			case 0: { // identifier
