@@ -25,6 +25,7 @@ private:
 	bool isNumber (char);
 	bool isSign (char);
 	int analyseChar (char);
+	Token::TokenType analyseSign(char currentChar);
 	void addCharToTempToken(char);
 	void stepBack(unsigned int);
 	void extendTempToken();
