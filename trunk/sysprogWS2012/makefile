@@ -14,7 +14,7 @@ SCANNERDIR = Scanner
 SHAREDLIB = sharedlib
 
 
-all:	symboltableLib bufferLib automatLib testBuffer #scanner
+all:	symboltableLib bufferLib automatLib scanner testBuffer 
 	@echo "target all"
 
 	

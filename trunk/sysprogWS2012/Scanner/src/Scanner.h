@@ -9,9 +9,7 @@
 #define SCANNER_H_
 
 #include "Automat.h"
-#include "BufferIO.h"
-#include "Hashtable.h"
-#include "CharOperation.h"
+#include "Buffer.h"
 
 /**
 * Dient als Schnittstelle zwischen Buffer, Automat und der Symboltabelle.
@@ -22,15 +20,15 @@
 class Scanner
 {
 private:
-	BufferIO *buffer;
+	Buffer *buffer;
 	Automat *automat;
-	Hashtable <Token>*hashtable;
+
 
 public:
 	Scanner(char*, char*);
 	virtual ~Scanner(void);
 //	void initSymbols();
-	void insert(char*, Token);
+//	void insert(char*, Token);
 	bool checkFile();
 };
 

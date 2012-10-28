@@ -13,6 +13,8 @@ SHAREDLIB = ../sharedlib
 ## hier alle Object Files eintragen
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
+
+
 OBJS = $(OBJDIR)/Scanner.o \
 	$(OBJDIR)/TestScanner.o
 
@@ -23,11 +25,12 @@ OBJSFORSCANNERLIB =  \
 	$(LIBDIR)/Scanner.o
 	
 
-
+CFLAGS=-I../Symboltable/src -I../Buffer/src -I../Automat/src
+LDFLAGS=-L../sharedlib -lAutomat -lBuffer -lSymboltable
 
 
 makeTestScanner: $(OBJS)
-	g++ -g $^ -L../sharedlib  -lAutomat  -lBuffer -lSymboltable -o $(BINDIR)/ScannerTest
+	g++ -g $^ $(LDFLAGS) -o $(BINDIR)/Scanner
 	
 	
 	
@@ -36,7 +39,7 @@ makeTestScanner: $(OBJS)
 
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp 
 	@echo "g++ $*.cpp"
-	g++ -g  -c -Wall  -o $@  $<
+	g++ $(CFLAGS) -g  -c -Wall  -o $@  $<
 
 # 
 # $@ name des object files
