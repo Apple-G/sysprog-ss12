@@ -61,31 +61,31 @@ Token::TokenType Automat::analyseSign(char currentChar) {
 	} else if (currentChar == '/') {
 		return Token::SLASH;
 	} else if (currentChar == '!') {
-		return Token::TokenType::EXCLAMATIONMARK;
+		return Token::EXCLAMATIONMARK;
 	} else if (currentChar == '&') {
-		return Token::TokenType::AMPERSAND;
+		return Token::AMPERSAND;
 	} else if (currentChar == ';') {
-		return Token::TokenType::SEMICOLON;
+		return Token::SEMICOLON;
 	} else if (currentChar == '{') {
-		return Token::TokenType::L_BRACE;
+		return Token::L_BRACE;
 	} else if (currentChar == '}') {
-		return Token::TokenType::R_BRACE;
+		return Token::R_BRACE;
 	} else if (currentChar == '[') {
-		return Token::TokenType::L_SQUAREBRACE;
+		return Token::L_SQUAREBRACE;
 	} else if (currentChar == ']') {
-		return Token::TokenType::R_SQUAREBRACE;
+		return Token::R_SQUAREBRACE;
 	} else if (currentChar == '(') {
-		return Token::TokenType::L_PARENTHESIS;
+		return Token::L_PARENTHESIS;
 	} else if (currentChar == '*') {
-		return Token::TokenType::ASTERISK;
+		return Token::ASTERISK;
 	} else if (currentChar == ')') {
-		return Token::TokenType::R_PARENTHESIS;
+		return Token::R_PARENTHESIS;
 	} else if (currentChar == '<') {
-		return Token::TokenType::L_BRACKET;
+		return Token::L_BRACKET;
 	} else if (currentChar == '=') {
-		return Token::TokenType::EQUALS;
+		return Token::EQUALS;
 	} else if (currentChar == '>') {
-		return Token::TokenType::R_BRACKET;
+		return Token::R_BRACKET;
 	} else
 		return Token::UNKNOWN;
 }
@@ -199,7 +199,7 @@ void Automat::shrinkTempToken(unsigned int count) {
 	if (count > 0) {
 		char* temp;
 		temp = new char[tempTokenLength - count];
-		for (int i = 0; i < tempTokenLength - count; i++) {
+		for (unsigned int i = 0; i < tempTokenLength - count; i++) {
 			temp[i] = tempToken[i];
 		}
 		temp[tempTokenLength - count] = '\0';

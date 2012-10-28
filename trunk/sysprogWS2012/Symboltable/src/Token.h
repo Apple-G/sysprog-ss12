@@ -1,6 +1,7 @@
 #ifndef TOKEN_H
 #define TOKEN_H
-#include "SymboltableEntry.h"
+
+class SymboltableEntry;
 class Token {
 public:
 	enum TokenType
@@ -35,7 +36,7 @@ private:
 	int row;
 	int column;
 //	unsigned int length;
-	TokenType type;
+	Token::TokenType type;
 	SymboltableEntry* key;
 public:
 	Token(void);

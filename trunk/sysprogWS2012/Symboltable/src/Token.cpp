@@ -1,5 +1,5 @@
 #include "Token.h"
-
+#include "SymboltableEntry.h"
 //*******************************************************
 // Funktion:  Token
 // Parameter: -
