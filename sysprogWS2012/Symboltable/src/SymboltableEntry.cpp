@@ -1,7 +1,6 @@
 /**
  * SymboltableEntry stellt einen einzelnen Eintrag in der SymTab dar.
  */
-
 #include "SymboltableEntry.h"
 
 /**
@@ -10,13 +9,13 @@
 SymboltableEntry::SymboltableEntry()
 {
 	this->lexem = 0;
-	this->tokenType = TokenTypes::UNKNOWN;
+	this->tokenType = Token::UNKNOWN;
 }
 
 /**
  * Initialisiert einen neuen Eintrag für die SymTab mit den übergebenen Werten.
  */
-SymboltableEntry::SymboltableEntry(char* lexem, TokenTypes::TokenType tokenType)
+SymboltableEntry::SymboltableEntry(char* lexem, Token::TokenType tokenType)
 {
 	this->lexem = lexem;
 	this->tokenType = tokenType;
@@ -47,7 +46,7 @@ const char* SymboltableEntry::getLexem()
  *
  * @param tokenType Typ des Tokens
  */
-void SymboltableEntry::setTokenType(TokenTypes::TokenType tokenType)
+void SymboltableEntry::setTokenType(Token::TokenType tokenType)
 {
 	this->tokenType = tokenType;
 }
@@ -57,7 +56,7 @@ void SymboltableEntry::setTokenType(TokenTypes::TokenType tokenType)
  *
  * @return Typ des Tokens
  */
-TokenTypes::TokenType SymboltableEntry::getTokenType() const
+Token::TokenType SymboltableEntry::getTokenType() const
 {
 	return this->tokenType;
 }

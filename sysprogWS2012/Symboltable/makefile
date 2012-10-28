@@ -12,17 +12,20 @@ SHAREDLIB = ../sharedlib
 ## hier alle Object Files eintragen
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
-OBJS = $(OBJDIR)/Symboltable.o \
+OBJS = \
+	$(OBJDIR)/Token.o \
+	$(OBJDIR)/Symboltable.o \
 	$(OBJDIR)/TestSymboltable.o \
-	$(OBJDIR)/SymboltableEntry.o \
-	$(OBJDIR)/Token.o
+	$(OBJDIR)/SymboltableEntry.o
+	
 	#$(OBJDIR)/xx1.o \
 	#$(OBJDIR)/xxn.o
 
 OBJSFORSYMBOLTABLELIB =  \
+	$(LIBDIR)/Token.o \
 	$(LIBDIR)/Symboltable.o \
-	$(LIBDIR)/SymboltableEntry.o \
-	$(LIBDIR)/Token.o #\
+	$(LIBDIR)/SymboltableEntry.o #\
+
 
 
 #

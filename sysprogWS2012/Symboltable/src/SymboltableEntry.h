@@ -5,7 +5,7 @@
 #ifndef __SYMTABENTRY__INCLUDED__
 #define __SYMTABENTRY__INCLUDED__
 
-#include "TokenType.h"
+#include "Token.h"
 
 class SymboltableEntry {
 	/**
@@ -16,7 +16,7 @@ class SymboltableEntry {
 	/**
 	* Typ des Tokens
 	*/
-	TokenTypes::TokenType tokenType;
+	Token::TokenType tokenType;
 
 public:
 
@@ -28,8 +28,7 @@ public:
 	/**
 	 * Initialisiert einen neuen Eintrag mit Werten für die Symtable
 	 */
-	SymboltableEntry(char* lexem, TokenTypes::TokenType tokenType);
-
+	SymboltableEntry(char* lexem, Token::TokenType tokenType);
 
 
 	/**
@@ -53,14 +52,14 @@ public:
 	 *
 	 * @param tokenType Typ des Tokens
 	 */
-	void setTokenType(TokenTypes::TokenType tokenType);
+	void setTokenType(Token::TokenType tokenType);
 
 	/**
 	 * Getter für den Tokentype
 	 *
 	 * @return Typ des Tokens
 	 */
-	TokenTypes::TokenType getTokenType() const;
+	Token::TokenType getTokenType() const;
 
 };
 #endif // __SYMTABENTRY__INCLUDED__

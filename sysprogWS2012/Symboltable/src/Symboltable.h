@@ -8,7 +8,6 @@
 #ifndef SYMBOLTABLE_H_
 #define SYMBOLTABLE_H_
 
-#include "TokenType.h"
 #include "List.h"
 #include "SymboltableEntry.h"
 
@@ -95,7 +94,7 @@ public:
 		 * @param tokenType welcher zum Lexem gehört
 		 * @return HashKey
 		 */
-		int insert(const char* lexem, TokenTypes::TokenType tokenType);
+		int insert(const char* lexem, Token::TokenType tokenType);
 
 		/**
 		 * Sucht einen eintrag aus der HashTable und gibt einen

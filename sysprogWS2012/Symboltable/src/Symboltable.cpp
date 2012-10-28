@@ -36,11 +36,11 @@ int Symboltable::getHashTabFree() const
 
 void Symboltable::initSymbols()
 {
-	insert("read",TokenTypes::READ);
-	insert("print",TokenTypes::PRINT);
+	insert("read",Token::READ);
+	insert("print",Token::PRINT);
 }
 
-int Symboltable::insert(const char* lexem, TokenTypes::TokenType tokenType)
+int Symboltable::insert(const char* lexem, Token::TokenType tokenType)
 {
 	int lexemLength = strlen(lexem);
 	int pos = hashCode(lexem, lexemLength);
