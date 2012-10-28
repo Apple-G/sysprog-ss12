@@ -13,6 +13,12 @@
 #include "Hashtable.h"
 #include "CharOperation.h"
 
+/**
+* Dient als Schnittstelle zwischen Buffer, Automat und der Symboltabelle.
+* Sie vereint diese und besitzt die Logik des Scanners. Er erstellt die Token mit Hilfe
+* der Eingabedatei und fügt sie in die Symboltabelle ein bzw. gibt eine Textdatei aus.
+*/
+
 class Scanner
 {
 private:
