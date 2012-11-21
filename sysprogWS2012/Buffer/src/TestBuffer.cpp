@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 	OutputHandlerBase* outConsole = new OutConsoleHandler();
 	b->RegisterMessageHandler(outConsole);
 	char c;
-/*
+
 	c = b->getNextChar();
 	while (c != '\000') {
 		if (c != '\r' && c != '\n') {
@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 		}
 		c = b->getNextChar();
 	}
-	b->CloseAll();*/
+	b->CloseAll();
 
 	//delete outfile;
 	//delete outConsole;
@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
 	buffer->RegisterMessageHandler(outConsole);
 	c = '_';
 	char key;
-	while (key != 'e' && key != '\000') {
+	while (key != 'e' && c != '\000') {
 		cout << "Insert: ";
 		cin >> key;
 

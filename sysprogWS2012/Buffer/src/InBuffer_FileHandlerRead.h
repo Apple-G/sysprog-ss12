@@ -1,9 +1,7 @@
 #include <fcntl.h> //open
 #include <unistd.h> //read
-#include <iostream> //printf
 #include <stdio.h>
 
-#include "InBuffer_CharContainer.h"
 
 #ifndef FileHandlerRead_H_
 #define FileHandlerRead_H_
@@ -25,7 +23,6 @@ public:
 	void openFile();
 	void closeFile();
 	char* reading(int);
-	//CharContainer* fillCharContainer(int);
 	bool setFilePos(int);
 	bool isEOF();
 };

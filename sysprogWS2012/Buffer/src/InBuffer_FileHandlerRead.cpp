@@ -60,30 +60,6 @@ bool FileHandlerRead::setFilePos(int pos) {
 	return true;
 
 }
-/*
-//TODO: DELETE => Funktion wird nicht mehr benötigt
-CharContainer* FileHandlerRead::fillCharContainer(int number) {
-	CharContainer *container = new CharContainer[number];
-	char *buffer = reading(number);
-
-	for (int i = 0; i < number; i++) {
-		char c = *(buffer + i);
-		container[i].InitializeCharContainer(c, currentRow_, currentRowPos_);
-		currentRowPos_++;
-		if (c == '\n') {
-			currentRow_++;
-			currentRowPos_ = 1;
-		}
-
-		//EOF
-		if (c == '\000') {
-			break;
-		}
-	}
-	delete buffer;
-	return container;
-
-}*/
 
 bool FileHandlerRead::isEOF() {
 	//return SEEK_END == lseek(file_, 0, SEEK_CUR);
