@@ -12,8 +12,7 @@ class FileHandlerRead {
 private:
 	char *filePath_;
 	int file_;
-	int currentRow_;
-	int currentRowPos_;
+	int currentFilePos_;
 	bool eof_;
 
 	FileHandlerRead();
@@ -26,8 +25,8 @@ public:
 	void openFile();
 	void closeFile();
 	char* reading(int);
-	CharContainer* fillCharContainer(int);
-	void setFilePos(int);
+	//CharContainer* fillCharContainer(int);
+	bool setFilePos(int);
 	bool isEOF();
 };
 

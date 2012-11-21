@@ -13,10 +13,11 @@ FileHandlerRead::~FileHandlerRead() {
 }
 
 void FileHandlerRead::openFile() {
-	currentRow_ = 1;
-	currentRowPos_ = 1;
+	currentFilePos_ = 0;
+
 	//TODO O_DIRECT
 //	file_ = open(filePath_, O_DIRECT);
+//	file_ = open(filePath_, O_SYNC|O_DIRECT);
 	file_ = open(filePath_, O_RDONLY);
 	if (file_ == -1) {
 		// ToDo Fehlerbehandlung
@@ -29,27 +30,38 @@ void FileHandlerRead::closeFile() {
 	close(file_);
 }
 
-char *FileHandlerRead::reading(int number) {
-	char *buffer = new char[number];
-	int numberOfChars = read(file_, buffer, number);
+char *FileHandlerRead::reading(int charsToRead) {
+	char *buffer = new char[charsToRead];
+
+	int numberOfChars = read(file_, buffer, charsToRead);
 	if (numberOfChars < 0) {
 		// ToDo Fehlerbehandlung
 		printf("Error: Reading File Error");
-	} else if (numberOfChars == 0 || numberOfChars < number) {
+		buffer[numberOfChars] = '\000';
+	} else if (numberOfChars == 0 || numberOfChars < charsToRead) {
 		buffer[numberOfChars] = '\000';
 		eof_ = true;
 	}
+
+	currentFilePos_ = currentFilePos_ + charsToRead;
+
+
 	return buffer;
 }
 
-void FileHandlerRead::setFilePos(int pos) {
-	int currentpos = lseek(file_, 0, SEEK_CUR);
-	currentpos = currentpos + pos;
-	lseek(file_, currentpos, SEEK_SET);
-	int pos2 = lseek(file_, 0, SEEK_CUR);
-	currentpos= pos2;
-}
+bool FileHandlerRead::setFilePos(int pos) {
 
+	currentFilePos_ = currentFilePos_ + pos;
+	if (currentFilePos_ < 0) {
+		lseek(file_, 0, SEEK_SET);
+		return false;
+	}
+	lseek(file_, currentFilePos_, SEEK_SET);
+	return true;
+
+}
+/*
+//TODO: DELETE => Funktion wird nicht mehr benötigt
 CharContainer* FileHandlerRead::fillCharContainer(int number) {
 	CharContainer *container = new CharContainer[number];
 	char *buffer = reading(number);
@@ -71,7 +83,7 @@ CharContainer* FileHandlerRead::fillCharContainer(int number) {
 	delete buffer;
 	return container;
 
-}
+}*/
 
 bool FileHandlerRead::isEOF() {
 	//return SEEK_END == lseek(file_, 0, SEEK_CUR);

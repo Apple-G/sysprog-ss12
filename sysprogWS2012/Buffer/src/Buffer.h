@@ -2,6 +2,7 @@
 #define BUFFER_H_
 #include "OutBuffer_OutputBuffer.h"
 #include "OutBuffer_OutputHandlerBase.h"
+#include "OutBuffer_OutputFileHandler.h"
 #include "InBuffer_InputBuffer.h"
 /*
  * Buffer.h
@@ -30,6 +31,13 @@ public:
 	/*
 	 * Initialisiert eine neuen Buffer.
 	 * @param fileInPath Pfad der einzulesenden Datei
+	 * @param bufferSize Größe des Ein- und Ausgabe Buffers
+	 */
+	Buffer(char*, unsigned int);
+
+	/*
+	 * Initialisiert eine neuen Buffer.
+	 * @param fileInPath Pfad der einzulesenden Datei
 	 * @param fileOutPath Pfad der ausgabe Datei
 	 * @param bufferSize Größe des Ein- und Ausgabe Buffers
 	 */
@@ -48,10 +56,10 @@ public:
 	char getNextChar();
 
 	/*
-	 * bewgt den Pointer des Buffers um die angegebene Anzahl zurück
+	 * bewgt den Pointer des Buffers um die angegebene Anzahl zurück und gibt das Zeichen an dieser Position zurück
 	 * @param number Anzahl der Pointerbewgungen
 	 */
-	void ungetChar(unsigned int);
+	char ungetChar(unsigned int);
 
 	/*
 	 * gibt die aktuelle Position des aktuellen Zeichens zurück
