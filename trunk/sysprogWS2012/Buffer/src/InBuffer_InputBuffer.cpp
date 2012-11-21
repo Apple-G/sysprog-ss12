@@ -15,64 +15,88 @@ InputBuffer::InputBuffer(char* filePath, int bufferSize) {
 	file_ = new FileHandlerRead(filePath);
 	file_->openFile();
 	InitializeBuffer();
+
+	currentColumn_ = 0;
+	currentRow_ = 1;
+	lastLineLengthIndex_ = 50;
+	lastLineLength_ = new int[lastLineLengthIndex_];
 }
 
 void InputBuffer::InitializeBuffer() {
 	if (bufferSize_ < 1) {
-	//		throw new InitializationException("Buffer Size has to be bigger 0");
-		} else {
-			buffer_ = new CharContainer *[bufferNumber_];
-			fillBuffer(currentBuffer_);
+		//		throw new InitializationException("Buffer Size has to be bigger 0");
+	} else {
+		buffer_ = new char*[bufferNumber_];
+		for (int i = 0; i < bufferNumber_; i++) {
+			fillBuffer(i);
 		}
+	}
 }
 
 unsigned int InputBuffer::changeActiveBuffer() {
-	if (currentBuffer_ + 1 > bufferNumber_) {
-		return 0;
+	if (currentBuffer_ + 1 < bufferNumber_) {
+		return currentBuffer_ + 1;
 	}
-	return currentBuffer_ + 1;
+	return 0;
 }
 
-void InputBuffer::fillBuffer(int aktiveBuffer) {
+void InputBuffer::fillBuffer(int buferID) {
 	//ToDo: Error bei 4 4x buffer füllen?!
-		//	delete buffer_[aktiveBuffer];
+	//	delete buffer_[aktiveBuffer];
 
-		//std::cout << "Fill Buffer " << aktiveBuffer << std::endl;
-		buffer_[aktiveBuffer] = file_->fillCharContainer(bufferSize_);
+	//std::cout << "Fill Buffer " << buferID << std::endl;
+	//buffer_[buferID] = file_->fillCharContainer(bufferSize_);
+
+	buffer_[buferID] = file_->reading(bufferSize_);
 }
 
 bool InputBuffer::movePointerForward() {
 	currentBufferPosition_++;
-		if (currentBufferPosition_ >= bufferSize_) {
-			if (file_->isEOF()) {
-				return false;
-			} else {
-				currentBuffer_ = changeActiveBuffer();
-				fillBuffer(currentBuffer_);
-				currentBufferPosition_ = 0;
-				return true;
-			}
+	if (currentBufferPosition_ >= bufferSize_) {
+		//End of File erreicht
+		//	if (file_->isEOF()) {
+		//EOF aber nicht ende von Buffer
+		if (buffer_[currentBuffer_][currentBufferPosition_ - 1] == '\000') {
+			//	currentBuffer_ = changeActiveBuffer();
+			//	currentBufferPosition_ = 0;
+			//	return true;
+			//	}else
+			//	{
+			return false;
+			//	}
+		} else {
+			//First Fill current Buffer with new Chars
+			//then change current Buffer
+			fillBuffer(currentBuffer_);
+			currentBuffer_ = changeActiveBuffer();
+			currentBufferPosition_ = 0;
+			return true;
 		}
-		return true;
+	}
+	return true;
 }
 
 bool InputBuffer::movePointerBackward() {
-	if (currentBufferPosition_> 0)
-	{
+	if (currentBufferPosition_ > 0) {
 		currentBufferPosition_--;
 		return true;
-	}
-	else
-	{
+	} else {
 		//Fill Buffer
 		currentBuffer_ = changeActiveBuffer();
-		file_->setFilePos(0-bufferSize_);
-		fillBuffer(currentBuffer_);
-		currentBufferPosition_ = bufferSize_-1;
-		return true;
+
+		if (file_->setFilePos(0 - (bufferSize_ * 3))) {
+			// bufferSize_ * 3 => es wird immer ein Buffer auf vorraus geladen.
+			//Dieser muss mit alten daten überschrieben werden.
+
+			fillBuffer(currentBuffer_);
+			//nachdem der Buffer wieder mit allten werten gefüllt wurde muss die Position wieder um die Buffer größe erhöt werden weil dieser Teil bereits im Buffer ist!
+			file_->setFilePos(bufferSize_);
+			//
+			currentBufferPosition_ = bufferSize_ - 1;
+			return true;
+		}
+		return false;
 	}
-		//ToDo: movePointerBackward
-	return false;
 }
 
 InputBuffer::~InputBuffer() {
@@ -82,29 +106,79 @@ InputBuffer::~InputBuffer() {
 
 char InputBuffer::getNextChar() {
 	if (movePointerForward()) {
-			return buffer_[currentBuffer_][currentBufferPosition_].getSymbole();
+
+		char tempChar = buffer_[currentBuffer_][currentBufferPosition_];
+
+		//New Line
+		if (tempChar == '\n' || tempChar == '\r') {
+			//ToDo '\n' als extra zeichen zählen?
+			if (currentRow_ < lastLineLengthIndex_) {
+				lastLineLength_[currentRow_] = currentColumn_ + 1;
+			}
+			//lastRowLengt Array vergrößern
+			else {
+
+				int * tempArray = new int[lastLineLengthIndex_ * 2];
+
+				for (int i = 0; i < lastLineLengthIndex_; i++) {
+					tempArray[i] = lastLineLength_[i];
+				}
+				delete[] lastLineLength_;
+				lastLineLength_ = tempArray;
+				lastLineLengthIndex_ = lastLineLengthIndex_ * 2;
+			}
+			currentRow_++;
+
+			// 0 => lastLineLength ist relavant
+			currentColumn_ = 0;
 		} else {
-			// ToDo Fehlerbehandlung oder nur endoffile
-			return '\000';
+			currentColumn_++;
 		}
+		return tempChar;
+	} else {
+		// ToDo Fehlerbehandlung oder nur endoffile
+		return '\000';
+	}
 }
 
-void InputBuffer::ungetChar(unsigned int number) {
+char InputBuffer::ungetChar(unsigned int number) {
+	char tempChar;
 	for (int i = 0; i < number; i++) {
-			if (!movePointerBackward()) {
-				// ToDo Fehlerbehandlung
-				printf("Error: ungetChar");
-			}
+		tempChar = ungetChar();
+	}
+	return tempChar;
+}
 
+char InputBuffer::ungetChar() {
+
+	if (movePointerBackward()) {
+		char tempChar = buffer_[currentBuffer_][currentBufferPosition_];
+		//New Line
+		if (tempChar == '\n' || tempChar == '\r') {
+			//ToDo '\n' als extra zeichen zählen?
+			currentRow_--;
+			currentColumn_ = lastLineLength_[currentRow_];
+			// lastLineLength_ nicht mehr bekannt
+		} else {
+			currentColumn_--;
 		}
+		return tempChar;
+	} else {
+		// ToDo Fehlerbehandlung
+		printf("Error: ungetChar. Linkes Dateiende erreicht!");
+		return '\000';
+	}
 }
 
 int InputBuffer::getCurrentColumn() {
-	return buffer_[currentBuffer_][currentBufferPosition_].getPos();
+	if (currentColumn_ == 0) {
+		return lastLineLength_[currentRow_];
+	}
+	return currentColumn_;
 }
 
 int InputBuffer::getCurrentRow() {
-	return buffer_[currentBuffer_][currentBufferPosition_].getRow();
+	return currentRow_;
 }
 
 void InputBuffer::closeBuffer() {
@@ -114,5 +188,4 @@ void InputBuffer::closeBuffer() {
 bool InputBuffer::isEOF() {
 	return file_->isEOF();
 }
-
 

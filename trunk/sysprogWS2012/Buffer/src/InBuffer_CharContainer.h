@@ -4,7 +4,7 @@
  *  Created on: 12.10.2011
  *      Author: tobias
  */
-
+/*
 #include <iostream> //printf
 #include <stdio.h>
 
@@ -29,3 +29,4 @@ public:
 };
 
 #endif /* CHARCONTAINER_H_ */
+

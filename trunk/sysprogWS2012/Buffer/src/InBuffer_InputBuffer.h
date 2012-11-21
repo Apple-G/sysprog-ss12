@@ -16,10 +16,15 @@ private:
 	FileHandlerRead *file_;
 	unsigned int bufferSize_;
 	unsigned int bufferNumber_;
-	CharContainer **buffer_;
+	char **buffer_;
 
 	unsigned int currentBuffer_;
 	unsigned int currentBufferPosition_;
+
+	int currentRow_;
+	int *lastLineLength_;
+	int lastLineLengthIndex_;
+	int currentColumn_;
 
 	void InitializeBuffer();
 	unsigned int changeActiveBuffer();
@@ -33,7 +38,8 @@ public:
 	void closeBuffer();
 
 	char getNextChar();
-	void ungetChar(unsigned int);
+	char ungetChar();
+	char ungetChar(unsigned int);
 
 	int getCurrentColumn();
 	int getCurrentRow();

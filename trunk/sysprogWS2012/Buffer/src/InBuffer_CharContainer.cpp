@@ -4,7 +4,7 @@
  *  Created on: 12.10.2011
  *      Author: tobias
  */
-
+/*
 #include "InBuffer_CharContainer.h"
 
 CharContainer::CharContainer(){
@@ -37,6 +37,6 @@ char CharContainer::getSymbole() const
 {
     return symbole_;
 }
-
+*/
 
 

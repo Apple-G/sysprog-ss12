@@ -1,10 +1,3 @@
-/*
- * LE.h
- *
- *  Created on: 07.12.2011
- *      Author: felix
- */
-
 #ifndef LE_H_
 #define LE_H_
 

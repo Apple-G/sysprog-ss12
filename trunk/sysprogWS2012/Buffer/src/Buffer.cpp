@@ -4,8 +4,15 @@ Buffer::Buffer() {
 
 }
 
+Buffer::Buffer(char *fileInPath, unsigned int bufferSize) {
+	output_ = new OutputBuffer();
+	input_ = new InputBuffer(fileInPath, bufferSize);
+}
+
 Buffer::Buffer(char *fileInPath, char *fileOutPath, unsigned int bufferSize) {
 	output_ = new OutputBuffer();
+	OutputHandlerBase* outfile = new OutputFileHandler(fileOutPath);
+	RegisterMessageHandler(outfile);
 	input_ = new InputBuffer(fileInPath, bufferSize);
 }
 
@@ -14,8 +21,8 @@ Buffer::~Buffer() {
  delete input_;
 }
 
-void Buffer::ungetChar(unsigned int number) {
-	input_->ungetChar(number);
+char Buffer::ungetChar(unsigned int number) {
+	return input_->ungetChar(number);
 }
 
 char Buffer::getNextChar() {
