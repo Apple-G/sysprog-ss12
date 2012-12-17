@@ -44,12 +44,6 @@ unsigned int InputBuffer::changeActiveBuffer() {
 }
 
 void InputBuffer::fillBuffer(int buferID) {
-	//ToDo: Error bei 4 4x buffer füllen?!
-	//	delete buffer_[aktiveBuffer];
-
-	//std::cout << "Fill Buffer " << buferID << std::endl;
-	//buffer_[buferID] = file_->fillCharContainer(bufferSize_);
-
 	buffer_[buferID] = file_->reading(bufferSize_);
 }
 
@@ -139,7 +133,7 @@ char InputBuffer::getNextChar() {
 		}
 		return tempChar;
 	} else {
-		// ToDo Fehlerbehandlung oder nur endoffile
+		printf("Error: getNextChar.");
 		return '\000';
 	}
 }
@@ -167,7 +161,6 @@ char InputBuffer::ungetChar() {
 		}
 		return tempChar;
 	} else {
-		// ToDo Fehlerbehandlung
 		printf("Error: ungetChar. Linkes Dateiende erreicht!");
 		return '\000';
 	}
