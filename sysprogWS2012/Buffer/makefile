@@ -15,7 +15,6 @@ SHAREDLIB = ../sharedlib
 OBJS = $(OBJDIR)/Buffer.o \
 	$(OBJDIR)/TestBuffer.o \
 	$(OBJDIR)/CharHelper.o \
-	$(OBJDIR)/InBuffer_CharContainer.o \
 	$(OBJDIR)/InBuffer_FileHandlerRead.o \
 	$(OBJDIR)/InBuffer_InputBuffer.o \
 	$(OBJDIR)/OutBuffer_OutConsoleHandler.o \
@@ -27,7 +26,6 @@ OBJS = $(OBJDIR)/Buffer.o \
 ## hier alle Object Files eintragen, die in der shared library enthalten sein sollen 
 OBJSFORBUFFERLIB = $(LIBDIR)/Buffer.o \
 	$(LIBDIR)/CharHelper.o \
-	$(LIBDIR)/InBuffer_CharContainer.o \
 	$(LIBDIR)/InBuffer_FileHandlerRead.o \
 	$(LIBDIR)/InBuffer_InputBuffer.o \
 	$(LIBDIR)/OutBuffer_OutConsoleHandler.o \
