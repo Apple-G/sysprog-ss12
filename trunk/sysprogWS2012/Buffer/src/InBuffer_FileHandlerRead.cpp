@@ -18,7 +18,7 @@ void FileHandlerRead::openFile() {
 	//TODO O_DIRECT
 //	file_ = open(filePath_, O_DIRECT);
 //	file_ = open(filePath_, O_SYNC|O_DIRECT);
-	file_ = open(filePath_, O_RDONLY);
+	file_ = open(filePath_, O_RDONLY | O_DIRECT);
 	if (file_ == -1) {
 		// ToDo Fehlerbehandlung
 		printf("Error: Can't read from File");
@@ -31,7 +31,11 @@ void FileHandlerRead::closeFile() {
 }
 
 char *FileHandlerRead::reading(int charsToRead) {
+
 	char *buffer = new char[charsToRead];
+
+	//Bufferspeicher initialisieren
+	posix_memalign((void **) &buffer, charsToRead, charsToRead);
 
 	int numberOfChars = read(file_, buffer, charsToRead);
 	if (numberOfChars < 0) {

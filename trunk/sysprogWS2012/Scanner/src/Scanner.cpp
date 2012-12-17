@@ -17,7 +17,7 @@ Scanner::Scanner(char* inFile, char* outFile) {
 	buffer = new Buffer(inFile, outFile, 10);
 	automat = new Automat(buffer);
 
-	cout << "Test starting..." << endl;
+	//cout << "Test starting..." << endl;
 
 	//Handler
 
