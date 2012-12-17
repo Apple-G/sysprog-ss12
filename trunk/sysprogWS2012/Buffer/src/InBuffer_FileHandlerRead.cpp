@@ -14,15 +14,10 @@ FileHandlerRead::~FileHandlerRead() {
 
 void FileHandlerRead::openFile() {
 	currentFilePos_ = 0;
-
-	//TODO O_DIRECT
-//	file_ = open(filePath_, O_DIRECT);
-//	file_ = open(filePath_, O_SYNC|O_DIRECT);
 	file_ = open(filePath_, O_RDONLY | O_DIRECT);
 	if (file_ == -1) {
-		// ToDo Fehlerbehandlung
+		this->eof_ = true;
 		printf("Error: Can't read from File");
-		//throw
 	}
 }
 
@@ -39,9 +34,9 @@ char *FileHandlerRead::reading(int charsToRead) {
 
 	int numberOfChars = read(file_, buffer, charsToRead);
 	if (numberOfChars < 0) {
-		// ToDo Fehlerbehandlung
+		this->eof_ = true;
 		printf("Error: Reading File Error");
-		buffer[numberOfChars] = '\000';
+		return '\000';
 	} else if (numberOfChars == 0 || numberOfChars < charsToRead) {
 		buffer[numberOfChars] = '\000';
 		eof_ = true;

@@ -47,10 +47,9 @@ void OutputFileHandler::writeBuffer(char* buffer, int bufferSize) {
 		openFile();
 	}
 
-	int wirteingError = write(file_, buffer, bufferSize);
-	if (wirteingError <= 0) {
-		//TODO Exception
-		throw "ERROR";
+	int writingError = write(file_, buffer, bufferSize);
+	if (writingError <= 0) {
+		printf("Error: writing Error: " + CharHelper::convertInt(writingError));
 	}
 
 }
