@@ -7,7 +7,7 @@
 #include "InBuffer_InputBuffer.h"
 
 InputBuffer::InputBuffer(char* filePath, int bufferSize) {
-	bufferSize_ = bufferSize;
+	bufferSize_ = calculateBufferSize(bufferSize);
 	bufferNumber_ = 2;
 	currentBuffer_ = 0;
 	currentBufferPosition_ = -1;
@@ -23,11 +23,14 @@ InputBuffer::InputBuffer(char* filePath, int bufferSize) {
 }
 
 void InputBuffer::InitializeBuffer() {
+
 	if (bufferSize_ < 1) {
 		//		throw new InitializationException("Buffer Size has to be bigger 0");
 	} else {
 		buffer_ = new char*[bufferNumber_];
 		for (int i = 0; i < bufferNumber_; i++) {
+
+
 			fillBuffer(i);
 		}
 	}
@@ -143,7 +146,7 @@ char InputBuffer::getNextChar() {
 
 char InputBuffer::ungetChar(unsigned int number) {
 	char tempChar;
-	for (int i = 0; i < number; i++) {
+	for (unsigned int i = 0; i < number; i++) {
 		tempChar = ungetChar();
 	}
 	return tempChar;
@@ -183,6 +186,20 @@ int InputBuffer::getCurrentRow() {
 
 void InputBuffer::closeBuffer() {
 	file_->closeFile();
+}
+
+
+int InputBuffer::calculateBufferSize(int bufferSize) {
+	//vielfaches von PageSize
+	 int pagesize = getpagesize();
+	 int temp  = bufferSize > pagesize;
+	 int returnSize = temp*pagesize;
+	 if (bufferSize%pagesize != 0)
+	 {
+		 returnSize = returnSize+pagesize;
+	 }
+	 return returnSize;
+
 }
 
 bool InputBuffer::isEOF() {

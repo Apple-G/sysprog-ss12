@@ -2,6 +2,8 @@
 #include <unistd.h> //read
 #include <stdio.h>
 
+#include <stdlib.h> //posix_memalign
+
 
 #ifndef FileHandlerRead_H_
 #define FileHandlerRead_H_

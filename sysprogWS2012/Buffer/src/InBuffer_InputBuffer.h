@@ -25,6 +25,8 @@ private:
 	int lastLineLengthIndex_;
 	int currentColumn_;
 
+	int calculateBufferSize(int);
+
 	void InitializeBuffer();
 	unsigned int changeActiveBuffer();
 	void fillBuffer(int);
