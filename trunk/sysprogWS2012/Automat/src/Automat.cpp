@@ -111,31 +111,20 @@ bool Automat::isDelimiter(char currentChar) {
 int Automat::analyseChar(char currentChar) {
 	int returnValue;
 //TODO Kommentar ist jetzt nicht mehr mit (* und *) sondern mir /* und */
-	if (isLetter(currentChar)) {
-		returnValue = 0;
-	} else if (isNumber(currentChar)) {
-		returnValue = 1;
-	} else if (currentChar == '(') {
-		returnValue = 2;
-	} else if (currentChar == '*') {
-		returnValue = 3;
-	} else if (currentChar == ')') {
-		returnValue = 4;
-	} else if (currentChar == '<') {
-		returnValue = 5;
-	} else if (currentChar == '=') {
-		returnValue = 6;
-	} else if (currentChar == '>') {
-		returnValue = 7;
-	} else if (isSign(currentChar)) {
-		returnValue = 8;
-	} else if (isDelimiter(currentChar)) {
-		returnValue = 9;
-	} else {
-		returnValue = 10;
-	} // error case
+    if (isLetter(currentChar))              { returnValue = INPUT_LETTER; }
+    else if (isNumber(currentChar))         { returnValue = INPUT_NUMBER; }
+    else if (currentChar == '/')            { returnValue = INPUT_SLASH; }
+    else if (currentChar == '*')            { returnValue = INPUT_ASTERISK; }
+    else if (currentChar == ')')            { returnValue = INPUT_UNUSED; } // TODO: noch rauswerfen
+    else if (currentChar == '<')            { returnValue = INPUT_LESSTHAN; }
+    else if (currentChar == '!')            { returnValue = INPUT_EXCLAMATIONMARK; }
+    else if (currentChar == '>')            { returnValue = INPUT_GREATERTHAN; }
+    else if (isSign(currentChar))           { returnValue = INPUT_SIGN; }
+    else if (isDelimiter(currentChar))      { returnValue = INPUT_DELIMITER; }
+    else                                    { returnValue = INPUT_ERROR; } // error case
 
-	return returnValue;
+    return returnValue;
+
 }
 //========================================================================
 
@@ -217,348 +206,370 @@ void Automat::shrinkTempToken(unsigned int count) {
 // Notiz:     Liest den naechsten Token vom Puffer ein, analysiert dessen Typ und gibt ein Tokenobjekt zurueck.
 //*******************************************************
 Token Automat::nextToken() {
-	char currentChar;
-	bool returnCondition = false;
-	tempTokenLength = 0;
-	currentState = 0;
-	Token returnToken;
+        char currentChar;
+        bool returnCondition = false;
+        tempTokenLength = 0;
+        currentState = STATE_START;
+        Token returnToken;
 
-	// Hauptschleife
-	while (!returnCondition && !myBuffer->isEOF()) {
 
-		// holt naechstes Zeichen vom Puffer
-		currentChar = myBuffer->getNextChar();
+        // Hauptschleife
+        while (!returnCondition && !myBuffer->getEOF()) {
 
-		// Aeusseres Switch besteht aus sieben Faellen (Zustaenden), jeder Fall beinhaltet ein weiteres Switch
-		// mit zehn inneren Faellen, welche zeichenabhaengig bearbeitet werden
-		switch (currentState) {
+                // holt naechstes Zeichen vom Puffer
+                currentChar = myBuffer->getNextChar();
 
-		// TODO: Überlegung, wie wir die zeile und reihe des tokens speichern!
-		case 0: { // Zustand: Start
-			switch (analyseChar(currentChar)) {
-			case 0: { // identifier
-				currentState = 1;
-				addCharToTempToken(currentChar);
-				break;
-			}
-			case 1: { // integer
-				currentState = 2;
-				addCharToTempToken(currentChar);
-				break;
-			}
-			case 2: { // change of state parenthesis (
-				currentState = 3;
-				addCharToTempToken(currentChar);
-				break;
-			}
-			case 3: // *
-			case 4: { // )
-				returnCondition = true;
-				addCharToTempToken(currentChar);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case 5: { // change of state <
-				currentState = 6;
-				addCharToTempToken(currentChar);
-				break;
-			}
-			case 6: // =
-			case 7: // >
-			case 8: { // sign
-				returnCondition = true;
-				addCharToTempToken(currentChar);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case 9: { // delimiter
-				break;
-			}
-			case 10: {
-				returnCondition = true;
-				addCharToTempToken(currentChar);
-				returnToken.setType(Token::UNKNOWN);
-				break;
-			}
-			}
-			break;
-		}
+                // Aeusseres Switch besteht aus sieben Faellen (Zustaenden), jeder Fall beinhaltet ein weiteres Switch
+                // mit zehn inneren Faellen, welche zeichenabhaengig bearbeitet werden
+                switch (currentState) {
 
-		case 1: { // Zustand: Identifier
-			switch (analyseChar(currentChar)) {
-			case 0: { // identifier
-				currentState = 1;
-				addCharToTempToken(currentChar);
-				break;
-			}
-			case 1: { // identifier
-				currentState = 1;
-				addCharToTempToken(currentChar);
-				break;
-			}
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8: { // return identifier (going a step back)
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(Token::IDENTIFIER);
-				break;
-			}
-			case 9: { // return identifier (without going a step back)
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(Token::IDENTIFIER);
-				break;
-			}
-			case 10: {
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(Token::IDENTIFIER);
-				break;
-			}
-			}
-			break;
-		}
+                case STATE_START: { // Zustand: Start
+                        switch (analyseChar(currentChar)) {
+                        case INPUT_LETTER: { // identifier
+                                currentState = STATE_IDENTIFIER;
+                                addCharToTempToken(currentChar);
+                                break;
+                                        }
+                        case INPUT_NUMBER: { // integer
+                                currentState = STATE_INTEGER;
+                                addCharToTempToken(currentChar);
+                                break;
+                                        }
+                        case INPUT_SLASH : { // change of state parenthesis (
+                                currentState = STATE_SLASH;
+                                addCharToTempToken(currentChar);
+                                break;
+                                         }
+                        case INPUT_ASTERISK : { // *
+                                returnCondition = true;
+                                addCharToTempToken(currentChar);
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        case INPUT_UNUSED : { // )
+                                returnCondition = true;
+                                addCharToTempToken(currentChar);
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        case INPUT_LESSTHAN : { // change of state <
+                                currentState = STATE_UNEQUAL;
+                                addCharToTempToken(currentChar);
+                                break;
+                                         }
+                        case INPUT_EXCLAMATIONMARK : { // !
+                                returnCondition = true;
+                                addCharToTempToken(currentChar);
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        case INPUT_GREATERTHAN : { // >
+                                returnCondition = true;
+                                addCharToTempToken(currentChar);
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        case INPUT_SIGN : { // sign
+                                returnCondition = true;
+                                addCharToTempToken(currentChar);
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        case INPUT_DELIMITER : { // delimiter
+                                break;
+                                         }
+                        case INPUT_ERROR: {
+                                returnCondition = true;
+                                addCharToTempToken(currentChar);
+                                returnToken.setType(Token::TType::error);
+                                break;
+                                         }
+                        }
+                        break;
+                                }
 
-		case 2: { // Zustand: Integer
-			switch (analyseChar(currentChar)) {
-			case 0: { // return integer and step back
-				returnCondition = true;
-				stepBack(1);
 
-				returnToken.setNumber(strtol(tempToken, NULL, 10));
-				returnToken.setType(Token::INTEGER);
-				break;
-			}
-			case 1: {
-				currentState = 2;
-				addCharToTempToken(currentChar);
-				break;
-			}
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8: { // return integer and step back
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setNumber(atol(tempToken));
+                case STATE_IDENTIFIER: { // Zustand: Identifier
+                        switch (analyseChar(currentChar)) {
+                        case INPUT_LETTER: { // identifier
+                                currentState = STATE_IDENTIFIER;
+                                addCharToTempToken(currentChar);
+                                break;
+                                        }
+                        case INPUT_NUMBER: { // identifier
+                                currentState = STATE_IDENTIFIER;
+                                addCharToTempToken(currentChar);
+                                break;
+                                        }
+                        case INPUT_SLASH :
+                        case INPUT_ASTERISK :
+                        case INPUT_UNUSED :
+                        case INPUT_LESSTHAN :
+                        case INPUT_EXCLAMATIONMARK :
+                        case INPUT_GREATERTHAN :
+                        case INPUT_SIGN : { // return identifier (going a step back)
+                                returnCondition = true;
+                                stepBack(1);
+                                returnToken.setType(Token::identifier);
+                                break;
+                                         }
+                        case INPUT_DELIMITER : { // return identifier (without going a step back)
+                                returnCondition = true;
+                                stepBack(1);
+                                returnToken.setType(Token::identifier);
+                                break;
+                                         }
+                        case INPUT_ERROR: {
+                                returnCondition = true;
+                                stepBack(1);
+                                returnToken.setType(Token::identifier);
+                                break;
+                                         }
+                        }
+                        break;
+                                }
 
-				returnToken.setType(Token::INTEGER);
-				break;
-			}
-			case 9: { // return integer without a step back
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setNumber(atol(tempToken));
+                case STATE_INTEGER: { // Zustand: Integer
+                        switch (analyseChar(currentChar)) {
+                        case INPUT_LETTER: { // return integer and step back
+                                returnCondition = true;
+                                stepBack(1);
 
-				returnToken.setType(Token::INTEGER);
-				break;
-			}
-			case 10: {
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setNumber(atol(tempToken));
+                                returnToken.setValue(atol(tempToken));
+                                returnToken.setType(Token::integer);
+                                break;
+                                        }
+                        case INPUT_NUMBER: {
+                                currentState = STATE_INTEGER;
+                                addCharToTempToken(currentChar);
+                                break;
+                                        }
+                        case INPUT_SLASH :
+                        case INPUT_ASTERISK :
+                        case INPUT_UNUSED :
+                        case INPUT_LESSTHAN :
+                        case INPUT_EXCLAMATIONMARK :
+                        case INPUT_GREATERTHAN :
+                        case INPUT_SIGN : { // return integer and step back
+                                returnCondition = true;
+                                stepBack(1);
+                                returnToken.setValue(atol(tempToken));
 
-				returnToken.setType(Token::INTEGER);
-				break;
+                                returnToken.setType(Token::integer);
+                                break;
+                                         }
+                        case INPUT_DELIMITER : { // return integer without a step back
+                                returnCondition = true;
+                                stepBack(1);
+                                returnToken.setValue(atol(tempToken));
 
-			}
-			}
-			break;
-		}
+                                returnToken.setType(Token::integer);
+                                break;
+                                         }
+                        case INPUT_ERROR: {
+                                returnCondition = true;
+                                stepBack(1);
+                                returnToken.setValue(atol(tempToken));
 
-		case 3: { // Zustand: ( open parenthesis
-			switch (analyseChar(currentChar)) {
-			case 0:
-			case 1:
-			case 2: { // resturn sign with a step back
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case 3: {
-				currentState = 4;
-				break;
-			}
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8: { // resturn sign with a step back
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case 9: { // return sign without a step back
-				returnCondition = true;
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case 10: {
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			}
-			break;
-		}
+                                returnToken.setType(Token::integer);
+                                break;
 
-		case 4: { // Zustand: inside commentary
-			switch (analyseChar(currentChar)) {
-			case 0:
-			case 1:
-			case 2: {
-				break;
-			}
-			case 3: {
-				currentState = 5;
-				break;
-			}
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9: {
-				break;
-			}
-			case 10: {
-				break;
-			}
-			}
-			break;
-		}
+                                         }
+                        }
+                        break;
+                                }
 
-		case 5: { // Zustand: * asterisk
-			switch (analyseChar(currentChar)) {
-			case 0:
-			case 1:
-			case 2: {
-				currentState = 4;
-				break;
-			}
-			case 3: {
-				break;
-			}
-			case 4: { //End of Commentary
-				currentState = 0;
-				tempTokenLength = 0;
-				break;
-			}
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-			case 10: {
-				currentState = 4;
-				break;
-			}
-			}
-			break;
-		}
+                case STATE_SLASH: { // Zustand: / slash
+                        switch (analyseChar(currentChar)) {
+                        case INPUT_LETTER:
+                        case INPUT_NUMBER:
+                        case INPUT_SLASH : { // resturn sign with a step back
+                                returnCondition = true;
+                                stepBack(1);
 
-		case 6: { // Zustand: < smaller then
-			switch (analyseChar(currentChar)) {
-			case 0:
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 5: { // return sign with a step back
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case 6: { // change of state <=
-				currentState = 7;
-				addCharToTempToken(currentChar);
-				break;
-			}
-			case 7:
-			case 8:
-			case 9:
-			case 10: { // return sign with a step back
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			}
-			break;
-		}
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        case INPUT_ASTERISK : {
+                                currentState = STATE_COMMENTARY;
+                                break;
+                                         }
+                        case INPUT_UNUSED :
+                        case INPUT_LESSTHAN :
+                        case INPUT_EXCLAMATIONMARK :
+                        case INPUT_GREATERTHAN :
+                        case INPUT_SIGN : { // resturn sign with a step back
+                                returnCondition = true;
+                                stepBack(1);
 
-		case 7: { // Zustand: <= smaller then
-			switch (analyseChar(currentChar)) {
-			case 0:
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6: { // return sign (<) and step back (2)
-				returnCondition = true;
-				stepBack(2);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case 7: { // return <=> OHNE schritt zurueck
-				returnCondition = true;
-				addCharToTempToken(currentChar);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case 8:
-			case 9: { // return sign (<) and step back (2)
-				returnCondition = true;
-				stepBack(2);
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        case INPUT_DELIMITER : { // return sign without a step back
+                                returnCondition = true;
 
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case 10: {
-				returnCondition = true;
-				stepBack(2);
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        case INPUT_ERROR: {
+                                returnCondition = true;
+                                stepBack(1);
 
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			}
-			break;
-		}
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        }
+                        break;
+                                }
 
-		}
-	}
+                case STATE_COMMENTARY: { // Zustand: inside commentary
+                        switch (analyseChar(currentChar)) {
+                        case INPUT_LETTER:
+                        case INPUT_NUMBER:
+                        case INPUT_SLASH : {
+                                break;
+                                         }
+                        case INPUT_ASTERISK : {
+                                currentState = STATE_ASTERISK;
+                                break;
+                                         }
+                        case INPUT_UNUSED :
+                        case INPUT_LESSTHAN :
+                        case INPUT_EXCLAMATIONMARK :
+                        case INPUT_GREATERTHAN :
+                        case INPUT_SIGN :
+                        case INPUT_DELIMITER : {
+                                break;
+                                         }
+                        case INPUT_ERROR: {
+                                break;
+                                         }
+                        }
+                        break;
+                                }
 
-	// Setzt den Wert des Rueckgabetokens
-	returnToken.setLexem(tempToken);
+                case STATE_ASTERISK: { // Zustand: * asterisk
+                        switch (analyseChar(currentChar)) {
+                        case INPUT_LETTER:
+                        case INPUT_NUMBER:
+                        case INPUT_SLASH : {
+                                currentState = STATE_COMMENTARY;
+                                break;
+                                         }
+                        case INPUT_ASTERISK : {
+                                break;
+                                         }
+                        case INPUT_UNUSED : { //End of Commentary
+                                currentState = STATE_START;
+                                tempTokenLength = 0;
+                                break;
+                                         }
+                        case INPUT_LESSTHAN :
+                        case INPUT_EXCLAMATIONMARK :
+                        case INPUT_GREATERTHAN :
+                        case INPUT_SIGN :
+                        case INPUT_DELIMITER :
+                        case INPUT_ERROR : {
+                                currentState = STATE_COMMENTARY;
+                                break;
+                                          }
+                        }
+                        break;
+                                }
 
-	// Bestimmt Anfansspalte des Rueckgabetokens
-	if (currentChar == EOF) {
-		returnToken.setColumn(
-				myBuffer->getCurrentColumn() - (tempTokenLength - 2));
-		;
-	} else {
-		returnToken.setColumn(
-				myBuffer->getCurrentColumn() - (tempTokenLength - 1));
-	}
+                case STATE_UNEQUAL: { // Zustand: < unequal
+                        switch (analyseChar(currentChar)) {
+                        case INPUT_LETTER:
+                        case INPUT_NUMBER:
+                        case INPUT_SLASH:
+                        case INPUT_ASTERISK:
+                        case INPUT_UNUSED:
+                        case INPUT_LESSTHAN: { // return sign with a step back
+                                returnCondition = true;
+                                stepBack(1);
 
-	// Setzt laenge des Rueckgabetokens
-	//returnToken.setLength(tempTokenLength);
+                                returnToken.setType(Token::sign);
+                                break;
+                                        }
+                        case INPUT_EXCLAMATIONMARK: { // change of state <!
+                                currentState = STATE_UNEQUAL_CHECK;
+                                addCharToTempToken(currentChar);
+                                break;
+                                        }
+                        case INPUT_GREATERTHAN:
+                        case INPUT_SIGN:
+                        case INPUT_DELIMITER:
+                        case INPUT_ERROR: { // return sign with a step back
+                                returnCondition = true;
+                                stepBack(1);
 
-	// Setzt Zeile des Rueckgabetokens
-	returnToken.setRow(myBuffer->getCurrentRow());
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        }
+                        break;
+                                }
 
-	return returnToken;
+                case STATE_UNEQUAL_CHECK: { // Zustand: <! unequal
+                        switch (analyseChar(currentChar)) {
+                        case INPUT_LETTER:
+                        case INPUT_NUMBER:
+                        case INPUT_SLASH:
+                        case INPUT_ASTERISK:
+                        case INPUT_UNUSED:
+                        case INPUT_LESSTHAN:
+                        case INPUT_EXCLAMATIONMARK: { // return sign (<) and step back (2)
+                                returnCondition = true;
+                                stepBack(2);
+
+                                returnToken.setType(Token::sign);
+                                break;
+                                        }
+                        case INPUT_GREATERTHAN: { // return <=> OHNE schritt zurueck
+                                returnCondition = true;
+                                addCharToTempToken(currentChar);
+                                returnToken.setType(Token::sign);
+                                break;
+                                        }
+                        case INPUT_SIGN:
+                        case INPUT_DELIMITER: { // return sign (<) and step back (2)
+                                returnCondition = true;
+                                stepBack(2);
+
+                                returnToken.setType(Token::sign);
+                                break;
+                                        }
+                        case INPUT_ERROR: {
+                                returnCondition = true;
+                                stepBack(2);
+
+                                returnToken.setType(Token::sign);
+                                break;
+                                         }
+                        }
+                        break;
+                                }
+
+                }
+        }
+
+        // Setzt den Wert des Rueckgabetokens
+        returnToken.setValue(tempToken);
+
+        // Bestimmt Anfansspalte des Rueckgabetokens
+        if (currentChar==EOF) {
+                returnToken.setColumn(myBuffer->getColumn()-(tempTokenLength-2));;
+        }
+        else {
+                returnToken.setColumn(myBuffer->getColumn()-(tempTokenLength-1));
+        }
+
+        // Setzt laenge des Rueckgabetokens
+        returnToken.setLength(tempTokenLength);
+
+        // Setzt Zeile des Rueckgabetokens
+        returnToken.setLine(myBuffer->getLine());
+
+        return returnToken;
 }
+
