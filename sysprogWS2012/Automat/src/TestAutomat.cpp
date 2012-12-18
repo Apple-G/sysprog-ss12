@@ -12,7 +12,7 @@ int main (int argc, char* argv[]){
 	Automat* automat;
 
 
-	Buffer *b = new Buffer("TestFiles/newTest.txt",123);
+	Buffer *b = new Buffer("TestFiles/test.txt",123);
 
 	//Handler
 
@@ -20,14 +20,15 @@ int main (int argc, char* argv[]){
 			"TestFiles/out.txt");
 	b->RegisterMessageHandler(outfile);
 
-	OutputHandlerBase* outConsole = new OutConsoleHandler();
-	b->RegisterMessageHandler(outConsole);
+	//OutputHandlerBase* outConsole = new OutConsoleHandler();
+	//b->RegisterMessageHandler(outConsole);
 
 	automat = new Automat(b);
 	Token t;
 	while(!b->isEOF()){
 		t=automat->nextToken();
-	//	std::cout<<t.getValue() << std::endl;
+		b->writeMessage(t.getLexem());
+		b->writeMessage(" ");
 	}
 
 	/*Pseudocode
