@@ -11,14 +11,14 @@ int main(int argc, char **argv) {
 
 	cout << "Buffer Test starting..." << endl;
 
-	Buffer *b = new Buffer("TestFiles/test.txt", 10);
+	Buffer *b = new Buffer("TestFiles/newTest.txt", 10);
 
 	//Handler
 	OutputHandlerBase* outfile = new OutputFileHandler("TestFiles/out.txt");
 	b->RegisterMessageHandler(outfile);
 
-	OutputHandlerBase* outConsole = new OutConsoleHandler();
-	b->RegisterMessageHandler(outConsole);
+   OutputHandlerBase* outConsole = new OutConsoleHandler();
+	//b->RegisterMessageHandler(outConsole);
 	char c;
 
 	c = b->getNextChar();
