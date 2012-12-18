@@ -12,6 +12,8 @@ InputBuffer::InputBuffer(char* filePath, int bufferSize) {
 	currentBuffer_ = 0;
 	currentBufferPosition_ = -1;
 
+	isEOF_ = false;
+
 	file_ = new FileHandlerRead(filePath);
 	file_->openFile();
 	InitializeBuffer();
@@ -131,9 +133,15 @@ char InputBuffer::getNextChar() {
 		} else {
 			currentColumn_++;
 		}
+		if (tempChar == '\000' )
+		{
+			setEOF();
+		}
+
 		return tempChar;
 	} else {
 		printf("Error: getNextChar.");
+		setEOF();
 		return '\000';
 	}
 }
@@ -162,6 +170,7 @@ char InputBuffer::ungetChar() {
 		return tempChar;
 	} else {
 		printf("Error: ungetChar. Linkes Dateiende erreicht!");
+		setEOF();
 		return '\000';
 	}
 }
@@ -194,8 +203,12 @@ int InputBuffer::calculateBufferSize(int bufferSize) {
 	 return returnSize;
 
 }
+void InputBuffer::setEOF()
+{
+	this->isEOF_ = true;
+}
 
 bool InputBuffer::isEOF() {
-	return file_->isEOF();
+	return this->isEOF_;
 }
 
