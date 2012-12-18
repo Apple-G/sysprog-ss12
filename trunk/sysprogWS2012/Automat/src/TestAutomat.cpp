@@ -27,8 +27,7 @@ int main (int argc, char* argv[]){
 	Token t;
 	while(!b->isEOF()){
 		t=automat->nextToken();
-		b->writeMessage(t.getLexem());
-		b->writeMessage(" ");
+		std::cout<<(t.getLexem())<<std::endl;
 	}
 
 	/*Pseudocode
