@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
 	char c;
 
 	c = b->getNextChar();
-	while (c != '\000') {
+	while (!b->isEOF()) {
 		if (c != '\r' && c != '\n') {
 			b->writeMessage("Char: ");
 			b->writeMessage(c);

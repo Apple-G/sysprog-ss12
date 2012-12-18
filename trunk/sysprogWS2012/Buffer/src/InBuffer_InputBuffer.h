@@ -25,6 +25,9 @@ private:
 	int lastLineLengthIndex_;
 	int currentColumn_;
 
+	bool isEOF_;
+	void setEOF();
+
 	int calculateBufferSize(int);
 
 	void InitializeBuffer();

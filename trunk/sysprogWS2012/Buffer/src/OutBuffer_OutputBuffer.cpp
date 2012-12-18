@@ -46,6 +46,7 @@ void OutputBuffer::writeMessage(char* row) {
 }
 
 void OutputBuffer::writeError(char* error) {
+	//TODO
 	//writingError(error);
 	//char* tempBuffer = "Error:" + error;
 	//writeBufferToCosole(tempBuffer);
