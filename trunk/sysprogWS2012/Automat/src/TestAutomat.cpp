@@ -3,6 +3,8 @@
 #include "Buffer.h"
 #include "OutBuffer_OutputFileHandler.h"
 #include "OutBuffer_OutConsoleHandler.h"
+#include <iostream>
+
 
 
 int main (int argc, char* argv[]){
@@ -26,7 +28,7 @@ int main (int argc, char* argv[]){
 	Token t;
 	while(!b->isEOF()){
 		t=automat->nextToken();
-		std::cout<<t.getValue() << std::endl;
+	//	std::cout<<t.getValue() << std::endl;
 	}
 
 	/*Pseudocode

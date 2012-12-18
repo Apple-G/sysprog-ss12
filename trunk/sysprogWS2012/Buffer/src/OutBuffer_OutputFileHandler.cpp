@@ -49,7 +49,7 @@ void OutputFileHandler::writeBuffer(char* buffer, int bufferSize) {
 
 	int writingError = write(file_, buffer, bufferSize);
 	if (writingError <= 0) {
-		printf("Error: writing Error: " + CharHelper::convertInt(writingError));
+		printf("Error: writing Error: %d", writingError);
 	}
 
 }

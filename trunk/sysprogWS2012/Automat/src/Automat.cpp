@@ -217,6 +217,9 @@ Token Automat::nextToken() {
 
 		// holt naechstes Zeichen vom Puffer
 		currentChar = myBuffer->getNextChar();
+		if (currentChar=='\000'){
+			break;
+		}
 
 		// Aeusseres Switch besteht aus sieben Faellen (Zustaenden), jeder Fall beinhaltet ein weiteres Switch
 		// mit zehn inneren Faellen, welche zeichenabhaengig bearbeitet werden
@@ -354,7 +357,9 @@ Token Automat::nextToken() {
 				returnCondition = true;
 				stepBack(1);
 				returnToken.setNumber(atol(tempToken));
-
+		if (currentChar == '\000'){
+			break;
+		}
 				returnToken.setType(Token::INTEGER);
 				break;
 
