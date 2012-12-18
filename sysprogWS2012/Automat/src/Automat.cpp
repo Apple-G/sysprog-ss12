@@ -112,17 +112,30 @@ int Automat::analyseChar(char currentChar) {
 	int returnValue;
 
 //TODO Kommentar ist jetzt nicht mehr mit (* und *) sondern mit /* und */
-    if (isLetter(currentChar))              { returnValue = INPUT_LETTER; }
-    else if (isNumber(currentChar))         { returnValue = INPUT_NUMBER; }
-    else if (currentChar == '(')            { returnValue = INPUT_SLASH; }
-    else if (currentChar == '*')            { returnValue = INPUT_ASTERISK; }
-    else if (currentChar == ')')            { returnValue = INPUT_UNUSED; } // TODO: noch rauswerfen
-    else if (currentChar == '<')            { returnValue = INPUT_LESSTHAN; }
-    else if (currentChar == '=')            { returnValue = INPUT_EXCLAMATIONMARK; }
-    else if (currentChar == '>')            { returnValue = INPUT_GREATERTHAN; }
-    else if (isSign(currentChar))           { returnValue = INPUT_SIGN; }
-    else if (isDelimiter(currentChar))      { returnValue = INPUT_DELIMITER; }
-    else                                    { returnValue = INPUT_ERROR; } // error case
+	if (isLetter(currentChar)) {
+		returnValue = INPUT_LETTER;
+	} else if (isNumber(currentChar)) {
+		returnValue = INPUT_NUMBER;
+	} else if (currentChar == '(') {
+		returnValue = INPUT_SLASH;
+	} else if (currentChar == '*') {
+		returnValue = INPUT_ASTERISK;
+	} else if (currentChar == ')') {
+		returnValue = INPUT_UNUSED;
+	} // TODO: noch rauswerfen
+	else if (currentChar == '<') {
+		returnValue = INPUT_LESSTHAN;
+	} else if (currentChar == '=') {
+		returnValue = INPUT_EXCLAMATIONMARK;
+	} else if (currentChar == '>') {
+		returnValue = INPUT_GREATERTHAN;
+	} else if (isSign(currentChar)) {
+		returnValue = INPUT_SIGN;
+	} else if (isDelimiter(currentChar)) {
+		returnValue = INPUT_DELIMITER;
+	} else {
+		returnValue = INPUT_ERROR;
+	} // error case
 
 	return returnValue;
 }
@@ -165,7 +178,6 @@ void Automat::stepBack(unsigned int count) {
 // Return:    void
 // Notiz:     Vergroessert den temporaeren Token um Eins.
 //*******************************************************
-//TODO bitte für was wird das benutzt?
 void Automat::extendTempToken() {
 
 	char* temp;
@@ -208,18 +220,22 @@ void Automat::shrinkTempToken(unsigned int count) {
 Token Automat::nextToken() {
 	char currentChar;
 	bool returnCondition = false;
+	int currentRow = 0;
+	int currentColumn = 0;
+
+	this->tempToken = new char[1];
+
 	tempTokenLength = 0;
 	currentState = STATE_START;
 	Token returnToken;
 
+	// holt naechstes Zeichen vom Puffer
+	currentChar = myBuffer->getNextChar();
+	currentRow = myBuffer->getCurrentRow();
+	currentColumn = myBuffer->getCurrentColumn();
+
 	// Hauptschleife
 	while (!returnCondition && !myBuffer->isEOF()) {
-
-		// holt naechstes Zeichen vom Puffer
-		currentChar = myBuffer->getNextChar();
-		if (myBuffer->isEOF()){ //ersatz EOF \000 ist gleich EOF
-			break;
-		}
 
 		// Aeusseres Switch besteht aus sieben Faellen (Zustaenden), jeder Fall beinhaltet ein weiteres Switch
 		// mit zehn inneren Faellen, welche zeichenabhaengig bearbeitet werden
@@ -264,7 +280,9 @@ Token Automat::nextToken() {
 				break;
 			}
 			case INPUT_DELIMITER: { // delimiter
-				break;
+				// rekursiver aufruf leerzeichen enter etc werden also ignoriert.
+				// wenn das erste zeichen ein delimiter ist(ist im state start), wird nexttoken resettet(neu aufgerufen)
+				return nextToken();
 			}
 			case INPUT_ERROR: {
 				returnCondition = true;
@@ -357,9 +375,9 @@ Token Automat::nextToken() {
 				returnCondition = true;
 				stepBack(1);
 				returnToken.setNumber(atol(tempToken));
-		if (currentChar == '\000'){
-			break;
-		}
+				if (currentChar == '\000') {
+					break;
+				}
 				returnToken.setType(Token::INTEGER);
 				break;
 
@@ -533,26 +551,28 @@ Token Automat::nextToken() {
 		}
 
 		}
+		if (!returnCondition)
+		{
+			currentChar = myBuffer->getNextChar();
+		}
+	} //end While
+
+	//Wenn Dateiende ereicht soll leeres Token zurückgegeben werden.
+	//Annahme das jede Datei mit '\n' und anschließend '\000' endet
+	if (myBuffer->isEOF())
+	{
+		returnToken.setType(Token::UNKNOWN);
+		return returnToken;
 	}
 
 	// Setzt den Wert des Rueckgabetokens
 	returnToken.setLexem(tempToken);
 
-	// Bestimmt Anfansspalte des Rueckgabetokens
-	if (currentChar == EOF) {
-		returnToken.setColumn(
-				myBuffer->getCurrentColumn() - (tempTokenLength - 2));
-		;
-	} else {
-		returnToken.setColumn(
-				myBuffer->getCurrentColumn() - (tempTokenLength - 1));
-	}
+	// Setzt Spalte des Rueckgabetokens
+	 returnToken.setColumn(currentColumn);
 
-	// Setzt laenge des Rueckgabetokens
-	//returnToken.setLength(tempTokenLength);
-
-	// Setzt Zeile des Rueckgabetokens
-	returnToken.setRow(myBuffer->getCurrentRow());
+	 // Setzt Zeile des Rueckgabetokens
+	 returnToken.setRow(currentRow);
 
 	return returnToken;
 }

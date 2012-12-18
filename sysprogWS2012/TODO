@@ -3,3 +3,5 @@ Automat:
 - symboltabelle integrieren
 	//- nach jedem erkannten lexem in die symboltabelle schauen ob lexem schon in smboltabelle
 	-  identifier = neues Token generieren mit pointer aus symboltabelle und eigenem row und column (und informationscontainer?)
+buffer
+- stepback row column überprüfen
