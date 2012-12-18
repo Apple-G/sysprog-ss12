@@ -27,6 +27,7 @@
 							</builder>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.2037356861" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1364383589" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
+								<option id="gnu.cpp.compiler.option.include.paths.1357737275" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1647982592" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.1512289126" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
@@ -34,6 +35,14 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.1520271500" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.468861253" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base">
+								<option id="gnu.cpp.link.option.paths.2035157542" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SysProgTemplate/sharedlib}&quot;"/>
+								</option>
+								<option id="gnu.cpp.link.option.libs.1927782315" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SysProgTemplate/sharedlib/libAutomat.so}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SysProgTemplate/sharedlib/libBuffer.so}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SysProgTemplate/sharedlib/libSymboltable.so}&quot;"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.2562371" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -45,7 +54,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="automat/src|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="automat/src|src|Buffer/src/|Scanner/src/|Symboltable/src/" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -57,10 +66,8 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="SysProgProject.null.1013172507" name="SysProgProject"/>
 	</storageModule>
-	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="Default">
-			<resource resourceType="PROJECT" workspacePath="/SysProgWS2012"/>
-		</configuration>
+	<storageModule moduleId="refreshScope" versionNumber="1">
+		<resource resourceType="PROJECT" workspacePath="/SysProgTemplate"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
@@ -216,8 +223,8 @@
 				<parser enabled="true"/>
 			</scannerInfoProvider>
 		</profile>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.base.1369296955;cdt.managedbuild.toolchain.gnu.base.1369296955.677334929;cdt.managedbuild.tool.gnu.c.compiler.base.1512289126;cdt.managedbuild.tool.gnu.c.compiler.input.608768080">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.base.1369296955;cdt.managedbuild.toolchain.gnu.base.1369296955.677334929;cdt.managedbuild.tool.gnu.cpp.compiler.base.1364383589;cdt.managedbuild.tool.gnu.cpp.compiler.input.1647982592">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 			<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 				<buildOutputProvider>
 					<openAction enabled="true" filePath=""/>
@@ -269,8 +276,8 @@
 				</scannerInfoProvider>
 			</profile>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.base.1369296955;cdt.managedbuild.toolchain.gnu.base.1369296955.677334929;cdt.managedbuild.tool.gnu.cpp.compiler.base.1364383589;cdt.managedbuild.tool.gnu.cpp.compiler.input.1647982592">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.base.1369296955;cdt.managedbuild.toolchain.gnu.base.1369296955.677334929;cdt.managedbuild.tool.gnu.c.compiler.base.1512289126;cdt.managedbuild.tool.gnu.c.compiler.input.608768080">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 			<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 				<buildOutputProvider>
 					<openAction enabled="true" filePath=""/>
