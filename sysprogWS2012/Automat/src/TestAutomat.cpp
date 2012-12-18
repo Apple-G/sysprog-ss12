@@ -12,8 +12,7 @@ int main (int argc, char* argv[]){
 	Automat* automat;
 
 
-	Buffer *b = new Buffer("TestFiles/test.txt",
-			"TestFiles/out.txt", 10);
+	Buffer *b = new Buffer("TestFiles/newTest.txt",123);
 
 	//Handler
 

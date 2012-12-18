@@ -217,7 +217,7 @@ Token Automat::nextToken() {
 
 		// holt naechstes Zeichen vom Puffer
 		currentChar = myBuffer->getNextChar();
-		if (currentChar=='\000'){
+		if (myBuffer->isEOF()){ //ersatz EOF \000 ist gleich EOF
 			break;
 		}
 
