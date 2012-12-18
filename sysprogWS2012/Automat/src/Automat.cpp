@@ -148,12 +148,13 @@ int Automat::analyseChar(char currentChar) {
 // Notiz:     Vergroessert den temporaeren Token und fuegt ihm das uebergebene Zeichen hinzu.
 //*******************************************************
 void Automat::addCharToTempToken(char currentChar) {
+	tempTokenLength++;
 	//if (tempTokenLength > 1) {
 	extendTempToken();
 	//}
-	tempToken[tempTokenLength] = currentChar;
-	tempToken[tempTokenLength + 1] = '\0';
-	tempTokenLength++;
+	tempToken[tempTokenLength-1] = currentChar;
+	tempToken[tempTokenLength] = '\0';
+
 }
 //========================================================================
 
@@ -182,7 +183,8 @@ void Automat::extendTempToken() {
 
 	char* temp;
 
-	temp = new char[tempTokenLength];
+	temp = new char [tempTokenLength];
+
 	for (int i = 0; i < tempTokenLength; i++) {
 		temp[i] = tempToken[i];
 	}
