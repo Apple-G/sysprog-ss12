@@ -12,14 +12,16 @@ int main (int argc, char* argv[]){
 	Automat* automat;
 
 
-	Buffer *b = new Buffer("TestFiles/newTest.txt",123);
+	Buffer *b = new Buffer("TestFiles/newTest.txt");
 
 	//Handler
 
+	//File Ausgabe
 	OutputHandlerBase* outfile = new OutputFileHandler(
 			"TestFiles/out.txt");
 	b->RegisterMessageHandler(outfile);
 
+	//Consolen Ausgabe
 	OutputHandlerBase* outConsole = new OutConsoleHandler();
 	b->RegisterMessageHandler(outConsole);
 
@@ -27,9 +29,18 @@ int main (int argc, char* argv[]){
 	Token t;
 	while(!b->isEOF()){
 		t=automat->nextToken();
-		std::cout<<(t.getLexem())<<std::endl;
+		b->writeMessage("Token ");
+		b->writeMessage(t.getType());
+		b->writeMessage(" \t Line: ");
+		b->writeMessage(t.getRow());
+		b->writeMessage(" \t Column: ");
+		b->writeMessage(t.getColumn());
+		b->writeMessage(" \t Lexem: ");
+		b->writeMessage(t.getLexem());
+		b->writeMessage("\n");
 	}
-
+	b->CloseAll();
+	delete b;
 	/*Pseudocode
 	 *
 	 * buffer erstellen (mit textdatei mit lexemen)

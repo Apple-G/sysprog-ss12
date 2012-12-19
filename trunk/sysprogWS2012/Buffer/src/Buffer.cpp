@@ -4,6 +4,10 @@ Buffer::Buffer() {
 
 }
 
+Buffer::Buffer(char *fileInPath){
+	Buffer(fileInPath, 1024);
+}
+
 Buffer::Buffer(char *fileInPath, unsigned int bufferSize) {
 	output_ = new OutputBuffer();
 	input_ = new InputBuffer(fileInPath, bufferSize);

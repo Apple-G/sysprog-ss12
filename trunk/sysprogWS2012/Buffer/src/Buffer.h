@@ -31,6 +31,11 @@ public:
 	/*
 	 * Initialisiert eine neuen Buffer.
 	 * @param fileInPath Pfad der einzulesenden Datei
+	 */
+	Buffer(char*);
+	/*
+	 * Initialisiert eine neuen Buffer.
+	 * @param fileInPath Pfad der einzulesenden Datei
 	 * @param bufferSize Größe des Ein- und Ausgabe Buffers
 	 */
 	Buffer(char*, unsigned int);

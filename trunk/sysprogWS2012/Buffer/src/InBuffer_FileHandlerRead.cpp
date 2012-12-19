@@ -17,7 +17,7 @@ void FileHandlerRead::openFile() {
 	file_ = open(filePath_, O_RDONLY | O_DIRECT);
 	if (file_ == -1) {
 		this->eof_ = true;
-		printf("Error: Can't read from File");
+		printf("Error[FileHandlerRead:openFile]: Can't read from File");
 	}
 }
 
@@ -35,7 +35,7 @@ char *FileHandlerRead::reading(int charsToRead) {
 	int numberOfChars = read(file_, buffer, charsToRead);
 	if (numberOfChars < 0) {
 		this->eof_ = true;
-		printf("Error: Reading File Error");
+		printf("Error[FileHandlerRead:reading]: Reading File Error");
 		buffer[numberOfChars] = '\000';
 	} else if (numberOfChars == 0 || numberOfChars < charsToRead) {
 		buffer[numberOfChars] = '\000';
@@ -43,7 +43,6 @@ char *FileHandlerRead::reading(int charsToRead) {
 	}
 
 	currentFilePos_ = currentFilePos_ + numberOfChars;
-
 
 	return buffer;
 }
@@ -61,6 +60,5 @@ bool FileHandlerRead::setFilePos(int pos) {
 }
 
 bool FileHandlerRead::isEOF() {
-	//return SEEK_END == lseek(file_, 0, SEEK_CUR);
 	return eof_;
 }
