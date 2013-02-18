@@ -11,6 +11,10 @@
 
 int main (int argc, char* argv[])
 {
+	// Measuring Time
+	clock_t begin = clock();
+	// ======================================================================================================================================
+
 	Symboltable* symboltable = new Symboltable();
 	Buffer* b = new Buffer("TestFiles/bible.txt");
 	Automat* automat = new Automat(b);
@@ -56,6 +60,12 @@ int main (int argc, char* argv[])
 			b->writeMessage("\n");
 		}
 	}
+
+	// Measuring Time
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+	std::cout << "\n\nZeitmessung in Sekunden: " << elapsed_secs;
+	// ======================================================================================================================================
 
 	b->CloseAll();
 	delete b;
