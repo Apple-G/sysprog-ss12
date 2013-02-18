@@ -30,27 +30,29 @@ int main (int argc, char* argv[])
 	while(!b->isEOF()){
 		t=automat->nextToken();
 		// std::cout<<(t.getLexem())<<std::endl;
-
-		b->writeMessage("Token ");
-		b->writeMessage(t.getType());
-		int count=0;
-		char* tempTokenType = t.getType();
-		while (*tempTokenType != 0)
+		if (t.getLexem()[0] != '\0')
 		{
-			count++;
-			tempTokenType++;
+			b->writeMessage("Token ");
+			b->writeMessage(t.getType());
+			int count=0;
+			char* tempTokenType = t.getType();
+			while (*tempTokenType != 0)
+			{
+				count++;
+				tempTokenType++;
+			}
+
+			if (count<8)
+				b->writeMessage("\t");
+
+			b->writeMessage(" \t Line: ");
+			b->writeMessage(CharHelper::convertInt(t.getRow()));
+			b->writeMessage(" \t Column: ");
+			b->writeMessage(CharHelper::convertInt(t.getColumn()));
+			b->writeMessage(" \t Lexem: ");
+			b->writeMessage(t.getLexem());
+			b->writeMessage("\n");
 		}
-
-		if (count<8)
-			b->writeMessage("\t");
-
-		b->writeMessage(" \t Line: ");
-		b->writeMessage(CharHelper::convertInt(t.getRow()));
-		b->writeMessage(" \t Column: ");
-		b->writeMessage(CharHelper::convertInt(t.getColumn()));
-		b->writeMessage(" \t Lexem: ");
-		b->writeMessage(t.getLexem());
-		b->writeMessage("\n");
 	}
 
 	b->CloseAll();

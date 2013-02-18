@@ -240,7 +240,7 @@ Token Automat::nextToken() {
 	currentColumn = myBuffer->getCurrentColumn();
 
 	// Hauptschleife
-	while (!returnCondition && !myBuffer->isEOF()) {
+	while (!returnCondition) {
 
 		// Aeusseres Switch besteht aus sieben Faellen (Zustaenden), jeder Fall beinhaltet ein weiteres Switch
 		// mit zehn inneren Faellen, welche zeichenabhaengig bearbeitet werden
@@ -289,7 +289,9 @@ Token Automat::nextToken() {
 			case INPUT_DELIMITER: { // delimiter
 				// rekursiver aufruf leerzeichen enter etc werden also ignoriert.
 				// wenn das erste zeichen ein delimiter ist(ist im state start), wird nexttoken resettet(neu aufgerufen)
+				//TODO: raus???
 				return nextToken();
+				//break;
 			}
 			case INPUT_ERROR: {
 				returnCondition = true;
@@ -303,11 +305,7 @@ Token Automat::nextToken() {
 
 		case STATE_IDENTIFIER: { // Zustand: Identifier
 			switch (analyseChar(currentChar)) {
-			case INPUT_LETTER: { // identifier
-				currentState = STATE_IDENTIFIER;
-				addCharToTempToken(currentChar);
-				break;
-			}
+			case INPUT_LETTER:
 			case INPUT_NUMBER: { // identifier
 				currentState = STATE_IDENTIFIER;
 				addCharToTempToken(currentChar);
@@ -319,18 +317,8 @@ Token Automat::nextToken() {
 			case INPUT_LESSTHAN:
 			case INPUT_EXCLAMATIONMARK:
 			case INPUT_GREATERTHAN:
-			case INPUT_SIGN: { // return identifier (going a step back)
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(Token::IDENTIFIER);
-				break;
-			}
-			case INPUT_DELIMITER: { // return identifier (without going a step back)
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(Token::IDENTIFIER);
-				break;
-			}
+			case INPUT_SIGN:
+			case INPUT_DELIMITER:
 			case INPUT_ERROR: {
 				returnCondition = true;
 				stepBack(1);
@@ -479,7 +467,6 @@ Token Automat::nextToken() {
 			case INPUT_ERROR: { // return sign with a step back
 				returnCondition = true;
 				stepBack(1);
-				//returnToken.setType(analyseSign(currentChar));
 				break;
 			case INPUT_EXCLAMATIONMARK: { // change of state <!
 				currentState = STATE_UNEQUAL_CHECK;
@@ -527,12 +514,12 @@ Token Automat::nextToken() {
 
 	//Wenn Dateiende ereicht soll leeres Token zurückgegeben werden.
 	//Annahme das jede Datei mit '\n' und anschließend '\000' endet
-	if (myBuffer->isEOF())
+	/*if (myBuffer->isEOF())
 	{
 		returnToken.setType(Token::UNKNOWN);
 		return returnToken;
 	}
-
+*/
 	// Setzt den Wert des Rueckgabetokens
 	returnToken.setLexem(tempToken);
 
