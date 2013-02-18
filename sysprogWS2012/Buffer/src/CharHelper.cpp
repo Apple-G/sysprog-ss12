@@ -28,11 +28,11 @@ char* CharHelper::convertLong(long number) {
 
 	if(number < 10 && number >= 0)
 	{
-		sprintf(temp, " %d", number);
+		sprintf(temp, " %ld", number);
 	}
 	else
 	{
-		sprintf(temp, "%d", number);
+		sprintf(temp, "%ld", number);
 	}
 	return temp;
 }
