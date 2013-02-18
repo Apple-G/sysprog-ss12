@@ -23,6 +23,7 @@ private:
 	int outErrorHandlerCounter_;
 
 	void writingMessageBuffer();
+	void wirteToBuffer(char*, int);
 public:
 	OutputBuffer();
 	virtual ~OutputBuffer();
