@@ -11,6 +11,7 @@
 class CharHelper {
 public:
 	static char* convertInt(int);
+	static char* convertLong(long);
 
 	static int getLenght(char*);
 };
