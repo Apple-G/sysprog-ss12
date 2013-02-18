@@ -1,6 +1,6 @@
 #include "Symboltable.h"
 #include <iostream>
-#include "TokenType.h"
+#include "Token.h"
 
 using namespace std;
 
@@ -10,52 +10,61 @@ int main(int argc, char **argv) {
 
 	symboltable = new Symboltable();
 
+	/*char* a = "Test1aasd";
+	char* b = "Test1a";
+	cout<<"a: "<<symboltable->CHARHELPERgetLenght(a)<<endl;
+	cout<<"b: "<<symboltable->CHARHELPERgetLenght(b)<<endl;
+	cout<<"a=b: "<<symboltable->CHARHELPERcompare(a,b)<<endl;*/
+
+
 
 		cout <<"Fuellstand der Symsymboltable: " <<symboltable->getSymTabFree() <<endl;
+		cout<<"§: "<<symboltable->lookup("+")<<endl;
 
-		        symboltable->insert("*",TokenTypes::ASTERISK);
+		        symboltable->insert("*",Token::ASTERISK);
 
-		        symboltable->insert("+",TokenTypes::PLUS);
+		        symboltable->insert("+",Token::PLUS);
 
-		        symboltable->insert("-",TokenTypes::MINUS);
+		        symboltable->insert("-",Token::MINUS);
 
-		        symboltable->insert("=",TokenTypes::EQUALS);
+		        symboltable->insert("=",Token::EQUALS);
 
-		        symboltable->insert("(",TokenTypes::L_PARENTHESIS);
+		        symboltable->insert("(",Token::L_PARENTHESIS);
 
-		        symboltable->insert("4",TokenTypes::INTEGER);
+		        symboltable->insert("4",Token::INTEGER);
 
-		        symboltable->insert(";",TokenTypes::SEMICOLON);
+		        symboltable->insert(";",Token::SEMICOLON);
 
-		        symboltable->insert(":",TokenTypes::UNKNOWN);
+		        symboltable->insert(":",Token::UNKNOWN);
 
-		        symboltable->insert("-",TokenTypes::MINUS);
+		        symboltable->insert("-",Token::MINUS);
 
-		        symboltable->insert("&",TokenTypes::AMPERSAND);
+		        symboltable->insert("&",Token::AMPERSAND);
 
-		        symboltable->insert("A",TokenTypes::IDENTIFIER);
+		        symboltable->insert("A",Token::IDENTIFIER);
 
-		        symboltable->insert("B",TokenTypes::IDENTIFIER);
+		        symboltable->insert("B",Token::IDENTIFIER);
 
-		        symboltable->insert("+",TokenTypes::PLUS);
+		        symboltable->insert("+",Token::PLUS);
 
-		        symboltable->insert("blub",TokenTypes::READ);
+		        symboltable->insert("blub",Token::READ);
 
-		        symboltable->insert("]",TokenTypes::R_SQUAREBRACE);
+		        symboltable->insert("]",Token::R_SQUAREBRACE);
 
-		        symboltable->insert("7",TokenTypes::INTEGER);
+		        symboltable->insert("7",Token::INTEGER);
 
-		        symboltable->insert("!",TokenTypes::EXCLAMATIONMARK);
+		        symboltable->insert("!",Token::EXCLAMATIONMARK);
 
 		        cout <<"Fuellstand der Symsymboltable: " <<symboltable->getSymTabFree() <<endl;
 
 		        //Sind schon vorhanden und dürfen nichtmehr gespeichert werden
-		        symboltable->insert("+",TokenTypes::PLUS);
-		        symboltable->insert("(",TokenTypes::L_PARENTHESIS);
-		        symboltable->insert("-",TokenTypes::MINUS);
+		        symboltable->insert("+",Token::PLUS);
+		        symboltable->insert("(",Token::L_PARENTHESIS);
+		        symboltable->insert("-",Token::MINUS);
 
 		        cout <<"Fuellstand der Symsymboltable: " <<symboltable->getSymTabFree() <<endl;
 
+		        cout<<"as: "<<symboltable->lookup("+")<<endl;
 
 		        cout <<(*symboltable->lookup("+")).getLexem()
 		                        <<" ---> " <<(*symboltable->lookup("+")).getTokenType() <<"\n" <<endl;
