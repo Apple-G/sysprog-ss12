@@ -12,36 +12,37 @@
 int main (int argc, char* argv[])
 {
 	// Measuring Time
-	clock_t begin = clock();
 	// ======================================================================================================================================
+	clock_t begin = clock();
 
 	Symboltable* symboltable = new Symboltable();
-	Buffer* b = new Buffer("TestFiles/bible.txt");
-	Automat* automat = new Automat(b);
+	Buffer* buffer = new Buffer("TestFiles/bible.txt");
+	Automat* automat = new Automat(buffer);
 
 	//Handler
 
 	//File Ausgabe
 	OutputHandlerBase* outfile = new OutputFileHandler("TestFiles/out.txt");
-	b->RegisterMessageHandler(outfile);
+	buffer->RegisterMessageHandler(outfile);
 
 	//Consolen Ausgabe
 	OutputHandlerBase* outConsole = new OutConsoleHandler();
-	//b->RegisterMessageHandler(outConsole);
+	//buffer->RegisterMessageHandler(outConsole);
 
-	Token t;
-
-	while(!b->isEOF()){
-		t=automat->nextToken();
+	Token token;
+//TODO: error auf console, rest in datei
+//TODO tokentyp aus Symboltabelle lesen
+	while(!buffer->isEOF()){
+		token = automat->nextToken();
 		// std::cout<<(t.getLexem())<<std::endl;
-		if (t.getLexem()[0] != '\0')
+		if (token.getLexem()[0] != '\0')
 		{
-			b->writeMessage(CharHelper::convertInt(symboltable->insert(t.getLexem(), t.getType())));
+			buffer->writeMessage(CharHelper::convertInt(symboltable->insert(token.getLexem(), token.getType())));
 
-			b->writeMessage(" \t Token ");
-			b->writeMessage(t.getTypeForOutput());
+			buffer->writeMessage("\tToken ");
+			buffer->writeMessage(token.getTypeForOutput());
 			int count=0;
-			char* tempTokenType = t.getTypeForOutput();
+			char* tempTokenType = token.getTypeForOutput();
 			while (*tempTokenType != 0)
 			{
 				count++;
@@ -49,26 +50,27 @@ int main (int argc, char* argv[])
 			}
 
 			if (count<8)
-				b->writeMessage("\t");
+				buffer->writeMessage("\t");
 
-			b->writeMessage(" \t Line: ");
-			b->writeMessage(CharHelper::convertInt(t.getRow()));
-			b->writeMessage(" \t Column: ");
-			b->writeMessage(CharHelper::convertInt(t.getColumn()));
-			b->writeMessage(" \t Lexem: ");
-			b->writeMessage(t.getLexem());
-			b->writeMessage("\n");
+			buffer->writeMessage(" \t Line: ");
+			buffer->writeMessage(CharHelper::convertInt(token.getRow()));
+			buffer->writeMessage(" \t Column: ");
+			buffer->writeMessage(CharHelper::convertInt(token.getColumn()));
+			buffer->writeMessage(" \t Lexem: ");
+			buffer->writeMessage(token.getLexem());
+			buffer->writeMessage("\n");
 		}
 	}
 
-	// Measuring Time
 	clock_t end = clock();
-	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-	std::cout << "\n\nZeitmessung in Sekunden: " << elapsed_secs;
+	// Measuring Time
 	// ======================================================================================================================================
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC*1000;
+	buffer->writeMessage("\n\nZeitmessung in Millisekunden: ");
+	buffer->writeMessage(CharHelper::convertInt(elapsed_secs));
 
-	b->CloseAll();
-	delete b;
+	buffer->CloseAll();
+	delete buffer;
 	/*Pseudocode
 	 *
 	 * buffer erstellen (mit textdatei mit lexemen)
