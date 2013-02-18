@@ -14,7 +14,7 @@ SCANNERDIR = Scanner
 SHAREDLIB = sharedlib
 
 
-all:	symboltableLib bufferLib automatLib scanner testBuffer 
+all:	symboltableLib bufferLib automatLib scanner testBuffer testAutomat
 	@echo "target all"
 
 	
@@ -26,6 +26,7 @@ clean:
 	rm -rf $(SHAREDLIB)/*
 	rm -rf $(SCANNERDIR)/debug/*
 	rm -rf $(BUFFERDIR)/debug/* #TODO: testbuffer löschen
+	rm -rf $(AUTOMATDIR)/debug/* #TODO: notwendig?
 	
 	
 
@@ -37,6 +38,9 @@ automatLib:
 	
 testBuffer:
 	$(MAKE) -C $(BUFFERDIR) makeTestBuffer
+	
+testAutomat:
+	$(MAKE) -C $(AUTOMATDIR) makeTestAutomat
 	
 bufferLib:
 	$(MAKE) -C $(BUFFERDIR) BufferLib
