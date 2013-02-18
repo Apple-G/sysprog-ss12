@@ -8,11 +8,9 @@
 
 
 
-int main (int argc, char* argv[]){
-	std::cout<<"While Anfang \n";
-
+int main (int argc, char* argv[])
+{
 	Automat* automat;
-
 
 	Buffer *b = new Buffer("TestFiles/newTest.txt");
 
