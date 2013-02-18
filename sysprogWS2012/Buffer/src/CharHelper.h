@@ -8,9 +8,10 @@
 #ifndef CharHelper_H_
 #define CharHelper_H_
 
-class CharHelper
-{
+class CharHelper {
 public:
-	static char* convertInt(int) ;
+	static char* convertInt(int);
+
+	static int getLenght(char*);
 };
 #endif

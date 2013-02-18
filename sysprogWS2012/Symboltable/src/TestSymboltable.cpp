@@ -18,12 +18,12 @@ int main(int argc, char **argv) {
 
 
 
-		cout <<"Fuellstand der Symsymboltable: " <<symboltable->getSymTabFree() <<endl;
-		cout<<"§: "<<symboltable->lookup("+")<<endl;
+		        symboltable->insert("read",Token::ASTERISK);
 
-		        symboltable->insert("*",Token::ASTERISK);
+
 
 		        symboltable->insert("+",Token::PLUS);
+		        cout<<"tests: "<<symboltable->lookup("+")<<endl;
 
 		        symboltable->insert("-",Token::MINUS);
 
@@ -55,19 +55,19 @@ int main(int argc, char **argv) {
 
 		        symboltable->insert("!",Token::EXCLAMATIONMARK);
 
-		        cout <<"Fuellstand der Symsymboltable: " <<symboltable->getSymTabFree() <<endl;
+
 
 		        //Sind schon vorhanden und dürfen nichtmehr gespeichert werden
 		        symboltable->insert("+",Token::PLUS);
 		        symboltable->insert("(",Token::L_PARENTHESIS);
 		        symboltable->insert("-",Token::MINUS);
 
-		        cout <<"Fuellstand der Symsymboltable: " <<symboltable->getSymTabFree() <<endl;
 
-		        cout<<"as: "<<symboltable->lookup("+")<<endl;
 
-		        cout <<(*symboltable->lookup("+")).getLexem()
-		                        <<" ---> " <<(*symboltable->lookup("+")).getTokenType() <<"\n" <<endl;
+
+
+		        cout <<(*symboltable->lookup("read")).getLexem()
+		                        <<" ---> " <<(*symboltable->lookup("read")).getTokenType() <<"\n" <<endl;
 
 		        cout <<(*symboltable->lookup("7")).getLexem()
 		                        <<" ---> " <<(*symboltable->lookup("7")).getTokenType() <<"\n" <<endl;
