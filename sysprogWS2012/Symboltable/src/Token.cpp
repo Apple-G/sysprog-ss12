@@ -115,7 +115,7 @@ int Token::getColumn(){
 /**
 * 
 **/
-char* Token::getType()
+char* Token::getTypeForOutput()
 {
 	// enum TokenType muss synchron zu diesen Ausgaben geführt werden, sonst wird UNKNOWN geliefert
 	switch (this->type)
@@ -145,6 +145,11 @@ char* Token::getType()
 	}
 }
 //========================================================================
+
+Token::TokenType Token::getType()
+{
+	return this->type;
+}
 
 /*
 unsigned int Token::getLength(){
