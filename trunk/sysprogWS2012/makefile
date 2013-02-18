@@ -14,7 +14,7 @@ SCANNERDIR = Scanner
 SHAREDLIB = sharedlib
 
 
-all:	symboltableLib bufferLib automatLib scanner testBuffer testAutomat
+all:	symboltableLib bufferLib automatLib scanner testBuffer testAutomat testSymboltable
 	@echo "target all"
 
 	
@@ -27,6 +27,7 @@ clean:
 	rm -rf $(SCANNERDIR)/debug/*
 	rm -rf $(BUFFERDIR)/debug/* #TODO: testbuffer löschen
 	rm -rf $(AUTOMATDIR)/debug/* #TODO: notwendig?
+	rm -rf $(SYMBOLTABLEDIR)/debug/* 
 	
 	
 
@@ -36,18 +37,24 @@ scanner:
 automatLib:
 	$(MAKE) -C $(AUTOMATDIR) AutomatLib
 	
+bufferLib:
+	$(MAKE) -C $(BUFFERDIR) BufferLib
+	
+symboltableLib:
+	$(MAKE) -C $(SYMBOLTABLEDIR) SymboltableLib
+#Testcase
 testBuffer:
 	$(MAKE) -C $(BUFFERDIR) makeTestBuffer
 	
 testAutomat:
 	$(MAKE) -C $(AUTOMATDIR) makeTestAutomat
 	
-bufferLib:
-	$(MAKE) -C $(BUFFERDIR) BufferLib
+testSymboltable:
+	$(MAKE) -C $(SYMBOLTABLEDIR) makeTestSymboltable
+	
+
 
 # scannerLib wird erst fuer den Parser Teil benoetigt	
 #scannerLib:
 #	$(MAKE) -C $(SCANNERDIR) ScannerLib
 	
-symboltableLib:
-	$(MAKE) -C $(SYMBOLTABLEDIR) SymboltableLib

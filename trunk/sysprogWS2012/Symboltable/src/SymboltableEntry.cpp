@@ -18,6 +18,7 @@ SymboltableEntry::SymboltableEntry()
 SymboltableEntry::SymboltableEntry(char* lexem, Token::TokenType tokenType)
 {
 	this->lexem = lexem;
+
 	this->tokenType = tokenType;
 }
 
@@ -36,7 +37,7 @@ void SymboltableEntry::setLexem(char* lexem)
  *
  * @return gespeichertes Lexem
  */
-const char* SymboltableEntry::getLexem()
+char* SymboltableEntry::getLexem()
 {
 	return this->lexem;
 }

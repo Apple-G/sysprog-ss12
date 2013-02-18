@@ -43,7 +43,7 @@ public:
 	 *
 	 * @return gespeichertes Lexem
 	 */
-	const char* getLexem();
+	char* getLexem();
 
 
 

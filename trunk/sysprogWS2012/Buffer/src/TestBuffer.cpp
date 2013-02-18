@@ -82,6 +82,9 @@ int main(int argc, char **argv) {
 		if (c == '\000') {
 			cout << "###EOF###" << endl;
 		}
+
+		if (buffer->isEOF())
+			cout << "###EOF2###" << endl;
 	}
 
 	delete b;

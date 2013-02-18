@@ -21,3 +21,15 @@ char* CharHelper::convertInt(int number) {
 	}
 	return temp;
 }
+
+int CharHelper::getLenght(char* string)
+{
+	int count = 0;
+	char* temp = string;
+	while (*temp != 0)
+	{
+		count++;
+		temp++;
+	}
+	return count;
+}
