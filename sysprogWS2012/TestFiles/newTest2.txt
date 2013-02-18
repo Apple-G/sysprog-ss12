@@ -112,7 +112,3 @@ kommentar
 alles in einer zeile:
 +-/"*<>=<!><!!><<>>!&;(){}[]
 asd
-
-
-
-qwef
