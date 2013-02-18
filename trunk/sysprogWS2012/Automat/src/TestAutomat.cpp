@@ -4,15 +4,16 @@
 #include "CharHelper.h"
 #include "OutBuffer_OutputFileHandler.h"
 #include "OutBuffer_OutConsoleHandler.h"
+#include "Symboltable.h"
 #include <iostream>
 
 
 
 int main (int argc, char* argv[])
 {
-	Automat* automat;
-
-	Buffer *b = new Buffer("TestFiles/newTest.txt");
+	Symboltable* symboltable = new Symboltable();
+	Buffer* b = new Buffer("TestFiles/bible.txt");
+	Automat* automat = new Automat(b);
 
 	//Handler
 
@@ -22,9 +23,8 @@ int main (int argc, char* argv[])
 
 	//Consolen Ausgabe
 	OutputHandlerBase* outConsole = new OutConsoleHandler();
-	b->RegisterMessageHandler(outConsole);
+	//b->RegisterMessageHandler(outConsole);
 
-	automat = new Automat(b);
 	Token t;
 
 	while(!b->isEOF()){
@@ -32,10 +32,12 @@ int main (int argc, char* argv[])
 		// std::cout<<(t.getLexem())<<std::endl;
 		if (t.getLexem()[0] != '\0')
 		{
-			b->writeMessage("Token ");
-			b->writeMessage(t.getType());
+			b->writeMessage(CharHelper::convertInt(symboltable->insert(t.getLexem(), t.getType())));
+
+			b->writeMessage(" \t Token ");
+			b->writeMessage(t.getTypeForOutput());
 			int count=0;
-			char* tempTokenType = t.getType();
+			char* tempTokenType = t.getTypeForOutput();
 			while (*tempTokenType != 0)
 			{
 				count++;
