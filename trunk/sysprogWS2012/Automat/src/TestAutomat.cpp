@@ -35,6 +35,17 @@ int main (int argc, char* argv[]){
 
 		b->writeMessage("Token ");
 		b->writeMessage(t.getType());
+		int count=0;
+		char* tempTokenType = t.getType();
+		while (*tempTokenType != 0)
+		{
+			count++;
+			tempTokenType++;
+		}
+
+		if (count<8)
+			b->writeMessage("\t");
+
 		b->writeMessage(" \t Line: ");
 		b->writeMessage(CharHelper::convertInt(t.getRow()));
 		b->writeMessage(" \t Column: ");
@@ -43,6 +54,7 @@ int main (int argc, char* argv[]){
 		b->writeMessage(t.getLexem());
 		b->writeMessage("\n");
 	}
+
 	b->CloseAll();
 	delete b;
 	/*Pseudocode
