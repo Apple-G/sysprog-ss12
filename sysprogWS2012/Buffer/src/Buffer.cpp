@@ -4,7 +4,7 @@ Buffer::Buffer() {
 
 }
 
-Buffer::Buffer(char *fileInPath){
+Buffer::Buffer(char *fileInPath) {
 	//TODo: nicht schön, aber funktioniert
 	output_ = new OutputBuffer();
 	input_ = new InputBuffer(fileInPath, 1024);
@@ -23,8 +23,8 @@ Buffer::Buffer(char *fileInPath, char *fileOutPath, unsigned int bufferSize) {
 }
 
 Buffer::~Buffer() {
- delete output_;
- delete input_;
+	delete output_;
+	delete input_;
 }
 
 char Buffer::ungetChar(unsigned int number) {
@@ -55,11 +55,7 @@ void Buffer::RegisterErrorHandler(OutputHandlerBase* errorHandler) {
 	output_->RegisterErrorHandler(errorHandler);
 }
 
-void Buffer::writeToke(void) {
-}
-
-void Buffer::CloseAll()
-{
+void Buffer::CloseAll() {
 	input_->closeBuffer();
 	output_->closeBuffer();
 }
@@ -69,11 +65,10 @@ void Buffer::writeMessage(char* message) {
 }
 
 void Buffer::writeMessage(char symbol) {
-	output_->writeMessage(&symbol );
+	output_->writeMessage(&symbol);
 }
 
 void Buffer::writeError(char* error) {
 	output_->writeError(error);
 }
-
 

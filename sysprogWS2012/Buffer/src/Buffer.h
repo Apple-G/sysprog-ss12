@@ -112,11 +112,6 @@ public:
 	void writeError(char*);
 
 	/*
-	 * schreibt Token  //TODO Tobi wohin? Was? Wie;-)
-	 */
-	void writeToke(void);
-
-	/*
 	 * schreibt den Inhalt des Buffers und schließt alle offenen Dateien
 	 */
 	void CloseAll();
