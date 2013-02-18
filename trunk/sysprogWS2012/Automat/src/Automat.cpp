@@ -45,14 +45,21 @@ bool Automat::isNumber(char currentChar) {
 // Funktion:  isSign
 // Parameter: char currentChar
 // Return:    bool
-// Notiz:     Prueft ob es sich um ein erlaubtes Zeichen handelt.
+// Notiz:     Prueft ob es sich um ein einzelnes, erlaubtes Zeichen handelt.
 //*******************************************************
 bool Automat::isSign(char currentChar) {
-	return (currentChar == '+' || currentChar == '-' || currentChar == '/'
-			|| currentChar == '!' || currentChar == '&' || currentChar == ';'
+	return (currentChar == '+' || currentChar == '-' || currentChar == '('
+			|| currentChar == '&' || currentChar == ';'
 			|| currentChar == '{' || currentChar == '}' || currentChar == '['
-			|| currentChar == ']');
+			|| currentChar == ']' || currentChar == '=' || currentChar == ')');
 }
+
+//*******************************************************
+// Funktion:  analyseSign
+// Parameter: char currentChar
+// Return:    Token::TokenType
+// Notiz:     Gibt den TokenTyp eines einzelnen Signs zurück.
+//*******************************************************
 Token::TokenType Automat::analyseSign(char currentChar) {
 	if (currentChar == '+') {
 		return Token::PLUS;
@@ -111,21 +118,17 @@ bool Automat::isDelimiter(char currentChar) {
 int Automat::analyseChar(char currentChar) {
 	int returnValue;
 
-//TODO Kommentar ist jetzt nicht mehr mit (* und *) sondern mit /* und */
 	if (isLetter(currentChar)) {
 		returnValue = INPUT_LETTER;
 	} else if (isNumber(currentChar)) {
 		returnValue = INPUT_NUMBER;
-	} else if (currentChar == '(') {
+	} else if (currentChar == '/') {
 		returnValue = INPUT_SLASH;
 	} else if (currentChar == '*') {
 		returnValue = INPUT_ASTERISK;
-	} else if (currentChar == ')') {
-		returnValue = INPUT_UNUSED;
-	} // TODO: noch rauswerfen
-	else if (currentChar == '<') {
+	} else if (currentChar == '<') {
 		returnValue = INPUT_LESSTHAN;
-	} else if (currentChar == '=') {
+	} else if (currentChar == '!') {
 		returnValue = INPUT_EXCLAMATIONMARK;
 	} else if (currentChar == '>') {
 		returnValue = INPUT_GREATERTHAN;
@@ -259,6 +262,7 @@ Token Automat::nextToken() {
 			case INPUT_SLASH: { // change of state parenthesis (
 				currentState = STATE_SLASH;
 				addCharToTempToken(currentChar);
+				returnToken.setType(analyseSign(currentChar));
 				break;
 			}
 			case INPUT_ASTERISK: // *
@@ -271,6 +275,7 @@ Token Automat::nextToken() {
 			case INPUT_LESSTHAN: { // change of state <
 				currentState = STATE_UNEQUAL;
 				addCharToTempToken(currentChar);
+				returnToken.setType(analyseSign(currentChar));
 				break;
 			}
 			case INPUT_EXCLAMATIONMARK: // =
@@ -388,39 +393,24 @@ Token Automat::nextToken() {
 			break;
 		}
 
-		case STATE_SLASH: { // Zustand: ( open parenthesis
+		case STATE_SLASH: { // Zustand: / slash
 			switch (analyseChar(currentChar)) {
 			case INPUT_LETTER:
 			case INPUT_NUMBER:
-			case INPUT_SLASH: { // resturn sign with a step back
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case INPUT_ASTERISK: {
-				currentState = STATE_COMMENTARY;
-				break;
-			}
+			case INPUT_SLASH:
 			case INPUT_UNUSED:
 			case INPUT_LESSTHAN:
 			case INPUT_EXCLAMATIONMARK:
 			case INPUT_GREATERTHAN:
-			case INPUT_SIGN: { // resturn sign with a step back
+			case INPUT_SIGN:
+			case INPUT_DELIMITER:
+			case INPUT_ERROR: { // resturn sign with a step back
 				returnCondition = true;
 				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
 				break;
 			}
-			case INPUT_DELIMITER: { // return sign without a step back
-				returnCondition = true;
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case INPUT_ERROR: {
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
+			case INPUT_ASTERISK: {
+				currentState = STATE_COMMENTARY;
 				break;
 			}
 			}
@@ -431,44 +421,29 @@ Token Automat::nextToken() {
 			switch (analyseChar(currentChar)) {
 			case INPUT_LETTER:
 			case INPUT_NUMBER:
-			case INPUT_SLASH: {
+			case INPUT_SLASH:
+			case INPUT_UNUSED:
+			case INPUT_LESSTHAN:
+			case INPUT_EXCLAMATIONMARK:
+			case INPUT_GREATERTHAN:
+			case INPUT_SIGN:
+			case INPUT_DELIMITER:
+			case INPUT_ERROR: {
 				break;
 			}
 			case INPUT_ASTERISK: {
 				currentState = STATE_ASTERISK;
 				break;
 			}
-			case INPUT_UNUSED:
-			case INPUT_LESSTHAN:
-			case INPUT_EXCLAMATIONMARK:
-			case INPUT_GREATERTHAN:
-			case INPUT_SIGN:
-			case INPUT_DELIMITER: {
-				break;
-			}
-			case INPUT_ERROR: {
-				break;
-			}
 			}
 			break;
 		}
 
-		case STATE_ASTERISK: { // Zustand: * asterisk
+		case STATE_ASTERISK: { // Zustand: * asterisk im Kommentar
 			switch (analyseChar(currentChar)) {
 			case INPUT_LETTER:
 			case INPUT_NUMBER:
-			case INPUT_SLASH: {
-				currentState = STATE_COMMENTARY;
-				break;
-			}
-			case INPUT_ASTERISK: {
-				break;
-			}
-			case INPUT_UNUSED: { //End of Commentary
-				currentState = STATE_START;
-				tempTokenLength = 0;
-				break;
-			}
+			case INPUT_UNUSED:
 			case INPUT_LESSTHAN:
 			case INPUT_EXCLAMATIONMARK:
 			case INPUT_GREATERTHAN:
@@ -476,6 +451,14 @@ Token Automat::nextToken() {
 			case INPUT_DELIMITER:
 			case INPUT_ERROR: {
 				currentState = STATE_COMMENTARY;
+				break;
+			}
+			case INPUT_ASTERISK:
+				break;
+			case INPUT_SLASH: { //End of Commentary
+				currentState = STATE_START;
+				tempTokenLength = 0;
+				returnToken.setType(Token::UNKNOWN);
 				break;
 			}
 			}
@@ -489,31 +472,26 @@ Token Automat::nextToken() {
 			case INPUT_SLASH:
 			case INPUT_ASTERISK:
 			case INPUT_UNUSED:
-			case INPUT_LESSTHAN: { // return sign with a step back
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case INPUT_EXCLAMATIONMARK: { // change of state <=
-				currentState = STATE_UNEQUAL_CHECK;
-				addCharToTempToken(currentChar);
-				break;
-			}
+			case INPUT_LESSTHAN:
 			case INPUT_GREATERTHAN:
 			case INPUT_SIGN:
 			case INPUT_DELIMITER:
 			case INPUT_ERROR: { // return sign with a step back
 				returnCondition = true;
 				stepBack(1);
-				returnToken.setType(analyseSign(currentChar));
+				//returnToken.setType(analyseSign(currentChar));
 				break;
+			case INPUT_EXCLAMATIONMARK: { // change of state <!
+				currentState = STATE_UNEQUAL_CHECK;
+				addCharToTempToken(currentChar);
+				break;
+			}
 			}
 			}
 			break;
 		}
 
-		case STATE_UNEQUAL_CHECK: { // Zustand: <= smaller then
+		case STATE_UNEQUAL_CHECK: { // Zustand: <! smaller than
 			switch (analyseChar(currentChar)) {
 			case INPUT_LETTER:
 			case INPUT_NUMBER:
@@ -521,31 +499,19 @@ Token Automat::nextToken() {
 			case INPUT_ASTERISK:
 			case INPUT_UNUSED:
 			case INPUT_LESSTHAN:
-			case INPUT_EXCLAMATIONMARK: { // return sign (<) and step back (2)
+			case INPUT_EXCLAMATIONMARK:
+			case INPUT_SIGN:
+			case INPUT_DELIMITER:
+			case INPUT_ERROR: {
+				//return sign (<) and step back (2)
 				returnCondition = true;
 				stepBack(2);
-				returnToken.setType(analyseSign(currentChar));
 				break;
 			}
-			case INPUT_GREATERTHAN: { // return <=> OHNE schritt zurueck
+			case INPUT_GREATERTHAN: { // return <!> OHNE schritt zurueck
 				returnCondition = true;
 				addCharToTempToken(currentChar);
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case INPUT_SIGN:
-			case INPUT_DELIMITER: { // return sign (<) and step back (2)
-				returnCondition = true;
-				stepBack(2);
-
-				returnToken.setType(analyseSign(currentChar));
-				break;
-			}
-			case INPUT_ERROR: {
-				returnCondition = true;
-				stepBack(2);
-
-				returnToken.setType(analyseSign(currentChar));
+				returnToken.setType(Token::UNEQUAL);
 				break;
 			}
 			}

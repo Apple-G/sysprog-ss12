@@ -138,7 +138,7 @@ char* Token::getType()
 	case R_BRACE: 			return "}";
 	case L_SQUAREBRACE: 	return "[";
 	case R_SQUAREBRACE: 	return "]";
-	case UNEQUAL: 			return "<!>";
+	case UNEQUAL: 			return "UNEQUAL";
 	case PRINT: 			return "print";
 	case READ: 				return "read";
 	default: 				return "UNKNOWN";
