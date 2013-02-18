@@ -22,6 +22,21 @@ char* CharHelper::convertInt(int number) {
 	return temp;
 }
 
+char* CharHelper::convertLong(long number) {
+	char* temp;
+	temp = new char[256];
+
+	if(number < 10 && number >= 0)
+	{
+		sprintf(temp, " %d", number);
+	}
+	else
+	{
+		sprintf(temp, "%d", number);
+	}
+	return temp;
+}
+
 int CharHelper::getLenght(char* string)
 {
 	int count = 0;
