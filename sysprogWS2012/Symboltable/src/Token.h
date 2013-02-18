@@ -73,6 +73,7 @@ public:
 	int getColumn();
 	//unsigned int getLength();
 	char* getTypeForOutput();
+	static char* getTypeForOutput(int);
 	Token::TokenType getType();
 
 };

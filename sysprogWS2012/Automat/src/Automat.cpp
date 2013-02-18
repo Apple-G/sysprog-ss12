@@ -259,7 +259,7 @@ Token Automat::nextToken() {
 				addCharToTempToken(currentChar);
 				break;
 			}
-			case INPUT_SLASH: { // change of state parenthesis (
+			case INPUT_SLASH: {
 				currentState = STATE_SLASH;
 				addCharToTempToken(currentChar);
 				returnToken.setType(analyseSign(currentChar));
@@ -331,14 +331,6 @@ Token Automat::nextToken() {
 
 		case STATE_INTEGER: { // Zustand: Integer
 			switch (analyseChar(currentChar)) {
-			case INPUT_LETTER: { // return integer and step back
-				returnCondition = true;
-				stepBack(1);
-
-				returnToken.setNumber(strtol(tempToken, NULL, 10));
-				returnToken.setType(Token::INTEGER);
-				break;
-			}
 			case INPUT_NUMBER: {
 				currentState = STATE_INTEGER;
 				addCharToTempToken(currentChar);
@@ -350,32 +342,15 @@ Token Automat::nextToken() {
 			case INPUT_LESSTHAN:
 			case INPUT_EXCLAMATIONMARK:
 			case INPUT_GREATERTHAN:
-			case INPUT_SIGN: { // return integer and step back
+			case INPUT_SIGN:
+			case INPUT_DELIMITER:
+			case INPUT_ERROR:
+			case INPUT_LETTER: { // return integer and step back
 				returnCondition = true;
 				stepBack(1);
-				returnToken.setNumber(atol(tempToken));
-
+				returnToken.setNumber(strtol(tempToken, NULL, 10));
 				returnToken.setType(Token::INTEGER);
 				break;
-			}
-			case INPUT_DELIMITER: { // return integer without a step back
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setNumber(atol(tempToken));
-
-				returnToken.setType(Token::INTEGER);
-				break;
-			}
-			case INPUT_ERROR: {
-				returnCondition = true;
-				stepBack(1);
-				returnToken.setNumber(atol(tempToken));
-				if (currentChar == '\000') {
-					break;
-				}
-				returnToken.setType(Token::INTEGER);
-				break;
-
 			}
 			}
 			break;

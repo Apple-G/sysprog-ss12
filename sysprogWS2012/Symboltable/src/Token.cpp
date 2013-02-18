@@ -115,34 +115,39 @@ int Token::getColumn(){
 /**
 * 
 **/
-char* Token::getTypeForOutput()
+char* Token::getTypeForOutput(int type)
 {
 	// enum TokenType muss synchron zu diesen Ausgaben geführt werden, sonst wird UNKNOWN geliefert
-	switch (this->type)
+	switch (type)
 	{
-	case INTEGER: 			return "INTEGER";
-	case IDENTIFIER: 		return "IDENTIFIER";
-	case PLUS: 				return "+";
-	case MINUS: 			return "-";
-	case SLASH: 			return "/";
-	case ASTERISK: 			return "*";
-	case L_BRACKET: 		return "<";
-	case R_BRACKET: 		return ">";
-	case EQUALS: 			return "=";
-	case EXCLAMATIONMARK: 	return "!";
-	case AMPERSAND: 		return "&";
-	case SEMICOLON: 		return ";";
-	case L_PARENTHESIS: 	return "(";
-	case R_PARENTHESIS: 	return ")";
-	case L_BRACE: 			return "{";
-	case R_BRACE: 			return "}";
-	case L_SQUAREBRACE: 	return "[";
-	case R_SQUAREBRACE: 	return "]";
-	case UNEQUAL: 			return "UNEQUAL";
-	case PRINT: 			return "print";
-	case READ: 				return "read";
-	default: 				return "UNKNOWN";
+	case PRINT: 			return "print         ";
+	case READ: 				return "read          ";
+	case INTEGER: 			return "Integer       ";
+	case IDENTIFIER: 		return "Identifier    ";
+	case PLUS: 				return "Plus          ";
+	case MINUS: 			return "Minus         ";
+	case SLASH: 			return "Divide        ";
+	case ASTERISK: 			return "Multiply      ";
+	case L_BRACKET: 		return "Smaller than  ";
+	case R_BRACKET: 		return "Bigger than   ";
+	case EQUALS: 			return "Assign        ";
+	case EXCLAMATIONMARK: 	return "Exc.mark      ";
+	case AMPERSAND: 		return "Ampersand     ";
+	case SEMICOLON: 		return "Semicolon     ";
+	case L_PARENTHESIS: 	return "L. Parenthesis";
+	case R_PARENTHESIS: 	return "R. Parenthesis";
+	case L_BRACE: 			return "L Brace       ";
+	case R_BRACE: 			return "R Brace       ";
+	case L_SQUAREBRACE: 	return "L Squarebrace ";
+	case R_SQUAREBRACE: 	return "R Squarebrace ";
+	case UNEQUAL: 			return "Unequal       ";
+	default: 				return "Unknown       ";
 	}
+}
+
+char* Token::getTypeForOutput()
+{
+	return Token::getTypeForOutput(this->type);
 }
 //========================================================================
 
