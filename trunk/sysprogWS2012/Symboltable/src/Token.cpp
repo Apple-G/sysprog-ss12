@@ -115,7 +115,9 @@ int Token::getColumn(){
 /**
 * 
 **/
-char* Token::getType(){
+char* Token::getType()
+{
+	// enum TokenType muss synchron zu diesen Ausgaben geführt werden, sonst wird UNKNOWN geliefert
 	switch (this->type)
 	{
 	case INTEGER: 			return "INTEGER";

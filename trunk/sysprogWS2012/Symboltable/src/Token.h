@@ -4,7 +4,7 @@
 class SymboltableEntry;
 class Token {
 public:
-	enum TokenType
+	enum TokenType // getType() Funktion muss synchron zu dieser Tabelle geführt werden
 			{
 				UNKNOWN,			// ErrorType	0
 				INTEGER,			// Integer		1
