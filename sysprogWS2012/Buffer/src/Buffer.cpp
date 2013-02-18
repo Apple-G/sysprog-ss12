@@ -67,9 +67,6 @@ void Buffer::writeMessage(char* message) {
 }
 
 void Buffer::writeMessage(char symbol) {
-	//char* message;
-	//message= new char[1];
-	//message[0]=symbol;
 	output_->writeMessage(&symbol );
 }
 

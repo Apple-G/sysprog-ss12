@@ -9,6 +9,14 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
+	cout << "Test Error..." << endl;
+	Buffer *bError = new Buffer();
+	bError->writeError("Test123");
+	bError->writeError(
+			"Testasdjkahsdj asdhj ashdjha sjdhjsadh ashdkjashdj sadhajsdhja sdh ajsdhj ash asd0a sdkasd jasdßß asdk ads");
+	bError->writeError("00000");
+	bError->writeError("");
+
 	cout << "Buffer Test starting..." << endl;
 
 	Buffer *b = new Buffer("TestFiles/newTest.txt", 10);
@@ -17,7 +25,7 @@ int main(int argc, char **argv) {
 	OutputHandlerBase* outfile = new OutputFileHandler("TestFiles/out.txt");
 	b->RegisterMessageHandler(outfile);
 
-   OutputHandlerBase* outConsole = new OutConsoleHandler();
+	OutputHandlerBase* outConsole = new OutConsoleHandler();
 	//b->RegisterMessageHandler(outConsole);
 	char c;
 
@@ -64,12 +72,12 @@ int main(int argc, char **argv) {
 			cout << "UngetNextChar: ";
 		}
 
-		cout<<c;
-		cout<<"\t\tline: ";
-		cout<<CharHelper::convertInt(buffer->getCurrentRow());
-		cout<<"\tColumn:";
-		cout<<CharHelper::convertInt(buffer->getCurrentColumn());
-		cout<<"\r\n";
+		cout << c;
+		cout << "\t\tline: ";
+		cout << CharHelper::convertInt(buffer->getCurrentRow());
+		cout << "\tColumn:";
+		cout << CharHelper::convertInt(buffer->getCurrentColumn());
+		cout << "\r\n";
 
 		if (c == '\000') {
 			cout << "###EOF###" << endl;
