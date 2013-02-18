@@ -1,6 +1,7 @@
 #include "Automat.h"
 #include "Token.h"
 #include "Buffer.h"
+#include "CharHelper.h"
 #include "OutBuffer_OutputFileHandler.h"
 #include "OutBuffer_OutConsoleHandler.h"
 #include <iostream>
@@ -8,6 +9,7 @@
 
 
 int main (int argc, char* argv[]){
+	std::cout<<"While Anfang \n";
 
 	Automat* automat;
 
@@ -17,8 +19,7 @@ int main (int argc, char* argv[]){
 	//Handler
 
 	//File Ausgabe
-	OutputHandlerBase* outfile = new OutputFileHandler(
-			"TestFiles/out.txt");
+	OutputHandlerBase* outfile = new OutputFileHandler("TestFiles/out.txt");
 	b->RegisterMessageHandler(outfile);
 
 	//Consolen Ausgabe
@@ -27,14 +28,17 @@ int main (int argc, char* argv[]){
 
 	automat = new Automat(b);
 	Token t;
+
 	while(!b->isEOF()){
 		t=automat->nextToken();
+		// std::cout<<(t.getLexem())<<std::endl;
+
 		b->writeMessage("Token ");
-		b->writeMessage(t.getType());
+		b->writeMessage(CharHelper::convertInt(t.getType()));
 		b->writeMessage(" \t Line: ");
-		b->writeMessage(t.getRow());
+		b->writeMessage(CharHelper::convertInt(t.getRow()));
 		b->writeMessage(" \t Column: ");
-		b->writeMessage(t.getColumn());
+		b->writeMessage(CharHelper::convertInt(t.getColumn()));
 		b->writeMessage(" \t Lexem: ");
 		b->writeMessage(t.getLexem());
 		b->writeMessage("\n");
