@@ -11,12 +11,9 @@ char* CharHelper::convertInt(int number) {
 	char* temp;
 	temp = new char[256];
 
-	if(number < 10 && number >= 0)
-	{
+	if (number < 10 && number >= 0) {
 		sprintf(temp, " %d", number);
-	}
-	else
-	{
+	} else {
 		sprintf(temp, "%d", number);
 	}
 	return temp;
@@ -26,23 +23,14 @@ char* CharHelper::convertLong(long number) {
 	char* temp;
 	temp = new char[256];
 
-	if(number < 10 && number >= 0)
-	{
-		sprintf(temp, " %ld", number);
-	}
-	else
-	{
-		sprintf(temp, "%ld", number);
-	}
+	sprintf(temp, "%ld", number);
 	return temp;
 }
 
-int CharHelper::getLenght(char* string)
-{
+int CharHelper::getLenght(char* string) {
 	int count = 0;
 	char* temp = string;
-	while (*temp != 0)
-	{
+	while (*temp != 0) {
 		count++;
 		temp++;
 	}
