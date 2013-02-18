@@ -30,9 +30,7 @@ void InputBuffer::InitializeBuffer() {
 		//		throw new InitializationException("Buffer Size has to be bigger 0");
 	} else {
 		buffer_ = new char*[bufferNumber_];
-		for (int i = 0; i < bufferNumber_; i++) {
-
-
+		for (unsigned int i = 0; i < bufferNumber_; i++) {
 			fillBuffer(i);
 		}
 	}
@@ -112,7 +110,8 @@ char InputBuffer::getNextChar() {
 		if (tempChar == '\n' || tempChar == '\r') {
 			//ToDo '\n' als extra zeichen zählen?
 			if (currentRow_ < lastLineLengthIndex_) {
-				lastLineLength_[currentRow_] = currentColumn_ + 1;
+				//lastLineLength_[currentRow_] = currentColumn_ + 1 ;
+				lastLineLength_[currentRow_] = currentColumn_; // Ohne +1 da \n in nuer Ziel mit index 0 gespeichert wird
 			}
 			//lastRowLengt Array vergrößern
 			else {
@@ -155,9 +154,8 @@ char InputBuffer::ungetChar(unsigned int number) {
 }
 
 char InputBuffer::ungetChar() {
-
+	char tempChar = buffer_[currentBuffer_][currentBufferPosition_];
 	if (movePointerBackward()) {
-		char tempChar = buffer_[currentBuffer_][currentBufferPosition_];
 		//New Line
 		if (tempChar == '\n' || tempChar == '\r') {
 			//ToDo '\n' als extra zeichen zählen?
@@ -167,7 +165,7 @@ char InputBuffer::ungetChar() {
 		} else {
 			currentColumn_--;
 		}
-		return tempChar;
+		return buffer_[currentBuffer_][currentBufferPosition_];;
 	} else {
 		printf("Error: ungetChar. Linkes Dateiende erreicht!");
 		setEOF();
@@ -176,6 +174,8 @@ char InputBuffer::ungetChar() {
 }
 
 int InputBuffer::getCurrentColumn() {
+
+	//ToDO: kp ob man die == 0 abfrage braucht, da \n immer das nullte zeichen ist
 	if (currentColumn_ == 0) {
 		return lastLineLength_[currentRow_];
 	}
