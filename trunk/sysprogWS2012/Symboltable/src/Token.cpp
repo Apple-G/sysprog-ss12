@@ -115,8 +115,32 @@ int Token::getColumn(){
 /**
 * 
 **/
-Token::TokenType Token::getType(){
-	return this->type;
+char* Token::getType(){
+	switch (this->type)
+	{
+	case INTEGER: 			return "INTEGER";
+	case IDENTIFIER: 		return "IDENTIFIER";
+	case PLUS: 				return "+";
+	case MINUS: 			return "-";
+	case SLASH: 			return "/";
+	case ASTERISK: 			return "*";
+	case L_BRACKET: 		return "<";
+	case R_BRACKET: 		return ">";
+	case EQUALS: 			return "=";
+	case EXCLAMATIONMARK: 	return "!";
+	case AMPERSAND: 		return "&";
+	case SEMICOLON: 		return ";";
+	case L_PARENTHESIS: 	return "(";
+	case R_PARENTHESIS: 	return ")";
+	case L_BRACE: 			return "{";
+	case R_BRACE: 			return "}";
+	case L_SQUAREBRACE: 	return "[";
+	case R_SQUAREBRACE: 	return "]";
+	case UNEQUAL: 			return "<!>";
+	case PRINT: 			return "print";
+	case READ: 				return "read";
+	default: 				return "UNKNOWN";
+	}
 }
 //========================================================================
 
