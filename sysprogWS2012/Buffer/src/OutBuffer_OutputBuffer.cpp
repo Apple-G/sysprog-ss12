@@ -54,7 +54,7 @@ void OutputBuffer::writeError(char* error) {
 	error -= count;
 	OutConsoleHandler* outConsole = new OutConsoleHandler();
 	outConsole->writeBuffer(error, count);
-	outConsole->writeBuffer("\n", 1);
+	//outConsole->writeBuffer("\n", 1);
 }
 
 void OutputBuffer::writingMessageBuffer() {
