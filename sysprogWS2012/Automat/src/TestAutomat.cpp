@@ -34,7 +34,7 @@ int main (int argc, char* argv[]){
 		// std::cout<<(t.getLexem())<<std::endl;
 
 		b->writeMessage("Token ");
-		b->writeMessage(CharHelper::convertInt(t.getType()));
+		b->writeMessage(t.getType());
 		b->writeMessage(" \t Line: ");
 		b->writeMessage(CharHelper::convertInt(t.getRow()));
 		b->writeMessage(" \t Column: ");

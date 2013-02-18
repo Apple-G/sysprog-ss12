@@ -25,7 +25,7 @@ public:
 				R_BRACE,			// }			16
 				L_SQUAREBRACE,		// [			17
 				R_SQUAREBRACE,		// ]			18
-				UNEQUAL,			// <=>			19
+				UNEQUAL,			// <!>			19
 				PRINT,				// PRINT		20
 				READ,				// READ			21
 			};
@@ -72,7 +72,7 @@ public:
 	int getRow();
 	int getColumn();
 	//unsigned int getLength();
-	TokenType getType();
+	char* getType();
 
 };
 
