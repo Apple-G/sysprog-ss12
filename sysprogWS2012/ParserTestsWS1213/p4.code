@@ -1,0 +1,104 @@
+DS $number 1
+DS $n 1
+DS $i 1
+DS $div 1
+DS $mod 1
+REA
+LA $number
+STR
+LC 2
+LA $i
+STR
+LA $number
+LV
+LA $n
+STR
+#m0 NOP
+LA $i
+LV
+LA $n
+LV
+LA $i
+LV
+DIV
+LC 1
+ADD
+LES
+JIN #m1
+LA $n
+LV
+LA $i
+LV
+DIV
+LA $div
+STR
+LA $n
+LV
+LA $div
+LV
+LA $i
+LV
+MUL
+SUB
+LA $mod
+STR
+#m2 NOP
+LA $mod
+LV
+LC 0
+EQU
+JIN #m3
+LA $i
+LV
+PRI
+LA $n
+LV
+LA $i
+LV
+DIV
+LA $n
+STR
+LA $n
+LV
+LA $i
+LV
+DIV
+LA $div
+STR
+LA $n
+LV
+LA $div
+LV
+LA $i
+LV
+MUL
+SUB
+LA $mod
+STR
+NOP
+JMP #m2
+#m3 NOP
+LA $i
+LV
+LC 1
+ADD
+LA $i
+STR
+NOP
+JMP #m0
+#m1 NOP
+LC 1
+LA $n
+LV
+LES
+JIN #m4
+LA $n
+LV
+PRI
+NOP
+JMP #m5
+#m4 NOP
+#m5 NOP
+NOP
+STP
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
