@@ -184,14 +184,17 @@ void Automat::stepBack(unsigned int count) {
 //*******************************************************
 void Automat::extendTempToken() {
 
-	char* temp;
+	char* biggerToken = (char*) malloc((tempTokenLength+1) * sizeof(char));
 
-	temp = new char [tempTokenLength];
-
-	for (int i = 0; i < tempTokenLength; i++) {
-		temp[i] = tempToken[i];
+	int count = 0;
+	while (*tempToken != '\0')
+	{
+		biggerToken[count] = *tempToken;
+		tempToken++;
+		count++;
 	}
-	tempToken = temp;
+
+	tempToken = biggerToken;
 }
 //========================================================================
 
