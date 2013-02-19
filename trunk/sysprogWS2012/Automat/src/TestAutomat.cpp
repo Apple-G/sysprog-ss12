@@ -16,7 +16,7 @@ int main (int argc, char* argv[])
 	clock_t begin = clock();
 
 	Symboltable* symboltable = new Symboltable();
-	Buffer* buffer = new Buffer("TestFiles/bible2.txt");
+	Buffer* buffer = new Buffer("TestFiles/scanner4.txt");
 	Automat* automat = new Automat(buffer);
 
 	//Handler
@@ -102,8 +102,8 @@ int main (int argc, char* argv[])
 	// Measuring Time
 	// ======================================================================================================================================
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC*1000;
-	buffer->writeMessage("\n\nZeitmessung in Millisekunden: ");
-	buffer->writeMessage(CharHelper::convertInt(elapsed_secs));
+	buffer->writeError("\n\nZeitmessung in Millisekunden: ");
+	buffer->writeError(CharHelper::convertInt(elapsed_secs));
 
 	buffer->CloseAll();
 	delete buffer;

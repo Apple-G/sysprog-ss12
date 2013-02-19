@@ -11,8 +11,8 @@
 class FileHandlerRead {
 private:
 	char *filePath_;
-	int file_;
-	int currentFilePos_;
+	long file_;
+	long currentFilePos_;
 	bool eof_;
 
 	FileHandlerRead();
@@ -25,7 +25,7 @@ public:
 	void openFile();
 	void closeFile();
 	char* reading(int);
-	bool setFilePos(int);
+	bool setFilePos(long);
 	bool isEOF();
 };
 

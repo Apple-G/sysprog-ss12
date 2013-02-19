@@ -13,22 +13,22 @@
 class InputBuffer {
 private:
 	FileHandlerRead *file_;
-	unsigned int bufferSize_;
+	unsigned long bufferSize_;
 	unsigned int bufferNumber_;
 	char **buffer_;
 
 	unsigned int currentBuffer_;
-	unsigned int currentBufferPosition_;
+	unsigned long currentBufferPosition_;
 
-	int currentRow_;
-	int *lastLineLength_;
-	int lastLineLengthIndex_;
-	int currentColumn_;
+	long currentRow_;
+	long *lastLineLength_;
+	long lastLineLengthIndex_;
+	long currentColumn_;
 
 	bool isEOF_;
 	void setEOF();
 
-	int calculateBufferSize(int);
+	long calculateBufferSize(int);
 
 	void InitializeBuffer();
 	unsigned int changeActiveBuffer();
@@ -45,8 +45,8 @@ public:
 	char ungetChar();
 	char ungetChar(unsigned int);
 
-	int getCurrentColumn();
-	int getCurrentRow();
+	long getCurrentColumn();
+	long getCurrentRow();
 	bool isEOF();
 };
 
