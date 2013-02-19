@@ -14,8 +14,6 @@ SHAREDLIB = ../sharedlib
 
 OBJS = $(OBJDIR)/Automat.o \
 	$(OBJDIR)/TestAutomat.o
-	#$(OBJDIR)/xx1.o \
-	#$(OBJDIR)/xxn.o
 
 ## hier alle Object Files eintragen, die in der shared library enthalten sein sollen 
 OBJSFORAUTOMATLIB =  \

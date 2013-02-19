@@ -55,7 +55,7 @@ private:
 public:
 	Token nextToken();
 	Automat(Buffer*);
-	~Automat(void);
+	virtual ~Automat(void);
 };
 
 #endif /* Automat_H_ */

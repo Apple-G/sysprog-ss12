@@ -21,7 +21,7 @@ InputBuffer::InputBuffer(char* filePath, int multiPageSize) {
 	currentColumn_ = 0;
 	currentRow_ = 1;
 	lastLineLengthIndex_ = 50;
-	lastLineLength_ = new int[lastLineLengthIndex_];
+	lastLineLength_ = new long[lastLineLengthIndex_];
 }
 
 void InputBuffer::InitializeBuffer() {
@@ -30,7 +30,7 @@ void InputBuffer::InitializeBuffer() {
 		//		throw new InitializationException("Buffer Size has to be bigger 0");
 	} else {
 		buffer_ = new char*[bufferNumber_];
-		for (unsigned int i = 0; i < bufferNumber_; i++) {
+		for (unsigned long i = 0; i < bufferNumber_; i++) {
 			fillBuffer(i);
 		}
 	}
@@ -116,7 +116,7 @@ char InputBuffer::getNextChar() {
 			//lastRowLengt Array vergrößern
 			else {
 
-				int * tempArray = new int[lastLineLengthIndex_ * 2];
+				long * tempArray = new long[lastLineLengthIndex_ * 2];
 
 				for (int i = 0; i < lastLineLengthIndex_; i++) {
 					tempArray[i] = lastLineLength_[i];
@@ -172,7 +172,7 @@ char InputBuffer::ungetChar() {
 	}
 }
 
-int InputBuffer::getCurrentColumn() {
+long InputBuffer::getCurrentColumn() {
 
 	//ToDO: kp ob man die == 0 abfrage braucht, da \n immer das nullte zeichen ist
 	if (currentColumn_ == 0) {
@@ -181,7 +181,7 @@ int InputBuffer::getCurrentColumn() {
 	return currentColumn_;
 }
 
-int InputBuffer::getCurrentRow() {
+long InputBuffer::getCurrentRow() {
 	return currentRow_;
 }
 
@@ -189,7 +189,7 @@ void InputBuffer::closeBuffer() {
 	file_->closeFile();
 }
 
-int InputBuffer::calculateBufferSize(int multiPageSize) {
+long InputBuffer::calculateBufferSize(int multiPageSize) {
 	return getpagesize() * multiPageSize;
 }
 void InputBuffer::setEOF() {

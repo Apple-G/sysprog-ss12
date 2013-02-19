@@ -35,11 +35,11 @@ char Buffer::getNextChar() {
 	return input_->getNextChar();
 }
 
-int Buffer::getCurrentRow() {
+long Buffer::getCurrentRow() {
 	return input_->getCurrentRow();
 }
 
-int Buffer::getCurrentColumn() {
+long Buffer::getCurrentColumn() {
 	return input_->getCurrentColumn();
 }
 

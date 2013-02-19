@@ -70,13 +70,13 @@ public:
 	 * gibt die aktuelle Position des aktuellen Zeichens zurück
 	 * @return
 	 */
-	int getCurrentColumn();
+	long getCurrentColumn();
 
 	/*
 	 * gibt die aktuelle Zeile des aktuellen Zeichens zurück
 	 * @return
 	 */
-	int getCurrentRow();
+	long getCurrentRow();
 
 	/*
 	 * Ist True beim erreichen des Datei Endes

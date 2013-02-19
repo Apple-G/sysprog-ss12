@@ -14,7 +14,6 @@ SHAREDLIB = ../sharedlib
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
 
-
 OBJS = $(OBJDIR)/Scanner.o \
 	$(OBJDIR)/TestScanner.o
 
@@ -56,13 +55,13 @@ cleanScanner:
 
 # erst wichtig fuer den Parser Teil
 #
-#ScannerLib:$(OBJSFORSCANNERLIB)
-#		g++ -shared  -o $(SHAREDLIB)/libScanner.so $^ 
-#
+ScannerLib:$(OBJSFORSCANNERLIB)
+		g++ -shared  -o $(SHAREDLIB)/libScanner.so $^ 
+
 #	
-#$(LIBDIR)/%.o :  $(SRCDIR)/%.cpp 
-##	@mkdir -p `dirname $(OBJDIR)/$*.o`
-#	@echo "g++ $*.cpp"
-#	g++ -g  -c -fPIC  -o $@  $<
+$(LIBDIR)/%.o :  $(SRCDIR)/%.cpp 
+#	@mkdir -p `dirname $(OBJDIR)/$*.o`
+	@echo "g++ $*.cpp"
+	g++ -g  -c -fPIC  -o $@  $<
 
 	

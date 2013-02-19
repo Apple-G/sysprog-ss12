@@ -15,6 +15,13 @@ Automat::Automat(Buffer *myBuffer) {
 	this->myBuffer = myBuffer;
 	this->tempToken = new char[1];
 }
+
+Automat::~Automat(){
+	delete tempToken;
+}
+
+
+
 //========================================================================
 
 //*******************************************************

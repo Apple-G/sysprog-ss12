@@ -32,7 +32,7 @@ char *FileHandlerRead::reading(int charsToRead) {
 	//Bufferspeicher initialisieren
 	posix_memalign((void **) &buffer, charsToRead, charsToRead);
 
-	int numberOfChars = read(file_, buffer, charsToRead);
+	long numberOfChars = read(file_, buffer, charsToRead);
 	if (numberOfChars < 0) {
 		this->eof_ = true;
 		printf("Error[FileHandlerRead:reading]: Reading File Error");
@@ -47,7 +47,7 @@ char *FileHandlerRead::reading(int charsToRead) {
 	return buffer;
 }
 
-bool FileHandlerRead::setFilePos(int pos) {
+bool FileHandlerRead::setFilePos(long pos) {
 
 	currentFilePos_ = currentFilePos_ + pos;
 	if (currentFilePos_ < 0) {
