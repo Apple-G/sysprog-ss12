@@ -1,0 +1,35 @@
+/* Teil I    */
+/* 627485170 */
+
+
+
+int number;
+int n;
+int i;
+int div;
+int mod;
+
+read(number);
+
+i = 2;
+n = number;
+
+while (((n/i)+1) > i ){
+
+/* n % i */
+  div = n/i;
+  mod = n - (div * i);
+
+ while ( mod = 0){
+  print (i);
+  n = n / i;
+  div = n/i;
+  mod = n - (div * i);
+ };
+ i = i+1;
+};
+if (n > 1){
+  print (n);
+  }  
+else {};
+
