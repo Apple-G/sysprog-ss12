@@ -16,7 +16,7 @@ int main (int argc, char* argv[])
 	clock_t begin = clock();
 
 	Symboltable* symboltable = new Symboltable();
-	Buffer* buffer = new Buffer("TestFiles/newTest2.txt");
+	Buffer* buffer = new Buffer("TestFiles/bible2.txt");
 	Automat* automat = new Automat(buffer);
 
 	//Handler
