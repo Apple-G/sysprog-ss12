@@ -7,7 +7,7 @@ Buffer::Buffer() {
 Buffer::Buffer(char *fileInPath) {
 	//TODo: nicht schön, aber funktioniert
 	output_ = new OutputBuffer();
-	input_ = new InputBuffer(fileInPath, 1024);
+	input_ = new InputBuffer(fileInPath, 2);
 }
 
 Buffer::Buffer(char *fileInPath, unsigned int bufferSize) {

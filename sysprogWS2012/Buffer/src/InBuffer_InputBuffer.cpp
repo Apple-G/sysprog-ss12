@@ -6,8 +6,8 @@
  */
 #include "InBuffer_InputBuffer.h"
 
-InputBuffer::InputBuffer(char* filePath, int bufferSize) {
-	bufferSize_ = calculateBufferSize(bufferSize);
+InputBuffer::InputBuffer(char* filePath, int multiPageSize) {
+	bufferSize_ = calculateBufferSize(multiPageSize);
 	bufferNumber_ = 2;
 	currentBuffer_ = 0;
 	currentBufferPosition_ = -1;
@@ -132,8 +132,7 @@ char InputBuffer::getNextChar() {
 		} else {
 			currentColumn_++;
 		}
-		if (tempChar == '\000' )
-		{
+		if (tempChar == '\000') {
 			setEOF();
 		}
 
@@ -190,21 +189,10 @@ void InputBuffer::closeBuffer() {
 	file_->closeFile();
 }
 
-
-int InputBuffer::calculateBufferSize(int bufferSize) {
-	//vielfaches von PageSize
-	 int pagesize = getpagesize();
-	 int temp  = bufferSize > pagesize;
-	 int returnSize = temp*pagesize;
-	 if (bufferSize%pagesize != 0)
-	 {
-		 returnSize = returnSize+pagesize;
-	 }
-	 return returnSize;
-
+int InputBuffer::calculateBufferSize(int multiPageSize) {
+	return getpagesize() * multiPageSize;
 }
-void InputBuffer::setEOF()
-{
+void InputBuffer::setEOF() {
 	this->isEOF_ = true;
 }
 
