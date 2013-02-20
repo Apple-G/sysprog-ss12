@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeInteger_H_
+#define NodeInteger_H_
+
 #include "NodeLeaf.h"
 
 /**
@@ -35,3 +37,5 @@ public:
 		return this->information->getValue();
 	}
 };
+
+#endif /* NodeInteger_H_ */

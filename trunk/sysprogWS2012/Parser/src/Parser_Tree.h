@@ -1,5 +1,5 @@
 #pragma once
-#include "Nodes/NodeProg.h"
+#include "NodeProg.h"
 
 class Tree {
 	/** Zeiger auf den ersten Knoten des Baums. */

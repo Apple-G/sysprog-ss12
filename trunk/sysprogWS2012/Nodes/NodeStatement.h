@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeStatement_H_
+#define NodeStatement_H_
+
 #include "Node.h"
 
 /**
@@ -22,3 +24,5 @@ public:
 
 	virtual void dump() = 0;
 };
+
+#endif /* NodeStatement_H_ */

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeIndex_H_
+#define NodeIndex_H_
+
 #include "Node.h"
 
 /**
@@ -35,3 +37,6 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+
+#endif /* NodeIndex_H_ */

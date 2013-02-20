@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeStatementRead_H_
+#define NodeStatementRead_H_
+
 #include "NodeStatement.h"
 
 /**
@@ -62,3 +64,5 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+#endif /* NodeStatementRead_H_ */

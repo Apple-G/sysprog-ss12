@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeStatementBlock_H_
+#define NodeStatementBlock_H_
+
 #include "NodeStatement.h"
 
 /**
@@ -39,3 +41,5 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+#endif /* NodeStatementBlock_H_ */
