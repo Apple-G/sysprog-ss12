@@ -28,6 +28,10 @@ public:
 				UNEQUAL,			// <!>			19
 				PRINT,				// PRINT		20
 				READ,				// READ			21
+				INT,				// INT			22
+				IF,					// if			23
+				ELSE,				// else			24
+				WHILE,				// while		25
 			};
 
 private:

@@ -29,7 +29,13 @@ public:
 	virtual ~Scanner(void);
 	bool checkFile();
 
-	Token getNextToken();
+
+	//ToDo:
+	// - getNextToken von Automat
+	// - in symb eintragen
+	// - Toketype in Token aktualisieren(von symb)
+	// - Token zwischenspeichern für unget
+	Token* getNextToken();
 	void ungetToken();
 	bool isEndOfFile();
 };

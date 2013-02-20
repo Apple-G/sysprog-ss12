@@ -19,7 +19,6 @@ public:
 	@param type Typ/Art des Operators.
 	*/
 	NodeOp(Node::TYPES type) {
-		this->information = 0;
 		this->nodeType = type;
 	}
 
@@ -35,7 +34,7 @@ public:
 	}
 
 	virtual void dump() {
-		cout << typeid(this).name() << endl;
+		std::cout << typeid(this).name() << std::endl;
 	}
 };
 

@@ -34,7 +34,7 @@ public:
 	}
 
 	virtual void dump() {
-		cout << typeid(this).name() << endl;
+		std::cout << typeid(this).name() << std::endl;
 	}
 };
 
