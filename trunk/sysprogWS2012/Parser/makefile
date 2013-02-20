@@ -27,7 +27,7 @@ OBJSFORAUTOMATLIB =  \
 #		Targets zum Bauen des Tests
 #
 
-CFLAGS=-I../Symboltable/src -I../Buffer/src 
+CFLAGS=-I../Symboltable/src -I../Buffer/src -I../Scanner/src -I../Automat/src -I../Nodes
 LDFLAGS=-L../sharedlib -lScanner -lBuffer -lSymboltable
 
 makeTestParser: $(OBJS)
