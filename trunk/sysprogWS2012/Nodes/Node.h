@@ -5,6 +5,7 @@ extern class Visitor;
 /* Saemtliche abhaengige Sachen includen */
 //ToDo: Visitor
 //#include "../TypeCheck/Visitor.h"
+
 #include "NodeProg.h"
 #include "NodeDecls.h"
 #include "NodeDecl.h"

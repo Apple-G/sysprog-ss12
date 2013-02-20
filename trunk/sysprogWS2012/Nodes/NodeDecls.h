@@ -25,7 +25,7 @@ public:
 	}
 
 	virtual void accept(Visitor* visitor) {
-		visitor->visit(this);
+		//ToDo: visitor->visit(this);
 	}
 
 	virtual NodeDecl* getDeclaration() {

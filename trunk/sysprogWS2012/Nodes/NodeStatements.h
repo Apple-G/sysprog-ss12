@@ -30,7 +30,7 @@ public:
 		@param visitor Besucher, der zugreifen soll.
 	*/
 	void accept(Visitor* visitor) {
-		visitor->visit(this);
+		//ToDo: visitor->visit(this);
 	}
 
 	/* Node-spezifischer Code */

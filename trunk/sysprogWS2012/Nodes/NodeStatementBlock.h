@@ -24,7 +24,7 @@ public:
 
 	/** Laesst einen Visitor zugreifen. */
 	virtual void accept(Visitor* visitor) {
-		visitor->visit(this);
+		//ToDo: visitor->visit(this);
 	}
 
 	virtual NodeStatements* getStatements() {
