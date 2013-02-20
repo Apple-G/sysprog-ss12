@@ -17,6 +17,10 @@ int Symboltable::hashCode(char* lexem, int length) {
 void Symboltable::initSymbols() {
 	insert("read", Token::READ);
 	insert("print", Token::PRINT);
+	insert("if", Token::IF);
+	insert("else", Token::ELSE);
+	insert("while", Token::WHILE);
+	insert("int", Token::INT);
 }
 
 SymboltableEntry* Symboltable::insert(char* lexem, Token::TokenType tokenType) {

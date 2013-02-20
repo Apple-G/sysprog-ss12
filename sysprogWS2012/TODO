@@ -5,3 +5,20 @@ Automat:
 	-  identifier = neues Token generieren mit pointer aus symboltabelle und eigenem row und column (und informationscontainer?)
 buffer
 - stepback row column überprüfen
+
+
+
+
+
+
+
+
+
+
+
+
+##########################
+ - Visiter optional (lieber funktionalität in Nodes[Check/CodeGen])
+ - ERRORS in Parser (kp warum)[ist schon umgeschreiben]
+ - TestParser
+ - Parser constructor

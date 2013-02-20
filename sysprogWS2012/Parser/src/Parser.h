@@ -1,6 +1,9 @@
-#pragma once
+#ifndef Parser_H_
+#define Parser_H_
+
 #include "Scanner.h"
 #include "Parser_Tree.h"
+#include "Token.h"
 #//include "../Exceptions/InvalidTokenException.h"
 #//include "../Exceptions/EndOfFileException.h"
 //#include "../Exceptions/SyntaxErrorException.h"
@@ -53,16 +56,16 @@ class Parser
 	
 	/* Neue Eigenschaften f�r Verschr�nkung */
 	/** Wird f�r die semantische Code-Pr�fung eingesetzt. */
-	Visitor* typeChecker;
+//	Visitor* typeChecker;
 
 	/** Ist f�r die letztliche Code-Erzeugung zust�ndig. */
-	Visitor* codeGenerator;
+	//Visitor* codeGenerator;
 
 public:
 	/**
 		Standardkonstrukor, der den Scanner initialisiert
 	*/
-	Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, OutputBuffer *outFile);
+	//Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, OutputBuffer *outFile);
 
 	Parser(void);
 	
@@ -83,3 +86,4 @@ public:
 	Tree* getTree();
 };
 
+#endif

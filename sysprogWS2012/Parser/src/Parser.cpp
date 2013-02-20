@@ -3,7 +3,7 @@
 //#include "../TypeCheck/CodeGeneratorVisitor.h"
 //#include "../TypeCheck/TypeCheckVisitor.h"
 
-
+/*
 Parser::Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, OutputBuffer *outFile) {
 	this->scanner = new Scanner(inFile, scannerLog);
 	this->tree = new Tree();
@@ -13,14 +13,14 @@ Parser::Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, Output
 //	this->typeChecker = new TypeCheckVisitor(semanticLog);
 //	this->codeGenerator = new CodeGeneratorVisitor(outFile);
 }
-
+*/
 Parser::Parser(void) {
 }
 
 
 Parser::~Parser(void) {
-	delete this->typeChecker;
-	delete this->codeGenerator;
+	//delete this->typeChecker;
+//	delete this->codeGenerator;
 	delete this->tree;
 	delete this->scanner;
 }
@@ -53,9 +53,9 @@ NodeProg* Parser::prog() {
 	root->addChild(this->decls());
 	root->addChild(this->statements());
 
-	/* --> JETZT TYPPR�FUNG UND CODEGEN - VERSCHR�NKUNG */
-	root->accept(this->typeChecker);
-	root->accept(this->codeGenerator);
+	/* --> JETZT TYPPRÜFUNG UND CODEGEN - VERSCHRÄNKUNG */
+	//root->accept(this->typeChecker);
+	//root->accept(this->codeGenerator);
 
 	return root;
 }
@@ -75,7 +75,7 @@ NodeDecls* Parser::decls() {
 		declarations = new NodeDecls();
 		declarations->addChild(declaration);
 
-		/* --> JETZT TYPPR�FUNG UND CODEGEN - VERSCHR�NKUNG */
+		/* --> JETZT TYPPRÜFUNG UND CODEGEN - VERSCHRÄNKUNG */
 		declaration->accept(this->typeChecker);
 		declaration->accept(this->codeGenerator);
 
@@ -106,7 +106,7 @@ NodeDecl* Parser::decl() {
 
 	// int ARRAY identifer
 	// int
-	if (temp->getType() == Token::TokenType::INTEGER) {
+	if (temp->getType() == Token::TokenType::INT) {
 		// int Schlüsselwort ist abgebildet durch Knotentyp
 		//ARRAY
 		declaration = new NodeDecl();
@@ -115,14 +115,15 @@ NodeDecl* Parser::decl() {
 		//identifier
 		temp = this->readNextToken();
 		if (temp->getType() == Token::TokenType::IDENTIFIER) {
-			declaration->addChild(new NodeIdentifier(temp->getInformation(), temp->getLine(), temp->getColumn(), this->scanner->getSymbolTable()));
+			declaration->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem()));
 		}
 		else {
-			throw SyntaxErrorException("Identifier expected", temp->getLine(), temp->getColumn());
+			//ToDo: throw SyntaxErrorException("Identifier expected", temp->getRow(), temp->getColumn());
+			printf("Identifier expected", temp->getRow(), temp->getColumn());
 		}
 	}
 	else {
-		this->scanner->undo();
+		this->scanner->ungetToken();
 		return 0;
 	}
 
@@ -137,15 +138,15 @@ NodeArray* Parser::array_() {
 
 	Token *temp = this->readNextToken();
 	// [
-	if (temp->getType() == Token::TYPE_SQUARE_BRACKET_OPEN) {
+	if (temp->getType() == Token::TokenType::L_SQUAREBRACE) {
 		// INTEGER
 		temp = this->readNextToken();
-		if (temp->getType() == Token::TYPE_INTEGER) {
-			integer = new NodeInteger(temp->getInformation(), temp->getLine(), temp->getColumn());
+		if (temp->getType() == Token::TokenType::INTEGER) {
+			integer = new NodeInteger(temp->getNumber(), temp->getRow(), temp->getColumn());
 
 			// ]
 			temp = this->readNextToken();
-			if (temp->getType() == Token::TYPE_SQUARE_BRACKET_CLOSE) {
+			if (temp->getType() == Token::TokenType::R_SQUAREBRACE) {
 				array_ = new NodeArray();
 				array_->addChild(integer);
 
@@ -153,16 +154,18 @@ NodeArray* Parser::array_() {
 			}
 			else {
 				delete integer;
-				throw SyntaxErrorException("']' expected", temp->getLine(), temp->getColumn());
+				//ToDo: throw SyntaxErrorException("']' expected", temp->getRow(), temp->getColumn());
+				printf("']' expected", temp->getRow(), temp->getColumn());
 			}
 		}
 		else {
-			throw SyntaxErrorException("Integer expected", temp->getLine(), temp->getColumn());
+			//ToDo: throw SyntaxErrorException("Integer expected", temp->getRow(), temp->getColumn());
+			printf("Integer expected", temp->getRow(), temp->getColumn());
 		}
 	}
 	// Epsilon
 	else {
-		this->scanner->undo();
+		this->scanner->ungetToken();
 		return 0;
 	}
 }
@@ -182,19 +185,20 @@ NodeStatements* Parser::statements() {
 	NodeStatements* statements = new NodeStatements();
 	statements->addChild(statement);
 
-	/* --> JETZT TYPPR�FUNG UND CODEGEN - VERSCHR�NKUNG */
+	/* --> JETZT TYPPRÜFUNG UND CODEGEN - VERSCHRÄNKUNG */
 	// Nimmt man hier statements, werden viele NOPs erzeugt
 	statement->accept(this->typeChecker);
 	statement->accept(this->codeGenerator);
 
 	// ;
 	Token *temp = this->readNextToken();
-	if (temp->getType() == Token::TYPE_SEMICOLON) {
+	if (temp->getType() == Token::TokenType::SEMICOLON) {
 		// STATEMENTS
 		statements->addChild(this->statements());
 	}
 	else {
-		throw SyntaxErrorException("';' expected", temp->getLine(), temp->getColumn());
+		//ToDo: throw SyntaxErrorException("';' expected", temp->getRow(), temp->getColumn());
+		printf("';' expected", temp->getRow(), temp->getColumn());
 	}
 
 	return statements;
@@ -222,11 +226,11 @@ NodeStatement* Parser::statement() {
 
 	switch (temp->getType()) {
 		// identifier INDEX = EXP
-		case Token::TYPE_IDENTIFIER:
+		case Token::TokenType::IDENTIFIER:
 			assign = new NodeStatementAssign();
 
 			//identifier
-			identifier = new NodeIdentifier(temp->getInformation(), temp->getLine(), temp->getColumn(), this->scanner->getSymbolTable());
+			identifier = new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem());
 			assign->addChild(identifier);
 
 			//INDEX
@@ -234,94 +238,101 @@ NodeStatement* Parser::statement() {
 
 			// =
 			temp = this->readNextToken();
-			if (temp->getType() == Token::TYPE_ASSIGN) {
+			if (temp->getType() == Token::TokenType::EQUALS) {
 				// EXP
 				assign->addChild(this->exp());
 			}
 			else {
 				delete assign;
-				throw SyntaxErrorException(" '=' expected", temp->getLine(), temp->getColumn());
+				//ToDo: throw SyntaxErrorException(" '=' expected", temp->getRow(), temp->getColumn());
+				printf(" '=' expected", temp->getRow(), temp->getColumn());
 			}
 
 			newNode = assign;
 			break;
 
 		// print(EXP)
-		case Token::TYPE_PRINT:
+		case Token::TokenType::PRINT:
 			// (
 			temp = this->readNextToken();
-			if (temp->getType() == Token::TYPE_PARENTHESIS_OPEN) {
+			if (temp->getType() == Token::TokenType::L_PARENTHESIS) {
 				print = new NodeStatementPrint();
 
 				// EXP
 				print->addChild(this->exp());
 				// )
 				temp = this->readNextToken();
-				if (temp->getType() != Token::TYPE_PARENTHESIS_CLOSE) {
+				if (temp->getType() != Token::TokenType::R_PARENTHESIS) {
 					delete print;
-					throw SyntaxErrorException("')' expected", temp->getLine(), temp->getColumn());
+					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
+					printf("')' expected", temp->getRow(), temp->getColumn());
 				}
 			}
 			else {
-				throw SyntaxErrorException("'(' expected", temp->getLine(), temp->getColumn());
+				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
+				printf("'(' expected", temp->getRow(), temp->getColumn());
 			}
 
 			newNode = print;
 			break;
 
 		// read(IDENTIFIER INDEX)
-		case Token::TYPE_READ:
+		case Token::TokenType::READ:
 			// (
 			temp = this->readNextToken();
-			if (temp->getType() == Token::TYPE_PARENTHESIS_OPEN) {
+			if (temp->getType() == Token::TokenType::L_PARENTHESIS) {
 				read = new NodeStatementRead();
 
 				// IDENTIFIER
 				temp = this->readNextToken();
-				if (temp->getType() == Token::TYPE_IDENTIFIER) {
-					read->addChild(new NodeIdentifier(temp->getInformation(), temp->getLine(), temp->getColumn(), this->scanner->getSymbolTable()));
+				if (temp->getType() == Token::TokenType::IDENTIFIER) {
+					read->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem()));
 					// INDEX
 					read->addChild(this->index());
 
 					// )
 					temp = this->readNextToken();
-					if (temp->getType() != Token::TYPE_PARENTHESIS_CLOSE) {
+					if (temp->getType() != Token::TokenType::R_PARENTHESIS) {
 						delete read;
-						throw SyntaxErrorException("')' expected", temp->getLine(), temp->getColumn());
+						//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
+											printf("')' expected", temp->getRow(), temp->getColumn());
 					}
 					newNode = read;
 				}
 				else {
 					delete read;
-					throw SyntaxErrorException("Identifier expected", temp->getLine(), temp->getColumn());
+					//ToDo; throw SyntaxErrorException("Identifier expected", temp->getRow(), temp->getColumn());
+					printf("Identifier expected", temp->getRow(), temp->getColumn());
 				}
 			}
 			else {
-				throw SyntaxErrorException("'(' expected", temp->getLine(), temp->getColumn());
+				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
+				printf("'(' expected", temp->getRow(), temp->getColumn());
 			}
 			break;
 
 		// {STATEMENTS}
-		case Token::TYPE_CURLY_BRACKET_OPEN:
+		case Token::TokenType::L_BRACE:
 			block = new NodeStatementBlock();
 
 			// STATEMENTS
 			block->addChild(this->statements());
 			// }
 			temp = this->readNextToken();
-			if (temp->getType() != Token::TYPE_CURLY_BRACKET_CLOSE) {
+			if (temp->getType() != Token::TokenType::R_BRACE) {
 				delete block;
-				throw SyntaxErrorException("'}' expected", temp->getLine(), temp->getColumn());
+				//ToDo: throw SyntaxErrorException("'}' expected", temp->getRow(), temp->getColumn());
+				printf("'}' expected", temp->getRow(), temp->getColumn());
 			}
 
 			newNode = block;
 			break;
 
 		// IF (EXP) STATEMENT else STATEMENT
-		case Token::TYPE_IF:
+		case Token::TokenType::IF:
 			temp = this->readNextToken();
 			// (
-			if (temp->getType() == Token::TYPE_PARENTHESIS_OPEN) {
+			if (temp->getType() == Token::TokenType::L_PARENTHESIS) {
 				ifElse = new NodeStatementIfElse();
 
 				// EXP
@@ -329,38 +340,40 @@ NodeStatement* Parser::statement() {
 
 				// )
 				temp = this->readNextToken();
-				if (temp->getType() == Token::TYPE_PARENTHESIS_CLOSE) {
+				if (temp->getType() == Token::TokenType::R_PARENTHESIS) {
 					//STATEMENT
-					/* HIER KANN SPEICHERSCHROTT DURCH EXCEPTION ERZEUGT EINGEHANGEN WERDEN (z.B. fehlendes try/catch) */
 					ifElse->setIfStatement(this->statement());
 
 					//ELSE
 					temp = this->readNextToken();
-					if (temp->getType() == Token::TYPE_ELSE) {
+					if (temp->getType() == Token::TokenType::ELSE) {
 						//STATEMENT
 						ifElse->setElseStatement(this->statement());
 					}
 					else {
 						delete ifElse;
-						throw SyntaxErrorException("else expected", temp->getLine(), temp->getColumn());
+						//ToDo: throw SyntaxErrorException("else expected", temp->getRow(), temp->getColumn());
+						printf("else expected", temp->getRow(), temp->getColumn());
 					}
 					newNode = ifElse;
 				}
 				else {
 					delete ifElse;
-					throw SyntaxErrorException("')' expected", temp->getLine(), temp->getColumn());
+					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
+					printf("')' expected", temp->getRow(), temp->getColumn());
 				}
 			}
 			else {
-				throw SyntaxErrorException("'(' expected", temp->getLine(), temp->getColumn());
+				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
+				printf("'(' expected", temp->getRow(), temp->getColumn());
 			}
 			break;
 
 		// while(EXP) STATEMENT
-		case Token::TYPE_WHILE:
+		case Token::TokenType::WHILE:
 			// (
 			temp = this->readNextToken();
-			if (temp->getType() == Token::TYPE_PARENTHESIS_OPEN) {
+			if (temp->getType() == Token::TokenType::L_PARENTHESIS) {
 				whileStatement = new NodeStatementWhile();
 
 				// EXP
@@ -368,34 +381,39 @@ NodeStatement* Parser::statement() {
 
 				// )
 				temp = this->readNextToken();
-				if (temp->getType() == Token::TYPE_PARENTHESIS_CLOSE) {
+				if (temp->getType() == Token::TokenType::R_PARENTHESIS) {
 					//STATEMENT
 					whileStatement->addChild(this->statement());
 				}
 				else {
 					delete whileStatement;
-					throw SyntaxErrorException("')' expected", temp->getLine(), temp->getColumn());
+					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
+					printf("')' expected", temp->getRow(), temp->getColumn());
 				}
 
 				newNode = whileStatement;
 			}
 			else {
-				throw SyntaxErrorException("'(' expected", temp->getLine(), temp->getColumn());
+				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
+				printf("'(' expected", temp->getRow(), temp->getColumn());
 			}
 			break;
 
 		// Leere Statements sind nicht erlaubt!
-		case Token::TYPE_SEMICOLON:
-			throw SyntaxErrorException("Empty Statement is not accepted!", temp->getLine(), temp->getColumn());
+		case Token::TokenType::SEMICOLON:
+			//ToDo: throw SyntaxErrorException("Empty Statement is not accepted!", temp->getRow(), temp->getColumn());
+			printf("Empty Statement is not accepted!", temp->getRow(), temp->getColumn());
+			break;
 
 		// Statement in einem Declarations-Block
-		case Token::TYPE_INT:
-			throw SyntaxErrorException("Statement expected", temp->getLine(), temp->getColumn());
+		case Token::TokenType::INT:
+			//ToDo: throw SyntaxErrorException("Statement expected", temp->getRow(), temp->getColumn());
+			printf("Statement expected", temp->getRow(), temp->getColumn());
 			break;
 
 		// Nichts hat gepasst
 		default:
-			this->scanner->undo();
+			this->scanner->ungetToken();
 			return 0;
 	} // end switch
 
@@ -415,8 +433,8 @@ NodeExp* Parser::exp() {
 }
 
 NodeExp2* Parser::exp2() {
-	NodeExp2Exp* expression;
-	NodeExp2IdentifierIndex* indexNode;
+	NodeExp2Exp* expression;TokenType
+	NodeExp2IdentifierIndex* indexNode;TokenType
 	NodeExp2Integer* integerNode;
 	NodeExp2NegativeExp* negativeExpNode;
 	NodeExp2NotExp* notExpNode;
@@ -425,49 +443,51 @@ NodeExp2* Parser::exp2() {
 
 	switch (temp->getType()) {
 		// (EXP)
-		case Token::TYPE_PARENTHESIS_OPEN:
+		case Token::TokenType::L_PARENTHESIS:
 			// EXP
 			expression = new NodeExp2Exp();
 			expression->addChild(this->exp());
 
 			// )
 			temp = this->readNextToken();
-			if (temp->getType() != Token::TYPE_PARENTHESIS_CLOSE) {
-				throw SyntaxErrorException("')' expected", temp->getLine(), temp->getColumn());
+			if (temp->getType() != Token::TokenType::R_PARENTHESIS) {
+				//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
+									printf("')' expected", temp->getRow(), temp->getColumn());
 			}
 			return expression;
 
 		// IDENTIFIER INDEX
-		case Token::TYPE_IDENTIFIER:
+		case Token::TokenType::IDENTIFIER:
 			indexNode = new NodeExp2IdentifierIndex();
-			indexNode->addChild(new NodeIdentifier(temp->getInformation(), temp->getLine(), temp->getColumn(), this->scanner->getSymbolTable()));
+			indexNode->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem()));
 
 			// INDEX
 			indexNode->addChild(this->index());
 			return indexNode;
 
 		// INTEGER
-		case Token::TYPE_INTEGER:
+		case Token::TokenType::INTEGER:
 			integerNode = new NodeExp2Integer();
-			integerNode->addChild(new NodeInteger(temp->getInformation(), temp->getLine(), temp->getColumn()));
+			integerNode->addChild(new NodeInteger(temp->getNumber(), temp->getRow(), temp->getColumn()));
 			return integerNode;
 
 		// - EXP
-		case Token::TYPE_MINUS:
+		case Token::TokenType::MINUS:
 			// EXP
 			negativeExpNode = new NodeExp2NegativeExp();
 			negativeExpNode->addChild(this->exp());
 			return negativeExpNode;
 
 		// ! EXP
-		case Token::TYPE_EXCLAMATION:
+		case Token::TokenType::EXCLAMATIONMARK:
 			// EXP2
 			notExpNode = new NodeExp2NotExp();
 			notExpNode->addChild(this->exp2());
 			return notExpNode;
 
 		default:
-			throw SyntaxErrorException("Illegal expression.", temp->getLine(), temp->getColumn()); ;
+			//ToDo: throw SyntaxErrorException("Illegal expression.", temp->getRow(), temp->getColumn());
+			printf("Illegal expression.", temp->getRow(), temp->getColumn());
 	}
 
 	return 0;
@@ -479,24 +499,25 @@ NodeIndex* Parser::index() {
 	NodeIndex *index;
 	Token *temp = this->readNextToken();
 
-	if (temp->getType() == Token::TYPE_SQUARE_BRACKET_OPEN) {
+	if (temp->getType() == Token::TokenType::L_SQUAREBRACE) {
 		// EXP
 		index = new NodeIndex();
 		index->addChild(this->exp());
 
 		// ]
 		temp = this->readNextToken();
-		if (temp->getType() == Token::TYPE_SQUARE_BRACKET_CLOSE) {
+		if (temp->getType() == Token::TokenType::R_SQUAREBRACE) {
 			return index;
 		}
 		else {
 			delete index;
-			throw SyntaxErrorException("']' expected", temp->getLine(), temp->getColumn());
+			//ToDo: throw SyntaxErrorException("']' expected", temp->getRow(), temp->getColumn());
+			printf("']' expected", temp->getRow(), temp->getColumn());
 		}
 	}
 	else {
 		// Epsilon
-		this->scanner->undo();
+		this->scanner->ungetToken();
 		return 0;
 	}
 
@@ -525,62 +546,60 @@ NodeOp* Parser::op() {
 	Token *temp = this->readNextToken();
 	Node::TYPES opNodeType = Node::TYPE_NONE;
 
-	//ToDo: op
 
+	switch (temp->getType()) {
 
-//	switch (temp->getType()) {
-//
-//		// +
-//		case Token::TYPE_PLUS:
-//			opNodeType = Node::TYPE_OP_PLUS;
-//		break;
-//
-//		// -
-//		case Token::TYPE_MINUS:
-//			opNodeType = Node::TYPE_OP_MINUS;
-//		break;
-//
-//		// *
-//		case Token::TYPE_MULTIPLY:
-//			opNodeType = Node::TYPE_OP_MULTIPLY;
-//		break;
-//
-//		// /
-//		case Token::TYPE_DIVIDE:
-//			opNodeType = Node::TYPE_OP_DIVIDE;
-//		break;
-//
-//		// <
-//		case Token::TYPE_SMALLER:
-//			opNodeType = Node::TYPE_OP_SMALLER;
-//		break;
-//
-//		// >
-//		case Token::TYPE_GREATER:
-//			opNodeType = Node::TYPE_OP_GREATER;
-//		break;
-//
-//		// =
-//		case Token::TYPE_ASSIGN:
-//			opNodeType = Node::TYPE_OP_EQUAL;
-//		break;
-//
-//		// <=>
-//		case Token::TYPE_EQUIVALENCE:
-//			opNodeType = Node::TYPE_OP_UNEQUAL;
-//		break;
-//
-//		// &
-//		case Token::TYPE_AMPERSAND:
-//			opNodeType = Node::TYPE_OP_AND;
-//		break;
-//
-//		default:
-//			// OP_EXP: Epsilon
-//			this->scanner->undo();
-//			return 0;
-//		break;
-//	}
+		// +
+		case Token::PLUS:
+			opNodeType = Node::TYPE_OP_PLUS;
+		break;
+
+		// -
+		case Token::TokenType::MINUS:
+			opNodeType = Node::TYPE_OP_MINUS;
+		break;
+
+		// *
+		case Token::TokenType::ASTERISK:
+			opNodeType = Node::TYPE_OP_MULTIPLY;
+		break;
+
+		// /
+		case Token::TokenType::SLASH:
+			opNodeType = Node::TYPE_OP_DIVIDE;
+		break;
+
+		// <
+		case Token::TokenType::L_BRACKET:
+			opNodeType = Node::TYPE_OP_SMALLER;
+		break;
+
+		// >
+		case Token::TokenType::R_BRACKET:
+			opNodeType = Node::TYPE_OP_GREATER;
+		break;
+
+		// =
+		case Token::TokenType::EQUALS:
+			opNodeType = Node::TYPE_OP_EQUAL;
+		break;
+
+		// <!>
+		case Token::TokenType::UNEQUAL:
+			opNodeType = Node::TYPE_OP_UNEQUAL;
+		break;
+
+		// &
+		case Token::TokenType::AMPERSAND:
+			opNodeType = Node::TYPE_OP_AND;
+		break;
+
+		default:
+			// OP_EXP: Epsilon
+			this->scanner->ungetToken();
+			return 0;
+		break;
+	}
 
 	return new NodeOp(opNodeType);
 }

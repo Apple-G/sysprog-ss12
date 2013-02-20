@@ -105,3 +105,19 @@ bool Scanner::checkFile() {
 	buffer->CloseAll();
 	return true;
 }
+
+Token* Scanner::getNextToken() {
+	//ToDo:
+	Token* t = new Token();
+	return t;
+}
+
+void Scanner::ungetToken() {
+	//ToDo:
+}
+
+bool Scanner::isEndOfFile() {
+	//ToDo:
+	return false;
+}
+

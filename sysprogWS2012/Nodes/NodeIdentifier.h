@@ -1,8 +1,6 @@
-#ifndef NodeIdentifier_H_
-#define NodeIdentifier_H_
-
+#pragma once
 #include "NodeLeaf.h"
-#include "../SymbolTable/SymbolTable.h"
+#include "SymboltableEntry.h"
 
 /**
    Abbildung des Knotens IDENTIFIER der Sprache der Aufgabenstellung.
@@ -11,19 +9,17 @@
 */
 class NodeIdentifier : public NodeLeaf {
 	/** Zugehoeriger Symboltabelleneintrag des Identifiers. */
-	SymbolTable *symtabEntry;
+	SymboltableEntry *symtabEntry;
 
 public:
-	/** Erzeugt einen neuen Knoten, der mit einem Identifier verkn�pft ist..
-	@param information Informationen �ber den Identifier.
+	/** Erzeugt einen neuen Knoten, der mit einem Identifier verknüpft ist..
 	@param line Zeile, in der der Identifier im Code steht.
 	@param column Spalte, in der der Identifier im Code steht.
-	@param symtabEntry Zum Identifier geh�render Symboltabelleneintrag f�r schnellen Zugriff.
+	@param symtabEntry Zum Identifier geh�render Symboltabelleneintrag für schnellen Zugriff.
 	*/
-	NodeIdentifier(Information *information, int line, int column, SymbolTable *symtabEntry) {
+	NodeIdentifier(int line, int column, SymboltableEntry *symtabEntry) {
 		this->line = line;
 		this->column = column;
-		this->information = information;
 		this->symtabEntry = symtabEntry;
 	}
 
@@ -35,7 +31,7 @@ public:
 	}
 
 	virtual void dump() {
-		cout << typeid(this).name() << endl;
+		std::cout << typeid(this).name() << std::endl;
 	}
 
 	/** Stellt den Datentyp des Identifiers ein.
