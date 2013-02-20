@@ -28,6 +28,10 @@ public:
 	Scanner(char*, char*);
 	virtual ~Scanner(void);
 	bool checkFile();
+
+	Token getNextToken();
+	void ungetToken();
+	bool isEndOfFile();
 };
 
 #endif /* SCANNER_H_ */

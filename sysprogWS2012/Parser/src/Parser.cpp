@@ -27,25 +27,21 @@ Parser::~Parser(void) {
 
 
 Token* Parser::readNextToken() {
-	try {
-		if (!this->scanner->isEndOfFile()) {
-			return this->scanner->getNextToken();
-		}
-		else {
-			return 0;
-		}
-	}
-	catch (EndOfFileException &e) {
+	if (!this->scanner->isEndOfFile()) {
+		return this->scanner->getNextToken();
+	} else {
 		return 0;
-	};
+	}
 }
+
 
 Tree* Parser::parse() {
 	this->tree->setRoot(this->prog());
 
-	if (!this->typeChecker->completedWithoutErrors()) {
-		fprintf(stderr, "Semantic check returned errors, code cannot be generated!\nPlease check 'errorSemantics.log'.\n");
-	}
+	//ToDo: TypeCheck
+//	if (!this->typeChecker->completedWithoutErrors()) {
+//		fprintf(stderr, "Semantic check returned errors, code cannot be generated!\nPlease check 'errorSemantics.log'.\n");
+//	}
 
 	return this->tree;
 }
@@ -85,12 +81,15 @@ NodeDecls* Parser::decls() {
 
 		// ;
 		Token *temp = this->readNextToken();
-		if (temp->getType() == Token::TYPE_SEMICOLON) {
+		if (temp->getType() == Token::TokenType::SEMICOLON) {
 			// DECLS
 			declarations->addChild(this->decls());
 		} 
 		else {
-			throw SyntaxErrorException("';' expected", temp->getLine(), temp->getColumn());
+		//	throw SyntaxErrorException("';' expected", temp->getRow(), temp->getColumn());
+			//ToDo:
+			printf("';' expected", temp->getRow(), temp->getColumn());
+			throw exception();
 		}
 	}
 	return declarations;
@@ -107,15 +106,15 @@ NodeDecl* Parser::decl() {
 
 	// int ARRAY identifer
 	// int
-	if (temp->getType() == Token::TYPE_INT) {
-		// int Schl�sselwort ist abgebildet durch Knotentyp
+	if (temp->getType() == Token::TokenType::INTEGER) {
+		// int Schlüsselwort ist abgebildet durch Knotentyp
 		//ARRAY
 		declaration = new NodeDecl();
 		declaration->addChild(this->array_());
 
 		//identifier
 		temp = this->readNextToken();
-		if (temp->getType() == Token::TYPE_IDENTIFIER) {
+		if (temp->getType() == Token::TokenType::IDENTIFIER) {
 			declaration->addChild(new NodeIdentifier(temp->getInformation(), temp->getLine(), temp->getColumn(), this->scanner->getSymbolTable()));
 		}
 		else {
