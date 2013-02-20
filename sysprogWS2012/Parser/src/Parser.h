@@ -1,21 +1,19 @@
 #pragma once
-#include "../Scanner/Scanner.h"
-#include "ParseTree\Tree.h"
-#include "../Exceptions/InvalidTokenException.h"
-#include "../Exceptions/EndOfFileException.h"
-#include "../Exceptions/SyntaxErrorException.h"
-#include "../Exceptions/LookAheadException.h"
+#include "Scanner.h"
+#include "Parser_Tree.h"
+#//include "../Exceptions/InvalidTokenException.h"
+#//include "../Exceptions/EndOfFileException.h"
+//#include "../Exceptions/SyntaxErrorException.h"
+//#include "../Exceptions/LookAheadException.h"
 
-
-using namespace std;
 
 /**
-	Überprüft die Syntax des Programmcodes und erstellt den Strukturbaum.
+	ï¿½berprï¿½ft die Syntax des Programmcodes und erstellt den Strukturbaum.
 */
 class Parser
 {
 	/** 
-		Scanner Objekt, benötigt um die Tokens auszulesen und auszuwerten
+		Scanner Objekt, benÃ¶tigt um die Tokens auszulesen und auszuwerten
 	*/
 	Scanner *scanner;
 
@@ -30,13 +28,13 @@ class Parser
 	Token myToken;
 	
 	/**
-		Weist den Scanner an, dass nächste Token zu lesen
+		Weist den Scanner an, dass nÃ¤chste Token zu lesen
 		@return: Pointer (Type: Token)
 	*/
 	Token *readNextToken();
 
 	/**
-		Es folgen die Funktionen für jedes Nicht-Terminalsymbol mit deren Hilfe
+		Es folgen die Funktionen fÃ¼r jedes Nicht-Terminalsymbol mit deren Hilfe
 		der rekursive Abstieg vollzogen werden kann.
 		@return: Pointer (Type: Node)
 		@throws: SyntaxErrorException
@@ -53,11 +51,11 @@ class Parser
 	NodeOpExp* op_exp();
 	NodeOp* op();
 	
-	/* Neue Eigenschaften für Verschränkung */
-	/** Wird für die semantische Code-Prüfung eingesetzt. */
+	/* Neue Eigenschaften fï¿½r Verschrï¿½nkung */
+	/** Wird fï¿½r die semantische Code-Prï¿½fung eingesetzt. */
 	Visitor* typeChecker;
 
-	/** Ist für die letztliche Code-Erzeugung zuständig. */
+	/** Ist fï¿½r die letztliche Code-Erzeugung zustï¿½ndig. */
 	Visitor* codeGenerator;
 
 public:
@@ -69,7 +67,7 @@ public:
 	Parser(void);
 	
 	/**
-		Erstellt einen Strukturbaum und prüft auf die Syntax
+		Erstellt einen Strukturbaum und prï¿½ft auf die Syntax
 		@return: Pointer (Type: Tree)
 	*/
 	Tree* parse();

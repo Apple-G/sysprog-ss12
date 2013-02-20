@@ -35,14 +35,8 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.1520271500" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.468861253" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base">
-								<option id="gnu.cpp.link.option.paths.2035157542" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SysProgTemplate/sharedlib}&quot;"/>
-								</option>
-								<option id="gnu.cpp.link.option.libs.1927782315" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SysProgTemplate/sharedlib/libAutomat.so}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SysProgTemplate/sharedlib/libBuffer.so}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SysProgTemplate/sharedlib/libSymboltable.so}&quot;"/>
-								</option>
+								<option id="gnu.cpp.link.option.paths.2035157542" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
+								<option id="gnu.cpp.link.option.libs.1927782315" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.2562371" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
