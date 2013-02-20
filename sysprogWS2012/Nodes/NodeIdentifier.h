@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeIdentifier_H_
+#define NodeIdentifier_H_
+
 #include "NodeLeaf.h"
 #include "../SymbolTable/SymbolTable.h"
 
@@ -54,3 +56,5 @@ public:
 		return symtabEntry->getLexem(this->information);
 	}
 };
+
+#endif /* NodeIdentifier_H_ */

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeOp_H_
+#define NodeOp_H_
+
 #include "NodeLeaf.h"
 
 /**
@@ -36,3 +38,5 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+#endif /* NodeOp_H_ */

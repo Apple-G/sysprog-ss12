@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeStatementAssign_H_
+#define NodeStatementAssign_H_
+
 #include "NodeStatement.h"
 
 /**
@@ -61,3 +63,5 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+#endif /* NodeStatementAssign_H_ */

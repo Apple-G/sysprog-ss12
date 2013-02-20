@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeStatementIfElse_H_
+#define NodeStatementIfElse_H_
+
 #include "NodeStatement.h"
 
 /**
@@ -61,3 +63,5 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+#endif /* NodeStatementIfElse_H_ */

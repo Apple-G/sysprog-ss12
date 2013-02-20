@@ -1,4 +1,6 @@
-#pragma once
+#ifndef Nodestatements_H_
+#define Nodestatements_H_
+
 #include "Node.h"
 
 /**
@@ -63,3 +65,5 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+#endif /* Nodestatements_H_ */

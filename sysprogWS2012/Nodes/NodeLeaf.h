@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeLeaf_H_
+#define NodeLeaf_H_
+
 #include "Node.h"
 #include "../SymbolTable/Information.h"
 
@@ -50,3 +52,5 @@ public:
 		cout << endl;
 	}
 };
+
+#endif /* NodeLeaf_H_ */
