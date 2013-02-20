@@ -7,6 +7,8 @@ AUTOMATDIR = Automat
 
 BUFFERDIR = Buffer
 
+PARSERDIR = Parser
+
 SYMBOLTABLEDIR = Symboltable
 
 SCANNERDIR = Scanner
@@ -14,7 +16,7 @@ SCANNERDIR = Scanner
 SHAREDLIB = sharedlib
 
 
-all:	symboltableLib bufferLib automatLib scannerLib scanner parser testBuffer testAutomat testSymboltable
+all:	symboltableLib bufferLib automatLib scannerLib testScanner testParser testBuffer testAutomat testSymboltable
 	@echo "target all"
 
 	
@@ -31,9 +33,10 @@ clean:
 	
 	
 
-scanner: 
-	$(MAKE) -C $(SCANNERDIR) makeTestScanner
 #libs
+
+parserLib:
+	$(MAKE) -C $(PARSERDIR) ParserLib
 
 automatLib:
 	$(MAKE) -C $(AUTOMATDIR) AutomatLib
@@ -48,6 +51,14 @@ scannerLib:
 symboltableLib:
 	$(MAKE) -C $(SYMBOLTABLEDIR) SymboltableLib
 #Testcase
+
+testScanner: 
+	$(MAKE) -C $(SCANNERDIR) makeTestScanner
+
+testParser:
+	$(MAKE) -C $(PARSERDIR) makeTestParser
+
+
 testBuffer:
 	$(MAKE) -C $(BUFFERDIR) makeTestBuffer
 	
@@ -56,10 +67,4 @@ testAutomat:
 	
 testSymboltable:
 	$(MAKE) -C $(SYMBOLTABLEDIR) makeTestSymboltable
-	
-
-
-# scannerLib wird erst fuer den Parser Teil benoetigt	
-#scannerLib:
-#	$(MAKE) -C $(SCANNERDIR) ScannerLib
 	

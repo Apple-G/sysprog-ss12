@@ -7,12 +7,10 @@ BINDIR = debug
 
 LIBDIR = lib
 
-
 SHAREDLIB = ../sharedlib
 
 ## hier alle Object Files eintragen
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
-
 
 OBJS = $(OBJDIR)/Scanner.o \
 	$(OBJDIR)/TestScanner.o
@@ -24,17 +22,15 @@ OBJSFORSCANNERLIB =  \
 	$(LIBDIR)/Scanner.o
 	
 
-CFLAGS=-I../Symboltable/src -I../Buffer/src -I../Automat/src
+CFLAGS=-I../Automat/src -I../Symboltable/src  -I../Buffer/src 
 LDFLAGS=-L../sharedlib -lAutomat -lBuffer -lSymboltable
 
 
 makeTestScanner: $(OBJS)
 	g++ -g $^ $(LDFLAGS) -o $(BINDIR)/Scanner
-	
-	
+		
 	
 # $^ liste der abhaengigkeiten
-
 
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp 
 	@echo "g++ $*.cpp"
@@ -49,19 +45,20 @@ $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp
 
 cleanScanner:
 	rm -rf $(OBJDIR)/*
-	
+	rm -rf $(LIBDIR)/*
+		
 	
 ## erstellen der shared library
 
 # erst wichtig fuer den Parser Teil
 #
 ScannerLib:$(OBJSFORSCANNERLIB)
-		g++ -shared  -o $(SHAREDLIB)/libScanner.so $^ 
+		g++ -shared $(LDFLAGS) -o $(SHAREDLIB)/libScanner.so $^ 
 
 #	
 $(LIBDIR)/%.o :  $(SRCDIR)/%.cpp 
 #	@mkdir -p `dirname $(OBJDIR)/$*.o`
 	@echo "g++ $*.cpp"
-	g++ -g  -c -fPIC  -o $@  $<
+	g++ $(CFLAGS) -g  -c -fPIC  -o $@  $<
 
 	
