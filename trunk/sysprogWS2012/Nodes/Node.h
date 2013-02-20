@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NODE_H_
+#define NODE_H_
 
 extern class Visitor;
 
@@ -87,4 +88,4 @@ public:
 	virtual void dump() = 0;
 };
 
-
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeExp2IdentifierIndex_H_
+#define NodeExp2IdentifierIndex_H_
+
 #include "NodeExp2.h"
 
 /**
@@ -47,3 +49,5 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+#endif

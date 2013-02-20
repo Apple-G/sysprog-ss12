@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeDecls_H_
+#define NodeDecls_H_
+
 #include "Node.h"
 
 /**
@@ -48,3 +50,5 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+#endif

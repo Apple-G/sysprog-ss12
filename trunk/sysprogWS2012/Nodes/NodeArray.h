@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NODEARRAY_H_
+#define NODEARRAY_H_
+
 #include "Node.h"
 
 /**
@@ -35,3 +37,5 @@ public:
 		cout << typeid(this).name() << endl;
 	}
 };
+
+#endif

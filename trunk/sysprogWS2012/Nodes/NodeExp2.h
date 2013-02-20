@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NodeExp2_H_
+#define NodeExp2_H_
+
 #include "Node.h"
 
 /**
@@ -21,3 +23,5 @@ public:
 
 	virtual void dump() = 0;
 };
+
+#endif
