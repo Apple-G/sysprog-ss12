@@ -14,7 +14,7 @@ SCANNERDIR = Scanner
 SHAREDLIB = sharedlib
 
 
-all:	symboltableLib bufferLib automatLib scanner testBuffer testAutomat testSymboltable
+all:	symboltableLib bufferLib automatLib scannerLib scanner parser testBuffer testAutomat testSymboltable
 	@echo "target all"
 
 	
@@ -33,12 +33,17 @@ clean:
 
 scanner: 
 	$(MAKE) -C $(SCANNERDIR) makeTestScanner
+#libs
 
 automatLib:
 	$(MAKE) -C $(AUTOMATDIR) AutomatLib
 	
 bufferLib:
 	$(MAKE) -C $(BUFFERDIR) BufferLib
+
+scannerLib: 
+	$(MAKE) -C $(SCANNERDIR) ScannerLib
+
 	
 symboltableLib:
 	$(MAKE) -C $(SYMBOLTABLEDIR) SymboltableLib
