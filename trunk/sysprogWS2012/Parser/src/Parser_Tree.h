@@ -1,8 +1,5 @@
 #pragma once
-#include "../../Nodes/NodeProg.h"
-#include "../../Buffer/OutputBuffer.h"
-
-using namespace std;
+#include "Nodes/NodeProg.h"
 
 class Tree {
 	/** Zeiger auf den ersten Knoten des Baums. */

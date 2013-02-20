@@ -1,6 +1,6 @@
-#include "Tree.h"
-#include "../../TypeCheck/TypeCheckVisitor.h"
-#include "../../TypeCheck/CodeGeneratorVisitor.h"
+#include "Parser_Tree.h"
+//#include "../../TypeCheck/TypeCheckVisitor.h"
+//#include "../../TypeCheck/CodeGeneratorVisitor.h"
 
 Tree::Tree(void) {
 	this->root = 0;
@@ -24,16 +24,21 @@ NodeProg* Tree::getRoot() {
 }
 
 void Tree::makeCode(OutputBuffer *output) {
-	CodeGeneratorVisitor c(output);
-	root->accept(&c);
+	//ToDo:makeCode
+	//CodeGeneratorVisitor c(output);
+	//root->accept(&c);
 }
 
 bool Tree::typeCheck(OutputBuffer *output) {
+
 	// Typecheck visitor
-	TypeCheckVisitor t(output);
-	root->accept(&t);
+	//ToDo: typeCheck
+	//TypeCheckVisitor t(output);
+	//root->accept(&t);
 
-	bool success = t.completedWithoutErrors();
+	//bool success = t.completedWithoutErrors();
 
-	return success;
+	//return success;
+
+	return true;
 }

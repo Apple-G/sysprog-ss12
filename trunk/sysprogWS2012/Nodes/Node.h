@@ -2,6 +2,37 @@
 
 extern class Visitor;
 
+/* Saemtliche abhaengige Sachen includen */
+//ToDo: Visitor
+//#include "../TypeCheck/Visitor.h"
+#include "NodeProg.h"
+#include "NodeDecls.h"
+#include "NodeDecl.h"
+#include "NodeArray.h"
+#include "NodeStatements.h"
+#include "NodeStatement.h"
+#include "NodeStatementAssign.h"
+#include "NodeStatementBlock.h"
+#include "NodeStatementIfElse.h"
+#include "NodeStatementPrint.h"
+#include "NodeStatementRead.h"
+#include "NodeStatementWhile.h"
+
+#include "NodeExp.h"
+#include "NodeExp2.h"
+#include "NodeExp2Exp.h"
+#include "NodeExp2IdentifierIndex.h"
+#include "NodeExp2Integer.h"
+#include "NodeExp2NegativeExp.h"
+#include "NodeExp2NotExp.h"
+
+#include "NodeIndex.h"
+#include "NodeOpExp.h"
+#include "NodeLeaf.h"
+#include "NodeOp.h"
+#include "NodeIdentifier.h"
+#include "NodeInteger.h"
+
 #include <iostream>
 using namespace std;
 
@@ -55,32 +86,4 @@ public:
 	virtual void dump() = 0;
 };
 
-/* Saemtliche abhaengige Sachen includen */
-#include "../TypeCheck/Visitor.h"
-#include "NodeProg.h"
-#include "NodeDecls.h"
-#include "NodeDecl.h"
-#include "NodeArray.h"
-#include "NodeStatements.h"
-#include "NodeStatement.h"
-#include "NodeStatementAssign.h"
-#include "NodeStatementBlock.h"
-#include "NodeStatementIfElse.h"
-#include "NodeStatementPrint.h"
-#include "NodeStatementRead.h"
-#include "NodeStatementWhile.h"
 
-#include "NodeExp.h"
-#include "NodeExp2.h"
-#include "NodeExp2Exp.h"
-#include "NodeExp2IdentifierIndex.h"
-#include "NodeExp2Integer.h"
-#include "NodeExp2NegativeExp.h"
-#include "NodeExp2NotExp.h"
-
-#include "NodeIndex.h"
-#include "NodeOpExp.h"
-#include "NodeLeaf.h"
-#include "NodeOp.h"
-#include "NodeIdentifier.h"
-#include "NodeInteger.h"

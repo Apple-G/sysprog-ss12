@@ -1,6 +1,7 @@
 #include "Parser.h"
-#include "../TypeCheck/CodeGeneratorVisitor.h"
-#include "../TypeCheck/TypeCheckVisitor.h"
+
+//#include "../TypeCheck/CodeGeneratorVisitor.h"
+//#include "../TypeCheck/TypeCheckVisitor.h"
 
 
 Parser::Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, OutputBuffer *outFile) {
@@ -8,8 +9,9 @@ Parser::Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, Output
 	this->tree = new Tree();
 
 	// Typecheck und Code-Generierung
-	this->typeChecker = new TypeCheckVisitor(semanticLog);
-	this->codeGenerator = new CodeGeneratorVisitor(outFile);
+//ToDo:
+//	this->typeChecker = new TypeCheckVisitor(semanticLog);
+//	this->codeGenerator = new CodeGeneratorVisitor(outFile);
 }
 
 Parser::Parser(void) {
@@ -55,7 +57,7 @@ NodeProg* Parser::prog() {
 	root->addChild(this->decls());
 	root->addChild(this->statements());
 
-	/* --> JETZT TYPPRÜFUNG UND CODEGEN - VERSCHRÄNKUNG */
+	/* --> JETZT TYPPRï¿½FUNG UND CODEGEN - VERSCHRï¿½NKUNG */
 	root->accept(this->typeChecker);
 	root->accept(this->codeGenerator);
 
@@ -77,7 +79,7 @@ NodeDecls* Parser::decls() {
 		declarations = new NodeDecls();
 		declarations->addChild(declaration);
 
-		/* --> JETZT TYPPRÜFUNG UND CODEGEN - VERSCHRÄNKUNG */
+		/* --> JETZT TYPPRï¿½FUNG UND CODEGEN - VERSCHRï¿½NKUNG */
 		declaration->accept(this->typeChecker);
 		declaration->accept(this->codeGenerator);
 
@@ -98,7 +100,7 @@ NodeDecl* Parser::decl() {
 	NodeDecl* declaration;
 	Token *temp = this->readNextToken();
 	
-	// Epsilon Fall für DECLS
+	// Epsilon Fall fï¿½r DECLS
 	if (temp == 0) {
 		return 0;
 	}
@@ -106,7 +108,7 @@ NodeDecl* Parser::decl() {
 	// int ARRAY identifer
 	// int
 	if (temp->getType() == Token::TYPE_INT) {
-		// int Schlüsselwort ist abgebildet durch Knotentyp
+		// int Schlï¿½sselwort ist abgebildet durch Knotentyp
 		//ARRAY
 		declaration = new NodeDecl();
 		declaration->addChild(this->array_());
@@ -181,7 +183,7 @@ NodeStatements* Parser::statements() {
 	NodeStatements* statements = new NodeStatements();
 	statements->addChild(statement);
 
-	/* --> JETZT TYPPRÜFUNG UND CODEGEN - VERSCHRÄNKUNG */
+	/* --> JETZT TYPPRï¿½FUNG UND CODEGEN - VERSCHRï¿½NKUNG */
 	// Nimmt man hier statements, werden viele NOPs erzeugt
 	statement->accept(this->typeChecker);
 	statement->accept(this->codeGenerator);
@@ -524,59 +526,62 @@ NodeOp* Parser::op() {
 	Token *temp = this->readNextToken();
 	Node::TYPES opNodeType = Node::TYPE_NONE;
 
-	switch (temp->getType()) {
+	//ToDo: op
 
-		// +
-		case Token::TYPE_PLUS:
-			opNodeType = Node::TYPE_OP_PLUS;
-		break;
 
-		// -
-		case Token::TYPE_MINUS:
-			opNodeType = Node::TYPE_OP_MINUS;
-		break;
-
-		// *
-		case Token::TYPE_MULTIPLY:
-			opNodeType = Node::TYPE_OP_MULTIPLY;
-		break;
-
-		// /
-		case Token::TYPE_DIVIDE:
-			opNodeType = Node::TYPE_OP_DIVIDE;
-		break;
-
-		// <
-		case Token::TYPE_SMALLER:
-			opNodeType = Node::TYPE_OP_SMALLER;
-		break;
-
-		// >
-		case Token::TYPE_GREATER:
-			opNodeType = Node::TYPE_OP_GREATER;
-		break;
-
-		// =
-		case Token::TYPE_ASSIGN:
-			opNodeType = Node::TYPE_OP_EQUAL;
-		break;
-
-		// <=>
-		case Token::TYPE_EQUIVALENCE:
-			opNodeType = Node::TYPE_OP_UNEQUAL;
-		break;
-
-		// &
-		case Token::TYPE_AMPERSAND:
-			opNodeType = Node::TYPE_OP_AND;
-		break;
-
-		default:
-			// OP_EXP: Epsilon
-			this->scanner->undo();
-			return 0;
-		break;
-	}
+//	switch (temp->getType()) {
+//
+//		// +
+//		case Token::TYPE_PLUS:
+//			opNodeType = Node::TYPE_OP_PLUS;
+//		break;
+//
+//		// -
+//		case Token::TYPE_MINUS:
+//			opNodeType = Node::TYPE_OP_MINUS;
+//		break;
+//
+//		// *
+//		case Token::TYPE_MULTIPLY:
+//			opNodeType = Node::TYPE_OP_MULTIPLY;
+//		break;
+//
+//		// /
+//		case Token::TYPE_DIVIDE:
+//			opNodeType = Node::TYPE_OP_DIVIDE;
+//		break;
+//
+//		// <
+//		case Token::TYPE_SMALLER:
+//			opNodeType = Node::TYPE_OP_SMALLER;
+//		break;
+//
+//		// >
+//		case Token::TYPE_GREATER:
+//			opNodeType = Node::TYPE_OP_GREATER;
+//		break;
+//
+//		// =
+//		case Token::TYPE_ASSIGN:
+//			opNodeType = Node::TYPE_OP_EQUAL;
+//		break;
+//
+//		// <=>
+//		case Token::TYPE_EQUIVALENCE:
+//			opNodeType = Node::TYPE_OP_UNEQUAL;
+//		break;
+//
+//		// &
+//		case Token::TYPE_AMPERSAND:
+//			opNodeType = Node::TYPE_OP_AND;
+//		break;
+//
+//		default:
+//			// OP_EXP: Epsilon
+//			this->scanner->undo();
+//			return 0;
+//		break;
+//	}
 
 	return new NodeOp(opNodeType);
 }
