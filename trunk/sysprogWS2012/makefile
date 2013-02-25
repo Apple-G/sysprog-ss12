@@ -24,12 +24,16 @@ all:	symboltableLib bufferLib automatLib scannerLib testScanner testParser testB
 clean:
 	rm -rf $(AUTOMATDIR)/lib/*
 	rm -rf $(BUFFERDIR)/lib/*
+	rm -rf $(SCANNERDIR)/lib/*
 	rm -rf $(SYMBOLTABLEDIR)/lib/*
+	rm -rf $(PARSERDIR)/lib/*	
 	rm -rf $(SHAREDLIB)/*
 	rm -rf $(SCANNERDIR)/debug/*
 	rm -rf $(BUFFERDIR)/debug/* #TODO: testbuffer löschen
 	rm -rf $(AUTOMATDIR)/debug/* #TODO: notwendig?
 	rm -rf $(SYMBOLTABLEDIR)/debug/* 
+	rm -rf $(PARSERDIR)/debug/* 
+	
 	
 	
 
