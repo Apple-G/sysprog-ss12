@@ -31,9 +31,9 @@ public:
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	virtual void accept(Visitor* visitor) {
+	//virtual void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+	//}
 
 	virtual NodeExp* getExpression() {
 		return this->expression;

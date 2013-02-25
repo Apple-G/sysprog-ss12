@@ -3,6 +3,8 @@
 
 #include "Node.h"
 
+
+
 /**
    Abbildung des Knotens EXP2 der Sprache der Aufgabenstellung als abstrakte Klasse.
 
@@ -19,7 +21,7 @@ public:
 
 	}
 
-	virtual void accept(Visitor* visitor) = 0;
+	//virtual void accept(Visitor* visitor) = 0;
 
 	virtual void dump() = 0;
 };

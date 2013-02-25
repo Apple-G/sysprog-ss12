@@ -1,5 +1,7 @@
-#pragma once
+#ifndef ParserTree_H_
+#define ParserTree_H_
 #include "NodeProg.h"
+#include "Buffer.h"
 
 class Tree {
 	/** Zeiger auf den ersten Knoten des Baums. */
@@ -30,13 +32,14 @@ public:
 	@param output Zeiger auf den zu verwendenden Ausgabepuffer.
 	@return Gibt zurueck, ob die Typpruefung erfolgreich war.
 	*/
-	bool typeCheck(OutputBuffer *output);
+	bool typeCheck(Buffer *output);
 
 	/** Erzeugt Code aus der Baumstruktur.
 	@param output Zeiger auf das zu verwendende Ausgabe-Interface.
 	*/
-	void makeCode(OutputBuffer *output);
+	void makeCode(Buffer *output);
 };
 
+#endif
 
 

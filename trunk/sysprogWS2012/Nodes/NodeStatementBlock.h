@@ -1,13 +1,15 @@
 #ifndef NodeStatementBlock_H_
 #define NodeStatementBlock_H_
 
-#include "NodeStatement.h"
+
 
 /**
    Abbildung des Knotens {} der Sprache der Aufgabenstellung.
 
 
 */
+class NodeStatements;
+
 class NodeStatementBlock : public NodeStatement {
 
 	/** M�gliche Nachfolger oder Elemente des Knotens */
@@ -21,13 +23,13 @@ public:
 
 	/** Loescht den Knoten, seine Elemente und Nachfolger. */
 	virtual ~NodeStatementBlock(void) {
-		delete statements;
+		//delete statements;
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	virtual void accept(Visitor* visitor) {
+	//virtual void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+	//}
 
 	virtual NodeStatements* getStatements() {
 		return this->statements;

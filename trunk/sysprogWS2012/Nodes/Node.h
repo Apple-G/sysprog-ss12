@@ -1,12 +1,12 @@
 #ifndef NODE_H_
 #define NODE_H_
 
-extern class Visitor;
+//extern class Visitor;
 
 /* Saemtliche abhaengige Sachen includen */
 //ToDo: Visitor
 //#include "../TypeCheck/Visitor.h"
-
+/*
 #include "NodeProg.h"
 #include "NodeDecls.h"
 #include "NodeDecl.h"
@@ -34,10 +34,9 @@ extern class Visitor;
 #include "NodeOp.h"
 #include "NodeIdentifier.h"
 #include "NodeInteger.h"
-
+*/
 #include <iostream>
 #include <typeinfo>
-using namespace std;
 
 /**
    Allgemeine Beschreibung eines Knotens, um die Anweisungen der Sprache
@@ -48,8 +47,8 @@ using namespace std;
 class Node {
 public:
 	/** "Datentypen", die einem Knoten zugeordnet werden können. */
-	static const enum TYPES {
-		TYPE_NONE = 0,				/*!< Kein Typ (noch nicht festgelegt */
+	enum TYPES {
+		TYPE_NONE,				/*!< Kein Typ (noch nicht festgelegt */
 		TYPE_INTEGER,				/*!< Ganzzahl-Typ (deklaration: int) */
 		TYPE_INTEGER_ARRAY,			/*!< Integer-Feld-Typ */
 		TYPE_ARRAY,					/*!< Feld-Typ */
@@ -75,7 +74,7 @@ protected:
 public:
 	virtual ~Node(void);
 
-	virtual void accept(Visitor* visitor) = 0;
+	//virtual void accept(Visitor* visitor) = 0;
 
 	virtual void setType(Node::TYPES newType);
 

@@ -2,6 +2,8 @@
 #define NodeProg_H_
 
 #include "Node.h"
+#include "NodeDecls.h"
+#include "NodeStatements.h"
 
 /**
    Abbildung des Knotens PROG der Sprache der Aufgabenstellung.
@@ -29,9 +31,9 @@ public:
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	virtual void accept(Visitor* visitor) {
+	//virtual void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+	//}
 
 	virtual NodeDecls* getDeclarations() {
 		return this->declarations;

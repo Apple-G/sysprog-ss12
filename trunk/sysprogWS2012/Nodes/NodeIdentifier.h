@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NodeIdentifier_H_
+#define NodeIdentifier_H_
 #include "NodeLeaf.h"
 #include "SymboltableEntry.h"
 
@@ -9,7 +10,7 @@
 */
 class NodeIdentifier : public NodeLeaf {
 	/** Zugehoeriger Symboltabelleneintrag des Identifiers. */
-	SymboltableEntry *symtabEntry;
+	char *lexem;
 
 public:
 	/** Erzeugt einen neuen Knoten, der mit einem Identifier verknüpft ist..
@@ -17,18 +18,18 @@ public:
 	@param column Spalte, in der der Identifier im Code steht.
 	@param symtabEntry Zum Identifier geh�render Symboltabelleneintrag für schnellen Zugriff.
 	*/
-	NodeIdentifier(int line, int column, SymboltableEntry *symtabEntry) {
+	NodeIdentifier(int line, int column, char *lexem) {
 		this->line = line;
 		this->column = column;
-		this->symtabEntry = symtabEntry;
+		this->lexem = lexem;
 	}
 
 	virtual ~NodeIdentifier(void) {
 	}
 
-	virtual void accept(Visitor* visitor) {
+	//virtual void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+	//}
 
 	virtual void dump() {
 		std::cout << typeid(this).name() << std::endl;
@@ -38,18 +39,18 @@ public:
 	@param newType Entsprechender Datentyp.
 	*/
 	virtual void setType(Node::TYPES newType) {
-		this->information->setType(newType);
+		this->nodeType = newType;
 	}
 
 	virtual Node::TYPES getType() {
-		return (Node::TYPES) this->information->getType();
+		return this->nodeType;
 	}
 
 	/** Gibt Zeiger auf Bezeichner des Identifiers zur�ck.
 	@return Nullterminierter C-String.
 	*/
 	virtual char* getLexem() {
-		return symtabEntry->getLexem(this->information);
+		return this->lexem;
 	}
 };
 

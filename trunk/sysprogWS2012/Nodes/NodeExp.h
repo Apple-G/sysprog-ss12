@@ -3,6 +3,15 @@
 
 #include "Node.h"
 
+#include "NodeOpExp.h"
+
+#include "NodeExp2Exp.h"
+#include "NodeExp2IdentifierIndex.h"
+#include "NodeExp2Integer.h"
+#include "NodeExp2NegativeExp.h"
+#include "NodeExp2NotExp.h"
+
+
 /**
    Abbildung des Knotens EXP der Sprache der Aufgabenstellung.
 
@@ -25,9 +34,9 @@ public:
 		delete operatorExpression;
 	}
 
-	virtual void accept(Visitor* visitor) {
+//	virtual void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+	//}
 
 	virtual NodeExp2* getExpression() {
 		return this->expression;

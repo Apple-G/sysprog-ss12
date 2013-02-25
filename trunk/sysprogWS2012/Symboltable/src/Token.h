@@ -80,6 +80,8 @@ public:
 	static char* getTypeForOutput(int);
 	Token::TokenType getType();
 
+	//SymboltableEntry *getSymboltableEntry();
+
 };
 
 #endif /* TOKEN_H */

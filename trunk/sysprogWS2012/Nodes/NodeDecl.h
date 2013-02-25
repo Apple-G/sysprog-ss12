@@ -2,6 +2,8 @@
 #define NODEDECL_H_
 
 #include "Node.h"
+#include "NodeArray.h"
+#include "NodeIdentifier.h"
 
 /**
    Abbildung des Knotens DECL der Sprache der Aufgabenstellung.
@@ -25,9 +27,9 @@ public:
 		delete identifier;
 	}
 
-	virtual void accept(Visitor* visitor) {
+//	virtual void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+	//}
 
 	virtual NodeIdentifier* getIdentifier() {
 		return this->identifier;
