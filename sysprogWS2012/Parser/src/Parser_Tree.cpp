@@ -11,7 +11,7 @@ Tree::~Tree(void) {
 }
 
 void Tree::dump() {
-	cout << "Dump Tree" << endl;
+	//cout << "Dump Tree" << endl;
 	this->root->dump();
 }
 
@@ -23,13 +23,13 @@ NodeProg* Tree::getRoot() {
 	return this->root;
 }
 
-void Tree::makeCode(OutputBuffer *output) {
+void Tree::makeCode(Buffer *output) {
 	//ToDo:makeCode
 	//CodeGeneratorVisitor c(output);
 	//root->accept(&c);
 }
 
-bool Tree::typeCheck(OutputBuffer *output) {
+bool Tree::typeCheck(Buffer *output) {
 
 	// Typecheck visitor
 	//ToDo: typeCheck

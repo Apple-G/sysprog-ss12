@@ -2,6 +2,7 @@
 #define NODEARRAY_H_
 
 #include "Node.h"
+#include "NodeInteger.h"
 
 /**
    Abbildung des Knotens ARRAY der Sprache der Aufgabenstellung.
@@ -21,9 +22,9 @@ public:
 		delete this->integer;
 	}
 
-	virtual void accept(Visitor* visitor) {
+	//virtual void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+//	}
 
 	virtual void addChild(NodeInteger* newInteger) {
 		this->integer = newInteger;

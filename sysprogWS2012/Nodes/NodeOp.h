@@ -29,9 +29,9 @@ public:
 	/** Laesst einen Visitor zugreifen.
 		@param visitor Besucher, der zugreifen soll.
 	*/
-	virtual void accept(Visitor* visitor) {
+	//virtual void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+	//}
 
 	virtual void dump() {
 		std::cout << typeid(this).name() << std::endl;

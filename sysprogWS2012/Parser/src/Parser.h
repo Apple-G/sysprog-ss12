@@ -4,8 +4,9 @@
 #include "Scanner.h"
 #include "Parser_Tree.h"
 #include "Token.h"
-#//include "../Exceptions/InvalidTokenException.h"
-#//include "../Exceptions/EndOfFileException.h"
+
+//include "../Exceptions/InvalidTokenException.h"
+//include "../Exceptions/EndOfFileException.h"
 //#include "../Exceptions/SyntaxErrorException.h"
 //#include "../Exceptions/LookAheadException.h"
 

@@ -3,6 +3,7 @@
 
 #include "Node.h"
 
+
 /**
    Abbildung des Knotens STATEMENT als Interface/abstract der Sprache der Aufgabenstellung.
 
@@ -20,7 +21,7 @@ public:
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	virtual void accept(Visitor* visitor) = 0;
+	//virtual void accept(Visitor* visitor) = 0;
 
 	virtual void dump() = 0;
 };

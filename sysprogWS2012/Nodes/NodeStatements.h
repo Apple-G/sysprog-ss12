@@ -3,6 +3,16 @@
 
 #include "Node.h"
 
+#include "NodeExp.h"
+#include "NodeIndex.h"
+
+#include "NodeStatementAssign.h"
+#include "NodeStatementBlock.h"
+#include "NodeStatementIfElse.h"
+#include "NodeStatementPrint.h"
+#include "NodeStatementRead.h"
+#include "NodeStatementWhile.h"
+
 /**
    Abbildung des Knotens STATEMENTS der Sprache der Aufgabenstellung.
 
@@ -31,9 +41,9 @@ public:
 	/** Laesst einen Visitor zugreifen.
 		@param visitor Besucher, der zugreifen soll.
 	*/
-	void accept(Visitor* visitor) {
+	//void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+	//}
 
 	/* Node-spezifischer Code */
 	virtual NodeStatement* getStatement() {

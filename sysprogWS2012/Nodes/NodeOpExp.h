@@ -2,12 +2,15 @@
 #define NodeOpExp_H_
 
 #include "Node.h"
-
+#include "NodeOp.h"
 /**
    Abbildung des Knotens OP_EXP der Sprache der Aufgabenstellung.
 
 
 */
+
+class NodeExp;
+
 class NodeOpExp : public Node {
 
 	/** M�gliche Nachfolger oder Elemente des Knotens */
@@ -23,14 +26,14 @@ public:
 
 	/** Loescht den Knoten, seine Elemente und Nachfolger. */
 	virtual ~NodeOpExp(void) {
-		delete expression;
+		//delete expression;
 		delete operation;
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	virtual void accept(Visitor* visitor) {
+	//virtual void accept(Visitor* visitor) {
 		//ToDo: visitor->visit(this);
-	}
+	//}
 
 	virtual NodeExp* getExpression() {
 		return this->expression;
