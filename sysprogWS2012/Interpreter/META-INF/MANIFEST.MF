@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Rsrc-Class-Path: ./ swt.jar
+Class-Path: .
+Rsrc-Main-Class: de.hska.futh0001.interpreter.Main
+Main-Class: org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+
