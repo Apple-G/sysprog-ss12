@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 	Parser *p = new Parser(s, b);
 	Tree *t = p->parse();
 
-	cout<<"Test Parser..."<<endl;
+	cout << endl << endl << "Test Parser Complete..." << endl;
 
 }
 
