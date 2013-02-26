@@ -170,7 +170,7 @@ void Scanner::printToken(Token token) {
 Token* Scanner::getNextToken() {
 
 	if (!isUngetToken) {
-		this->isUngetToken = false;
+
 		if (!buffer->isEOF()) {
 			lastToken = automat->nextToken();
 			if (lastToken.getLexem()[0] != '\0') {
@@ -183,6 +183,7 @@ Token* Scanner::getNextToken() {
 		}
 
 	}
+	this->isUngetToken = false;
 
 	//ToDo: DebugAusgabe entfernen
 	printToken(lastToken);

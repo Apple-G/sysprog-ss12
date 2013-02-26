@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 
 	Scanner* s = new Scanner(b);
 	Parser *p = new Parser(s, b);
-	p->parse();
+	Tree *t = p->parse();
 
 	cout<<"Test Parser..."<<endl;
 
