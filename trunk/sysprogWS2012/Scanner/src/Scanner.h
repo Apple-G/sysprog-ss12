@@ -25,10 +25,12 @@ private:
 	Automat* automat;
 
 public:
+	Scanner(Buffer*);
 	Scanner(char*, char*);
 	virtual ~Scanner(void);
 	bool checkFile();
 
+	void printToken(Token);
 
 	//ToDo:
 	// - getNextToken von Automat

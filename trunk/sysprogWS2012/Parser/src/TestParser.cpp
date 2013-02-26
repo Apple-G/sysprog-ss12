@@ -4,8 +4,13 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-	Parser *p = new Parser();
-	cout << "Test Parser..." << endl;
+	Scanner* s = new Scanner("TestFielesParser/p1Test.txt","out.txt");
+	Buffer* b = new Buffer();
+
+	Parser *p = new Parser(s, b);
+	p->parse();
+
+	cout<<"Test Parser..."<<endl;
 
 }
 

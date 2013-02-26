@@ -14,7 +14,9 @@ Parser::Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, Output
 //	this->codeGenerator = new CodeGeneratorVisitor(outFile);
 }
 */
-Parser::Parser(void) {
+Parser::Parser(Scanner* scanner, Buffer* buffer) {
+	this->scanner = scanner;
+	this->tree = new Tree();
 }
 
 

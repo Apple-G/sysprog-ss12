@@ -18,7 +18,7 @@ protected:
 	int column;
 
 	/** Erzeugt ein neues Blatt. */
-	NodeLeaf(void) {
+	NodeLeaf() {
 	}
 
 public:
