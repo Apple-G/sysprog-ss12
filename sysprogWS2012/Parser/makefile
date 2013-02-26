@@ -32,10 +32,10 @@ OBJSFORPARSERLIB =  \
 #
 
 CFLAGS=-I../Symboltable/src -I../Buffer/src -I../Scanner/src -I../Automat/src -I../Nodes
-LDFLAGS=-L../sharedlib -lScanner -lBuffer -lSymboltable
+LDFLAGS=-L../sharedlib -lScanner -lAutomat -lBuffer -lSymboltable
 
 makeTestParser: $(OBJS)
-	@echo "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB MakeTestParser init"
+	@echo "MakeTestParser init"
 	g++ -g $^ $(LDFLAGS) -o $(BINDIR)/ParserTest
 	@echo "MakeTestParser finish"
 	
@@ -43,7 +43,6 @@ makeTestParser: $(OBJS)
 
 
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp 
-	@echo "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII Test"
 	@echo "  g++ $*.cpp"
 	g++ $(CFLAGS) -g  -c -Wall  -o $@  $<
 
@@ -70,6 +69,5 @@ ParserLib:$(OBJSFORPARSERLIB)
 	
 $(LIBDIR)/%.o :  $(SRCDIR)/%.cpp 
 #	@mkdir -p `dirname $(OBJDIR)/$*.o`
-	@echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa LIBDIRSTART"
 	@echo "g++ $*.cpp"
 	g++ $(CFLAGS) -g  -c -fPIC  -o $@  $<
