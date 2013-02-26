@@ -4,7 +4,7 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-	Scanner* s = new Scanner("TestFielesParser/p1Test.txt","out.txt");
+	Scanner* s = new Scanner("TestFilesParser/p1Test.txt","out.txt");
 	Buffer* b = new Buffer();
 
 	Parser *p = new Parser(s, b);
