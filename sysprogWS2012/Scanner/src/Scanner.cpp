@@ -23,7 +23,7 @@ Scanner::Scanner(char* inFile, char* outFile) {
 
 	//Consolen Ausgabe
 	OutputHandlerBase* outConsole = new OutConsoleHandler();
-	//buffer->RegisterMessageHandler(outConsole);
+	buffer->RegisterMessageHandler(outConsole);
 }
 //========================================================================
 
@@ -106,18 +106,84 @@ bool Scanner::checkFile() {
 	return true;
 }
 
+void Scanner::printToken(Token token) {
+	if (token.getLexem()[0] != '\0') {
+		if (token.getType() == Token::IDENTIFIER) {
+			buffer->writeMessage("Token ");
+			char* tokenType = Token::getTypeForOutput(token.getType());
+			buffer->writeMessage(tokenType);
+			buffer->writeMessage(" \t Line: ");
+			buffer->writeMessage(CharHelper::convertInt(token.getRow()));
+			buffer->writeMessage(" \t Column: ");
+			buffer->writeMessage(CharHelper::convertInt(token.getColumn()));
+			buffer->writeMessage(" \t Lexem: ");
+			buffer->writeMessage(token.getLexem());
+			buffer->writeMessage("\n");
+		} else if (token.getType() == Token::INTEGER) {
+			buffer->writeMessage("Token ");
+			char* tokenType = Token::getTypeForOutput(token.getType());
+			buffer->writeMessage(tokenType);
+			buffer->writeMessage(" \t Line: ");
+			buffer->writeMessage(CharHelper::convertInt(token.getRow()));
+			buffer->writeMessage(" \t Column: ");
+			buffer->writeMessage(CharHelper::convertInt(token.getColumn()));
+			buffer->writeMessage(" \t Value: ");
+			buffer->writeMessage(CharHelper::convertLong(token.getNumber()));
+			buffer->writeMessage("\n");
+		} else if (token.getType() == Token::UNKNOWN) {
+			buffer->writeError("Token ");
+			char* tokenType = Token::getTypeForOutput(token.getType());
+			buffer->writeError(tokenType);
+
+			buffer->writeError(" \t Line: ");
+			buffer->writeError(CharHelper::convertInt(token.getRow()));
+			buffer->writeError(" \t Column: ");
+			buffer->writeError(CharHelper::convertInt(token.getColumn()));
+			buffer->writeError(" \t Symbol: ");
+			buffer->writeError(token.getLexem());
+			buffer->writeError("\n");
+		} else {
+			buffer->writeMessage("Token ");
+			char* tokenType = Token::getTypeForOutput(token.getType());
+			buffer->writeMessage(tokenType);
+
+			buffer->writeMessage(" \t Line: ");
+			buffer->writeMessage(CharHelper::convertInt(token.getRow()));
+			buffer->writeMessage(" \t Column: ");
+			buffer->writeMessage(CharHelper::convertInt(token.getColumn()));
+			buffer->writeMessage("\n");
+		}
+
+	}
+}
+
 Token* Scanner::getNextToken() {
-	//ToDo:
-	Token* t = new Token();
-	return t;
+	Token* token;
+	if (!buffer->isEOF()) {
+		*token = automat->nextToken();
+		if (token->getLexem()[0] != '\0') {
+			if (token->getType() == Token::IDENTIFIER) {
+				SymboltableEntry* entry = table->insert(token->getLexem(),
+						token->getType());
+				token->setType(entry->getTokenType());
+			}
+		}
+	}
+	//ToDo: DebugAusgabe entfernen
+	printToken(*token);
+
+	return token;
 }
 
 void Scanner::ungetToken() {
 	//ToDo:
 }
 
+Scanner::Scanner(Buffer* buffer) {
+}
+
 bool Scanner::isEndOfFile() {
 	//ToDo:
-	return false;
+	return buffer->isEOF();
 }
 

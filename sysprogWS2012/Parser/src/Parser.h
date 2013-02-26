@@ -69,6 +69,7 @@ public:
 	//Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, OutputBuffer *outFile);
 
 	Parser(void);
+	Parser(Scanner*, Buffer*);
 	
 	/**
 		Erstellt einen Strukturbaum und pr�ft auf die Syntax

@@ -14,8 +14,7 @@ Node::~Node(void) {
 
 void Node::addChild(Node* node) {
 	std::cout << "Unable to resolve specific Node-Sub-Type... quitting" << std::endl;
-//	system("pause");
-//	exit(1);
+	//ToDo: EXIT
 }
 
 void Node::setType(Node::TYPES newType) {
