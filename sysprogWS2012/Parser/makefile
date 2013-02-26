@@ -14,12 +14,16 @@ SHAREDLIB = ../sharedlib
 
 OBJS = $(OBJDIR)/Parser.o \
 	$(OBJDIR)/Parser_Tree.o \
-	$(OBJDIR)/TestParser.o
+	$(OBJDIR)/TestParser.o \
+	../Nodes/Node.o 
+	
 
 ## hier alle Object Files eintragen, die in der shared library enthalten sein sollen 
-OBJSFORAUTOMATLIB =  \
+OBJSFORPARSERLIB =  \
 	$(LIBDIR)/Parser.o \
-	$(LIBDIR)/Parser_Tree.o \
+	$(LIBDIR)/Parser_Tree.o 
+	## Falls lib gebaut wird hier Nodes einfügen
+	
 	
 
 
@@ -31,7 +35,7 @@ CFLAGS=-I../Symboltable/src -I../Buffer/src -I../Scanner/src -I../Automat/src -I
 LDFLAGS=-L../sharedlib -lScanner -lBuffer -lSymboltable
 
 makeTestParser: $(OBJS)
-	@echo "MakeTestParser init"
+	@echo "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB MakeTestParser init"
 	g++ -g $^ $(LDFLAGS) -o $(BINDIR)/ParserTest
 	@echo "MakeTestParser finish"
 	
@@ -39,8 +43,10 @@ makeTestParser: $(OBJS)
 
 
 $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp 
-	@echo "g++ $*.cpp"
+	@echo "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII Test"
+	@echo "  g++ $*.cpp"
 	g++ $(CFLAGS) -g  -c -Wall  -o $@  $<
+
 # 
 # $@ name des object files
 # $< erste abhaengigkeit
@@ -58,11 +64,12 @@ cleanParser:
 # erstellen der shared library
 #
 
-ParserLib:$(OBJSFORAUTOMATLIB)
+ParserLib:$(OBJSFORPARSERLIB)
 		g++ -shared $(LDFLAGS) -o $(SHAREDLIB)/libParser.so $^ 
 
 	
 $(LIBDIR)/%.o :  $(SRCDIR)/%.cpp 
 #	@mkdir -p `dirname $(OBJDIR)/$*.o`
+	@echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa LIBDIRSTART"
 	@echo "g++ $*.cpp"
 	g++ $(CFLAGS) -g  -c -fPIC  -o $@  $<
