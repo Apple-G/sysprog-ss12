@@ -120,8 +120,6 @@ char* Token::getTypeForOutput(int type)
 	// enum TokenType muss synchron zu diesen Ausgaben geführt werden, sonst wird UNKNOWN geliefert
 	switch (type)
 	{
-	case PRINT: 			return "print         ";
-	case READ: 				return "read          ";
 	case INTEGER: 			return "Integer       ";
 	case IDENTIFIER: 		return "Identifier    ";
 	case PLUS: 				return "Plus          ";
@@ -141,6 +139,12 @@ char* Token::getTypeForOutput(int type)
 	case L_SQUAREBRACE: 	return "L Squarebrace ";
 	case R_SQUAREBRACE: 	return "R Squarebrace ";
 	case UNEQUAL: 			return "Unequal       ";
+	case PRINT: 			return "print         ";
+	case READ: 				return "read          ";
+	case INT: 				return "int           ";
+	case IF: 				return "if            ";
+	case ELSE: 				return "else          ";
+	case WHILE: 			return "while         ";
 	default: 				return "Unknown       ";
 	}
 }
