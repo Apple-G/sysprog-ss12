@@ -5,7 +5,7 @@ using namespace std;
 int main(int argc, char **argv) {
 
 	Parser *p = new Parser();
-	std::cout<<"Test Parser..."<<endl;
+	cout << "Test Parser..." << endl;
 
 }
 
