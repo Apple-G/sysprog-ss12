@@ -93,7 +93,7 @@ NodeDecls* Parser::decls() {
 		//	throw SyntaxErrorException("';' expected", temp->getRow(), temp->getColumn());
 			//ToDo:
 			printf("';' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
-			//throw new Exception();
+			throw 1;
 		}
 	}
 	return declarations;
