@@ -49,8 +49,7 @@ bool Scanner::checkFile() {
 		if (token.getLexem()[0] != '\0') {
 			if (token.getType() == Token::IDENTIFIER) {
 				buffer->writeMessage("Token ");
-				SymboltableEntry* entry = table->insert(token.getLexem(),
-						token.getType());
+				SymboltableEntry* entry = table->insert(token.getLexem(), token.getType());
 				char* tokenType = Token::getTypeForOutput(
 						entry->getTokenType());
 				buffer->writeMessage(tokenType);
@@ -158,21 +157,20 @@ void Scanner::printToken(Token token) {
 }
 
 Token* Scanner::getNextToken() {
-	Token* token;
+	Token token;
 	if (!buffer->isEOF()) {
-		*token = automat->nextToken();
-		if (token->getLexem()[0] != '\0') {
-			if (token->getType() == Token::IDENTIFIER) {
-				SymboltableEntry* entry = table->insert(token->getLexem(),
-						token->getType());
-				token->setType(entry->getTokenType());
+		token = automat->nextToken();
+		if (token.getLexem()[0] != '\0') {
+			if (token.getType() == Token::IDENTIFIER) {
+				SymboltableEntry* entry = table->insert(token.getLexem(), token.getType());
+				token.setType(entry->getTokenType());
 			}
 		}
 	}
 	//ToDo: DebugAusgabe entfernen
-	printToken(*token);
+	printToken(token);
 
-	return token;
+	return &token;
 }
 
 void Scanner::ungetToken() {
