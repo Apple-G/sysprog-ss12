@@ -24,7 +24,17 @@ Scanner::Scanner(char* inFile, char* outFile) {
 	//Consolen Ausgabe
 	OutputHandlerBase* outConsole = new OutConsoleHandler();
 	buffer->RegisterMessageHandler(outConsole);
+
+	this->isUngetToken = false;
 }
+
+Scanner::Scanner(Buffer* buffer) {
+	this->buffer = buffer;
+	this->automat = new Automat(buffer);
+	this->table = new Symboltable();
+	this->isUngetToken = false;
+}
+
 //========================================================================
 
 //*******************************************************
@@ -49,7 +59,8 @@ bool Scanner::checkFile() {
 		if (token.getLexem()[0] != '\0') {
 			if (token.getType() == Token::IDENTIFIER) {
 				buffer->writeMessage("Token ");
-				SymboltableEntry* entry = table->insert(token.getLexem(), token.getType());
+				SymboltableEntry* entry = table->insert(token.getLexem(),
+						token.getType());
 				char* tokenType = Token::getTypeForOutput(
 						entry->getTokenType());
 				buffer->writeMessage(tokenType);
@@ -157,27 +168,42 @@ void Scanner::printToken(Token token) {
 }
 
 Token* Scanner::getNextToken() {
-	Token token;
-	if (!buffer->isEOF()) {
-		token = automat->nextToken();
-		if (token.getLexem()[0] != '\0') {
-			if (token.getType() == Token::IDENTIFIER) {
-				SymboltableEntry* entry = table->insert(token.getLexem(), token.getType());
-				token.setType(entry->getTokenType());
+
+	if (!isUngetToken) {
+		this->isUngetToken = false;
+		if (!buffer->isEOF()) {
+			lastToken = automat->nextToken();
+			if (lastToken.getLexem()[0] != '\0') {
+				if (lastToken.getType() == Token::IDENTIFIER) {
+					SymboltableEntry* entry = table->insert(
+							lastToken.getLexem(), lastToken.getType());
+					lastToken.setType(entry->getTokenType());
+				}
 			}
 		}
-	}
-	//ToDo: DebugAusgabe entfernen
-	printToken(token);
 
-	return &token;
+	}
+
+	//ToDo: DebugAusgabe entfernen
+	printToken(lastToken);
+
+	//Erstelle Pointer Token (Kopie)
+	Token* t = new Token();
+	t->setColumn(lastToken.getColumn());
+	t->setRow(lastToken.getRow());
+	t->setLexem(lastToken.getLexem());
+	t->setNumber(lastToken.getNumber());
+	t->setType(lastToken.getType());
+
+	return t;
 }
 
 void Scanner::ungetToken() {
-	//ToDo:
-}
-
-Scanner::Scanner(Buffer* buffer) {
+	if (isUngetToken) {
+		printf("Error: zweites mal Unget!");
+		throw "Error: zweites mal Unget!";
+	}
+	isUngetToken = true;
 }
 
 bool Scanner::isEndOfFile() {

@@ -23,7 +23,8 @@ private:
 	Symboltable* table;
 	Buffer* buffer;
 	Automat* automat;
-
+	Token lastToken;
+	bool isUngetToken;
 public:
 	Scanner(Buffer*);
 	Scanner(char*, char*);
