@@ -38,6 +38,8 @@ Token* Parser::readNextToken() {
 
 
 Tree* Parser::parse() {
+
+	//this->scanner->checkFile();
 	this->tree->setRoot(this->prog());
 
 	//ToDo: TypeCheck
