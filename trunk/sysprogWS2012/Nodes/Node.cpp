@@ -9,13 +9,13 @@ Node::Node() {
 }
 
 Node::~Node(void) {
-	// Nur wichtig für erbende Klassen, sie zerstören ihre Nachfolger
+	// Nur wichtig fï¿½r erbende Klassen, sie zerstï¿½ren ihre Nachfolger
 }
 
 void Node::addChild(Node* node) {
 	std::cout << "Unable to resolve specific Node-Sub-Type... quitting" << std::endl;
-	system("pause");
-	exit(1);
+//	system("pause");
+//	exit(1);
 }
 
 void Node::setType(Node::TYPES newType) {
