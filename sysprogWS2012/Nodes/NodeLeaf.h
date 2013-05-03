@@ -26,7 +26,7 @@ public:
 	virtual ~NodeLeaf(void) {
 	}
 
-	//virtual void accept(Visitor* visitor) = 0;
+	virtual void accept(Visitor* visitor) = 0;
 
 	/* Node-spezifischer Code */
 	virtual int getLine() {

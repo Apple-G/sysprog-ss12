@@ -1,7 +1,7 @@
 #ifndef CodeGeneratorVisitor_H_
 #define CodeGeneratorVisitor_H_
 #include "Visitor.h"
-#include "../Buffer/OutputBuffer.h"
+#include "Buffer.h"
 
 /**
    Dieser Visitor durchl�uft eine baumartige Struktur von Programmanweisungen, welche
@@ -11,7 +11,7 @@
 */
 class CodeGeneratorVisitor : public Visitor {
 	/** Benutztes Ausgabeinterface, um Code wegzuschreiben. */
-	OutputBuffer *writer;
+	Buffer *writer;
 
 	/** Markenz�hler - wichtig f�r Rekursionen, damit sich Sprungmarken nicht wiederholen. */
 	unsigned int marken;
@@ -28,7 +28,8 @@ public:
 	/** Erzeugt einen neuen Visitor und initialisiert internen Zustand.
 	@param writer Hierueber werden die Ausgaben weggeschrieben.
 	*/
-	CodeGeneratorVisitor::CodeGeneratorVisitor(OutputBuffer *writer);
+	//ToDo: CodeGeneratorVisitor::CodeGeneratorVisitor(Buffer *writer);
+	CodeGeneratorVisitor(Buffer *writer);
 
 	/** Gibt auf Heap verwendeten Speicher wieder frei. */
 	virtual ~CodeGeneratorVisitor(void);
@@ -66,4 +67,4 @@ public:
 	virtual void visit(NodeIdentifier *node);
 	virtual void visit(NodeInteger *node);
 };
-#endif CodeGeneratorVisitor_H_
+#endif

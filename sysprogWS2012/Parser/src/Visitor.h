@@ -5,9 +5,8 @@
    welche vom Parser erzeugt wurde.
 
 */
-
-// Vorw�rtsdeklaration wegen Cross-Include
 class Node;
+// Vorw�rtsdeklaration wegen Cross-Include
 // Vorw�rtsdeklaration, damit die Datentypen in der Header verwendet werden k�nnen
 // unterhalb folgen Includes
 extern class NodeProg;
@@ -16,19 +15,19 @@ extern class NodeDecl;
 extern class NodeArray;
 extern class NodeStatements;
 extern class NodeStatement;
-	extern class NodeStatementAssign;
-	extern class NodeStatementBlock;
-	extern class NodeStatementIfElse;
-	extern class NodeStatementPrint;
-	extern class NodeStatementRead;
-	extern class NodeStatementWhile;
+extern class NodeStatementAssign;
+extern class NodeStatementBlock;
+extern class NodeStatementIfElse;
+extern class NodeStatementPrint;
+extern class NodeStatementRead;
+extern class NodeStatementWhile;
 extern class NodeExp;
 extern class NodeExp2;
-	extern class NodeExp2Exp;
-	extern class NodeExp2IdentifierIndex;
-	extern class NodeExp2Integer;
-	extern class NodeExp2NegativeExp;
-	extern class NodeExp2NotExp;
+extern class NodeExp2Exp;
+extern class NodeExp2IdentifierIndex;
+extern class NodeExp2Integer;
+extern class NodeExp2NegativeExp;
+extern class NodeExp2NotExp;
 extern class NodeIndex;
 extern class NodeOpExp;
 extern class NodeOp;
@@ -105,4 +104,4 @@ public:
 #include "../Nodes/NodeOpExp.h"
 #include "../Nodes/NodeOp.h"
 
-#endif Visitor_H_
+#endif

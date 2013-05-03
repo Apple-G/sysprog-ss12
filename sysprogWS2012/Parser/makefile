@@ -12,10 +12,13 @@ SHAREDLIB = ../sharedlib
 ## hier alle Object Files eintragen
 ## darauf achten, dass letzte Zeile ohne "\" eingetragen wird
 
-OBJS = $(OBJDIR)/Parser.o \
+OBJS = 	$(OBJDIR)/Parser.o \
 	$(OBJDIR)/Parser_Tree.o \
 	$(OBJDIR)/TestParser.o \
-	../Nodes/Node.o 
+	$(OBJDIR)/Visitor.o \
+	$(OBJDIR)/CodeGeneratorVisitor.o \
+	$(OBJDIR)/TypeCheckVisitor.o \
+	$(OBJDIR)/Node.o 
 
 ## hier alle Object Files eintragen, die in der shared library enthalten sein sollen 
 OBJSFORPARSERLIB =  \

@@ -1,7 +1,7 @@
 #ifndef TypeCheckVisitor_H_
 #define TypeCheckVisitor_H_
 #include "Visitor.h"
-#include "../Buffer/OutputBuffer.h"
+#include "Buffer.h"
 
 /**
    Dieser Visitor durchl�uft eine baumartige Struktur von Programmanweisungen, welche
@@ -14,7 +14,7 @@ class TypeCheckVisitor : public Visitor {
 	static const unsigned int ERROR_MESSAGE_SIZE = 2048;
 
 	/** Benutztes Ausgabeinterface, um Code wegzuschreiben. */
-	OutputBuffer *writer;
+	Buffer *writer;
 
 	/** C-String der aktuellen Fehlermeldung - Puffer zum Wegschreiben. */
 	char errorMessage[ERROR_MESSAGE_SIZE];
@@ -29,21 +29,22 @@ class TypeCheckVisitor : public Visitor {
 	@param lexem Lexem, das mit dem Fehler zu tun hat.
 	@param lexemLength Laenge des Lexems - vereinfacht Kuerzung.
 	*/
-	virtual void outputError(char *message, unsigned int line, unsigned int column, char *lexem = NULL, unsigned int lexemLength = 0);
+	virtual void outputError(char *message, unsigned int line, unsigned int column, char *lexem = NULL);
 
 	/** Schreibt die aktuelle Fehlermeldung weg. */
-	virtual void flushError(void);
+//	virtual void flushError(void);
 
 public:
 	/** Erzeugt einen neuen Visitor und initialisiert internen Zustand.
 	    Ausgaben finden dann ueber stderr statt.
 	*/
-	TypeCheckVisitor::TypeCheckVisitor();
+	//ToDo: TypeCheckVisitor::TypeCheckVisitor();
+	TypeCheckVisitor();
 
 	/** Erzeugt einen neuen Visitor und initialisiert internen Zustand.
 	@param writer Hierueber werden die Ausgaben weggeschrieben, oder ueber stderr wenn 0.
 	*/
-	TypeCheckVisitor(OutputBuffer *writer);
+	TypeCheckVisitor(Buffer *writer);
 
 	/** Gibt auf Heap verwendeten Speicher wieder frei. */
 	virtual ~TypeCheckVisitor(void);
@@ -81,4 +82,5 @@ public:
 	virtual void visit(NodeIdentifier *node);
 	virtual void visit(NodeInteger *node);
 };
-#endif TypeCheckVisitor_H_
+
+#endif

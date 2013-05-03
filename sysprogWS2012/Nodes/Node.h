@@ -5,7 +5,7 @@
 
 /* Saemtliche abhaengige Sachen includen */
 //ToDo: Visitor
-//#include "../TypeCheck/Visitor.h"
+
 /*
 #include "NodeProg.h"
 #include "NodeDecls.h"
@@ -37,7 +37,7 @@
 */
 #include <iostream>
 #include <typeinfo>
-
+#include "../Parser/src/Visitor.h"
 /**
    Allgemeine Beschreibung eines Knotens, um die Anweisungen der Sprache
    systematisch ablegen zu koennen fuer semantische Pruefung und Code-Erzeugung.

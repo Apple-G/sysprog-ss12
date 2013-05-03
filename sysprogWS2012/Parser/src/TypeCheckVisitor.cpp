@@ -8,7 +8,7 @@ TypeCheckVisitor::TypeCheckVisitor() {
 	operationsSuccessful = true;
 }
 
-TypeCheckVisitor::TypeCheckVisitor(OutputBuffer *writer) {
+TypeCheckVisitor::TypeCheckVisitor(Buffer *writer) {
 	this->writer = writer;
 	errorCount = 0;
 	operationsSuccessful = true;
@@ -17,19 +17,19 @@ TypeCheckVisitor::TypeCheckVisitor(OutputBuffer *writer) {
 
 TypeCheckVisitor::~TypeCheckVisitor(void) {
 }
-
+/*
 void TypeCheckVisitor::flushError(void) {
 	// Write to out - either custom buffer or stderr
 	if (this->writer) {
-		this->writer->writeCharsUnchecked(this->errorMessage);
+		this->writer->writeMessage(this->errorMessage);
 	}
 	else {
 		fputs(errorMessage, stderr);
 	}
 }
-
-void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned int column, char *lexem, unsigned int lexemLength) {
-	operationsSuccessful = false;
+*/
+void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned int column, char *lexem) {
+	/*operationsSuccessful = false;
 	errorCount++;
 
 	// Build message
@@ -47,11 +47,17 @@ void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned in
 
 	// Write message
 	this->flushError();
+	*/
+	if (lexem != NULL)
+	{
+		printf("%s in line %u, column %u, identifier: %s" , message, line, column, lexem);
+	}else {
+		printf("%s in line %u, column %u", message, line, column);
+	}
 }
 
-
 /**
-	Startaufruf für Programm
+	Startaufruf fï¿½r Programm
 */
 // typeCheck (PROG ::= DECLS STATEMENTS)
 void TypeCheckVisitor::visit(NodeProg *node) {
@@ -63,7 +69,7 @@ void TypeCheckVisitor::visit(NodeProg *node) {
 	//if (node->getStatements())
 	//	node->getStatements()->accept(this);
 
-	// Typ von Prog ist NONE, es gibt keinen Rückgabetyp
+	// Typ von Prog ist NONE, es gibt keinen Rï¿½ckgabetyp
 	node->setType(Node::TYPE_NONE);
 
 	/* Ausgabe: Keine Fehler oder Anzahl der Fehler */
@@ -74,8 +80,6 @@ void TypeCheckVisitor::visit(NodeProg *node) {
 	else {
 		sprintf(errorMessage, "\n- - - - - - - - - - - -\n%u errors found, please read the log above.\nHint: Start at the top, because some errors might be consequences of errors detected before.", this->errorCount);
 	}
-
-	flushError();
 }
 
 /**
@@ -90,7 +94,7 @@ void TypeCheckVisitor::visit(NodeDecls *node) {
 	if (node->getNextDeclarations())
 		node->getNextDeclarations()->accept(this);
 
-	// Typ von DECLS ist NONE, es gibt keinen Rückgabetyp
+	// Typ von DECLS ist NONE, es gibt keinen Rï¿½ckgabetyp
 	node->setType(Node::TYPE_NONE);
 }
 
@@ -107,11 +111,11 @@ void TypeCheckVisitor::visit(NodeDecl *node) {
 
 	// Typ des Identifiers schon definiert oder fehlerhaft?
 	if (identifier->getType() != Node::TYPE_NONE) {
-		outputError("identifier already defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem(), identifier->getInformation()->getLength());
+		outputError("identifier already defined", identifier->getLine(), identifier->getColumn());
 		node->setType(Node::TYPE_ERROR);
 	}
 	else if (arr != NULL && arr->getType() == Node::TYPE_ERROR){
-		outputError("erronous declaration of identifier", identifier->getLine(), identifier->getColumn(), identifier->getLexem(), identifier->getInformation()->getLength());
+		outputError("erronous declaration of identifier", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		identifier->setType(Node::TYPE_ERROR);
 		node->setType(Node::TYPE_ERROR);
 	}
@@ -161,7 +165,7 @@ void TypeCheckVisitor::visit(NodeStatementAssign *node) {
 		index->accept(this);
 	
 	if (identifier->getType() == Node::TYPE_NONE) {
-		outputError("identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem(), identifier->getInformation()->getLength());
+		outputError("identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		node->setType(Node::TYPE_ERROR);
 	}
 	else if (exp->getType() == Node::TYPE_INTEGER && (
@@ -170,7 +174,7 @@ void TypeCheckVisitor::visit(NodeStatementAssign *node) {
 		node->setType(Node::TYPE_NONE);
 	}
 	else {
-		outputError("incompatible types", identifier->getLine(), identifier->getColumn(), identifier->getLexem(), identifier->getInformation()->getLength());
+		outputError("incompatible types", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		node->setType(Node::TYPE_ERROR);
 	}
 }
@@ -205,14 +209,14 @@ void TypeCheckVisitor::visit(NodeStatementRead *node) {
 	NodeIdentifier *identifier = node->getIdentifier();
 
 	if (identifier->getType() == Node::TYPE_NONE) {
-		outputError("identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem(), identifier->getInformation()->getLength());
+		outputError("identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		node->setType(Node::TYPE_ERROR);
 	}
 	else if (((identifier->getType() == Node::TYPE_INTEGER) && index == NULL)
 		|| ((identifier->getType() == Node::TYPE_INTEGER_ARRAY) && (index != NULL && index->getType() == Node::TYPE_ARRAY)))
 		node->setType(Node::TYPE_NONE);
 	else {
-		outputError("incompatible types", identifier->getLine(), identifier->getColumn(), identifier->getLexem(), identifier->getInformation()->getLength());
+		outputError("incompatible types", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		node->setType(Node::TYPE_ERROR);
 	}
 }
@@ -256,7 +260,7 @@ void TypeCheckVisitor::visit(NodeExp2IdentifierIndex* node) {
 		index->accept(this);
 
 	if(identifier->getType() == Node::TYPE_NONE) {
-		outputError("identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem(), identifier->getInformation()->getLength());
+		outputError("identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		node->setType(Node::TYPE_ERROR);
 	}
 	else if (identifier->getType() == Node::TYPE_INTEGER && index == NULL)
@@ -264,7 +268,7 @@ void TypeCheckVisitor::visit(NodeExp2IdentifierIndex* node) {
 	else if (identifier->getType() == Node::TYPE_INTEGER_ARRAY && (index != NULL && index->getType() == Node::TYPE_ARRAY))
 		node->setType(Node::TYPE_INTEGER);
 	else {
-		outputError("no primitive Type", identifier->getLine(), identifier->getColumn(), identifier->getLexem(), identifier->getInformation()->getLength());
+		outputError("no primitive Type", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		node->setType(Node::TYPE_ERROR);
 	}
 }
