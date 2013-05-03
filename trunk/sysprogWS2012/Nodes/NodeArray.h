@@ -22,9 +22,9 @@ public:
 		delete this->integer;
 	}
 
-	//virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-//	}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual void addChild(NodeInteger* newInteger) {
 		this->integer = newInteger;

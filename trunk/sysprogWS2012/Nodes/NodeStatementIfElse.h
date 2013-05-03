@@ -4,11 +4,11 @@
 #include "NodeStatement.h"
 
 /**
-   Abbildung des Knotens "if STATEMENT else STATEMENT" der Sprache der Aufgabenstellung.
+ Abbildung des Knotens "if STATEMENT else STATEMENT" der Sprache der Aufgabenstellung.
 
 
-*/
-class NodeStatementIfElse : public NodeStatement {
+ */
+class NodeStatementIfElse: public NodeStatement {
 
 	/** M�gliche Nachfolger oder Elemente des Knotens */
 	NodeExp* expression;
@@ -32,9 +32,8 @@ public:
 
 	/** Laesst einen Visitor zugreifen. */
 	//virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
+	//ToDo: visitor->visit(this);
 	//}
-
 	virtual NodeExp* getExpression() {
 		return this->expression;
 	}
@@ -61,6 +60,16 @@ public:
 
 	virtual void dump() {
 		std::cout << typeid(this).name() << std::endl;
+		if (ifStatement != 0) {
+			std::cout << "Start if: " << std::endl;
+			ifStatement->dump();
+			std::cout << "End if: " << std::endl;
+		}
+		if (elseStatement != 0) {
+			std::cout << "Start Else: " << std::endl;
+			elseStatement->dump();
+			std::cout << "End Else: " << std::endl;
+		}
 	}
 };
 

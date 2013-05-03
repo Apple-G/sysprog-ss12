@@ -74,7 +74,7 @@ protected:
 public:
 	virtual ~Node(void);
 
-	//virtual void accept(Visitor* visitor) = 0;
+	virtual void accept(Visitor* visitor) = 0;
 
 	virtual void setType(Node::TYPES newType);
 

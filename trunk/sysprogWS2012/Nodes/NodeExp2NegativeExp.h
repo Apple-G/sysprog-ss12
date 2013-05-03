@@ -22,9 +22,9 @@ public:
 		//delete expression;
 	}
 
-	//virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual NodeExp* getExpression() {
 		return this->expression;

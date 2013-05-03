@@ -4,11 +4,11 @@
 #include "Node.h"
 #include "NodeDecl.h"
 /**
-   Abbildung des Knotens DECLS der Sprache der Aufgabenstellung.
+ Abbildung des Knotens DECLS der Sprache der Aufgabenstellung.
 
 
-*/
-class NodeDecls : public Node {
+ */
+class NodeDecls: public Node {
 
 	/** M�gliche Nachfolger oder Elemente des Knotens */
 	NodeDecl* declaration;
@@ -26,9 +26,9 @@ public:
 		delete nextDeclarations;
 	}
 
-	//virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-//	}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual NodeDecl* getDeclaration() {
 		return this->declaration;
@@ -48,6 +48,10 @@ public:
 
 	virtual void dump() {
 		std::cout << typeid(this).name() << std::endl;
+		declaration->dump();
+		if (nextDeclarations != 0) {
+			nextDeclarations->dump();
+		}
 	}
 };
 

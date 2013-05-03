@@ -21,7 +21,7 @@ public:
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	//virtual void accept(Visitor* visitor) = 0;
+	virtual void accept(Visitor* visitor) = 0;
 
 	virtual void dump() = 0;
 };

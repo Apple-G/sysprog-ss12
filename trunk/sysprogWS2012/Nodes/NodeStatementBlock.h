@@ -1,16 +1,16 @@
 #ifndef NodeStatementBlock_H_
 #define NodeStatementBlock_H_
 
-
-
 /**
-   Abbildung des Knotens {} der Sprache der Aufgabenstellung.
+ Abbildung des Knotens {} der Sprache der Aufgabenstellung.
 
 
-*/
-class NodeStatements;
+ */
 
-class NodeStatementBlock : public NodeStatement {
+#include "NodeStatements.h"
+
+//class NodeStatements;
+class NodeStatementBlock: public NodeStatement {
 
 	/** M�gliche Nachfolger oder Elemente des Knotens */
 	NodeStatements* statements;
@@ -27,10 +27,9 @@ public:
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	//virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
-
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 	virtual NodeStatements* getStatements() {
 		return this->statements;
 	}
@@ -39,8 +38,11 @@ public:
 		this->statements = newStatements;
 	}
 
-	virtual void dump() {
+	virtual  void dump() {
 		std::cout << typeid(this).name() << std::endl;
+		if (statements != 0) {
+			this->statements->dump();
+		}
 	}
 };
 

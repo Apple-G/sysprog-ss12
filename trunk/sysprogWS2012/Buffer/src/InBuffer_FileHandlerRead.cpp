@@ -14,7 +14,7 @@ FileHandlerRead::~FileHandlerRead() {
 
 void FileHandlerRead::openFile() {
 	currentFilePos_ = 0;
-	file_ = open(filePath_, O_RDONLY | O_DIRECT);
+	file_ = open(filePath_, O_RDONLY);
 	if (file_ == -1) {
 		this->eof_ = true;
 		printf("Error[FileHandlerRead:openFile]: Can't read from File");

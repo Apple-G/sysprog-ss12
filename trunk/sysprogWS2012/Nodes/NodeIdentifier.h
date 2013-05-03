@@ -27,9 +27,9 @@ public:
 	virtual ~NodeIdentifier(void) {
 	}
 
-	//virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual void dump() {
 		std::cout << typeid(this).name() << std::endl;

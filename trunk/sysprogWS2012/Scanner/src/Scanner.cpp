@@ -186,7 +186,7 @@ Token* Scanner::getNextToken() {
 	this->isUngetToken = false;
 
 	//ToDo: DebugAusgabe entfernen
-	printToken(lastToken);
+	//printToken(lastToken);
 
 	//Erstelle Pointer Token (Kopie)
 	Token* t = new Token();
