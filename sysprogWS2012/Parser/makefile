@@ -16,7 +16,6 @@ OBJS = $(OBJDIR)/Parser.o \
 	$(OBJDIR)/Parser_Tree.o \
 	$(OBJDIR)/TestParser.o \
 	../Nodes/Node.o 
-	
 
 ## hier alle Object Files eintragen, die in der shared library enthalten sein sollen 
 OBJSFORPARSERLIB =  \

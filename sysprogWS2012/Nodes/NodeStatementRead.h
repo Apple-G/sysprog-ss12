@@ -28,9 +28,9 @@ public:
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	//virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	/** Reicht den zugehoerigen Identifier durch.
 	@return Zeiger auf den Identifier des Knotens.

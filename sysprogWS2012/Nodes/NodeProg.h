@@ -5,6 +5,19 @@
 #include "NodeDecls.h"
 #include "NodeStatements.h"
 
+
+
+
+#include "NodeExp.h"
+#include "NodeIndex.h"
+
+#include "NodeStatementAssign.h"
+#include "NodeStatementBlock.h"
+#include "NodeStatementIfElse.h"
+#include "NodeStatementPrint.h"
+#include "NodeStatementRead.h"
+#include "NodeStatementWhile.h"
+
 /**
    Abbildung des Knotens PROG der Sprache der Aufgabenstellung.
 
@@ -12,7 +25,7 @@
 */
 class NodeProg : public Node {
 
-	/** M�gliche Nachfolger oder Elemente des Knotens */
+	/** Mögliche Nachfolger oder Elemente des Knotens */
 	NodeDecls* declarations;
 	NodeStatements* statements;
 
@@ -31,9 +44,9 @@ public:
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	//virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual NodeDecls* getDeclarations() {
 		return this->declarations;
@@ -55,6 +68,10 @@ public:
 
 	virtual void dump() {
 		std::cout << typeid(this).name() << std::endl;
+		std::cout << "Decs: \n ";
+		declarations->dump();
+		std::cout << "Statement: \n";
+		statements->dump();
 	}
 };
 

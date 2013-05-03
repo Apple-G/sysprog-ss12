@@ -27,9 +27,9 @@ public:
 		delete identifier;
 	}
 
-//	virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual NodeIdentifier* getIdentifier() {
 		return this->identifier;
@@ -48,7 +48,7 @@ public:
 	}
 
 	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
+		std::cout << typeid(this).name()<< " [" << identifier->getLexem() << "] " << std::endl;
 	}
 };
 #endif

@@ -34,9 +34,9 @@ public:
 		delete operatorExpression;
 	}
 
-//	virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual NodeExp2* getExpression() {
 		return this->expression;

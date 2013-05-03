@@ -22,9 +22,9 @@ public:
 		delete integer;
 	}
 
-	//virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual NodeInteger* getInteger() {
 		return this->integer;

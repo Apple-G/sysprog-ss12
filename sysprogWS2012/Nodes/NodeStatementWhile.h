@@ -4,11 +4,11 @@
 #include "NodeStatement.h"
 
 /**
-   Abbildung des Knotens WHILE der Sprache der Aufgabenstellung.
+ Abbildung des Knotens WHILE der Sprache der Aufgabenstellung.
 
 
-*/
-class NodeStatementWhile : public NodeStatement {
+ */
+class NodeStatementWhile: public NodeStatement {
 
 	/** M�gliche Nachfolger oder Elemente des Knotens */
 	NodeExp* expression;
@@ -25,9 +25,9 @@ public:
 		delete statement;
 	}
 
-//	virtual void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual NodeExp* getExpression() {
 		return this->expression;
@@ -47,6 +47,12 @@ public:
 
 	virtual void dump() {
 		std::cout << typeid(this).name() << std::endl;
+		std::cout << "Start While" << std::endl;
+		if (statement != 0) {
+			statement->dump();
+		}
+		std::cout << "End While" << std::endl;
+
 	}
 };
 

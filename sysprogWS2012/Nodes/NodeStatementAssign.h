@@ -31,9 +31,9 @@ public:
 	}
 
 	/** Laesst einen Visitor zugreifen. */
-	//void accept(Visitor* visitor) {
-		//ToDo: visitor->visit(this);
-	//}
+	virtual void accept(Visitor* visitor) {
+	  visitor->visit(this);
+	}
 
 	virtual NodeIdentifier* getIdentifier() {
 		return this->identifier;
