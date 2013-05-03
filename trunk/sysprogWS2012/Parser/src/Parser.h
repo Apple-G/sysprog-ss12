@@ -57,10 +57,10 @@ class Parser
 	
 	/* Neue Eigenschaften f�r Verschr�nkung */
 	/** Wird f�r die semantische Code-Pr�fung eingesetzt. */
-//	Visitor* typeChecker;
+	Visitor* typeChecker;
 
 	/** Ist f�r die letztliche Code-Erzeugung zust�ndig. */
-	//Visitor* codeGenerator;
+	Visitor* codeGenerator;
 
 public:
 	/**

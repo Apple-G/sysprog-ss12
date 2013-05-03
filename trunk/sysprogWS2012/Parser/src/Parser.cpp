@@ -1,7 +1,7 @@
 #include "Parser.h"
 
-//#include "../TypeCheck/CodeGeneratorVisitor.h"
-//#include "../TypeCheck/TypeCheckVisitor.h"
+#include "CodeGeneratorVisitor.h"
+#include "TypeCheckVisitor.h"
 
 /*
 Parser::Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, OutputBuffer *outFile) {
@@ -17,6 +17,12 @@ Parser::Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, Output
 Parser::Parser(Scanner* scanner, Buffer* buffer) {
 	this->scanner = scanner;
 	this->tree = new Tree();
+
+
+	//ToDo: Buffer für typeChecker und CodeGenerator anlegen
+
+	this->typeChecker = new TypeCheckVisitor(buffer);
+	this->codeGenerator = new CodeGeneratorVisitor(buffer);
 }
 
 
