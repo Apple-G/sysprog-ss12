@@ -2,7 +2,6 @@
 #define NodeOpExp_H_
 
 #include "Node.h"
-#include "NodeOp.h"
 /**
    Abbildung des Knotens OP_EXP der Sprache der Aufgabenstellung.
 
@@ -27,7 +26,7 @@ public:
 	/** Loescht den Knoten, seine Elemente und Nachfolger. */
 	virtual ~NodeOpExp(void) {
 		//delete expression;
-		delete operation;
+//		delete operation;
 	}
 
 	/** Laesst einen Visitor zugreifen. */
@@ -49,10 +48,6 @@ public:
 
 	virtual void addChild(NodeOp* newOperation) {
 		this->operation = newOperation;
-	}
-
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
 	}
 };
 

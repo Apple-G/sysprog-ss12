@@ -36,9 +36,6 @@ public:
 	virtual int getColumn() {
 		return column;
 	}
-
-	virtual void dump() {
-	}
 };
 
 #endif /* NodeLeaf_H_ */

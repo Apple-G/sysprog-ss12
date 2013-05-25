@@ -2,7 +2,6 @@
 #define NodeExp2IdentifierIndex_H_
 
 #include "NodeExp2.h"
-#include "NodeIndex.h"
 
 /**
    Abbildung des Knotens EXP2 IDENTIFIER INDEX der Sprache der Aufgabenstellung.
@@ -22,8 +21,8 @@ public:
 	}
 
 	virtual ~NodeExp2IdentifierIndex(void) {
-		delete identifier;
-		delete index;
+//		delete identifier;
+//		delete index;
 	}
 
 	virtual void accept(Visitor* visitor) {
@@ -46,9 +45,6 @@ public:
 		this->index = newIndex;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
 };
 
 #endif

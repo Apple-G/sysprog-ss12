@@ -2,7 +2,6 @@
 #define NODEARRAY_H_
 
 #include "Node.h"
-#include "NodeInteger.h"
 
 /**
    Abbildung des Knotens ARRAY der Sprache der Aufgabenstellung.
@@ -19,7 +18,7 @@ public:
 	}
 
 	virtual ~NodeArray(void) {
-		delete this->integer;
+//		delete this->integer;
 	}
 
 	virtual void accept(Visitor* visitor) {
@@ -34,9 +33,6 @@ public:
 		return this->integer;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
 };
 
 #endif

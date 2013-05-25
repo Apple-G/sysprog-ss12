@@ -21,7 +21,7 @@ public:
 
 	/** Loescht den Knoten, seine Elemente und Nachfolger. */
 	virtual ~NodeStatementPrint(void) {
-		delete expression;
+//		delete expression;
 	}
 
 	/** Laesst einen Visitor zugreifen. */
@@ -37,9 +37,6 @@ public:
 		this->expression = newExpression;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
 };
 
 #endif /* NodeStatementPrint_H_ */

@@ -18,7 +18,7 @@ OBJS = 	$(OBJDIR)/Parser.o \
 	$(OBJDIR)/Visitor.o \
 	$(OBJDIR)/CodeGeneratorVisitor.o \
 	$(OBJDIR)/TypeCheckVisitor.o \
-	$(OBJDIR)/Node.o 
+	../Nodes/Node.o 
 
 ## hier alle Object Files eintragen, die in der shared library enthalten sein sollen 
 OBJSFORPARSERLIB =  \
@@ -57,6 +57,7 @@ $(OBJDIR)/%.o :  $(SRCDIR)/%.cpp
 
 cleanParser:
 	rm -rf $(OBJDIR)/*
+	rm -rf ../Nodes/Node.o
 	rm -rf $(LIBDIR)/*
 	$(MAKE) makeTestParser
 	

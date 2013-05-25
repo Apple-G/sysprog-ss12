@@ -19,7 +19,7 @@ public:
 	}
 
 	virtual ~NodeExp2Integer(void) {
-		delete integer;
+//		delete integer;
 	}
 
 	virtual void accept(Visitor* visitor) {
@@ -34,9 +34,6 @@ public:
 		this->integer = integer;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
 };
 
 #endif

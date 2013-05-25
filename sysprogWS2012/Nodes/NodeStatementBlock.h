@@ -38,12 +38,6 @@ public:
 		this->statements = newStatements;
 	}
 
-	virtual  void dump() {
-		std::cout << typeid(this).name() << std::endl;
-		if (statements != 0) {
-			this->statements->dump();
-		}
-	}
 };
 
 #endif /* NodeStatementBlock_H_ */

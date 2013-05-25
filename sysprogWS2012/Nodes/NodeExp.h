@@ -3,14 +3,6 @@
 
 #include "Node.h"
 
-#include "NodeOpExp.h"
-
-#include "NodeExp2Exp.h"
-#include "NodeExp2IdentifierIndex.h"
-#include "NodeExp2Integer.h"
-#include "NodeExp2NegativeExp.h"
-#include "NodeExp2NotExp.h"
-
 
 /**
    Abbildung des Knotens EXP der Sprache der Aufgabenstellung.
@@ -30,8 +22,8 @@ public:
 	}
 
 	virtual ~NodeExp(void) {
-		delete expression;
-		delete operatorExpression;
+//		delete expression;
+//		delete operatorExpression;
 	}
 
 	virtual void accept(Visitor* visitor) {
@@ -54,9 +46,6 @@ public:
 		this->operatorExpression = newOperatorExpression;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
 };
 
 #endif

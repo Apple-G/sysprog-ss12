@@ -2,8 +2,7 @@
 #define NODEDECL_H_
 
 #include "Node.h"
-#include "NodeArray.h"
-#include "NodeIdentifier.h"
+
 
 /**
    Abbildung des Knotens DECL der Sprache der Aufgabenstellung.
@@ -23,8 +22,8 @@ public:
 	}
 
 	virtual ~NodeDecl(void) {
-		delete arrayAccess;
-		delete identifier;
+//		delete arrayAccess;
+//		delete identifier;
 	}
 
 	virtual void accept(Visitor* visitor) {
@@ -47,8 +46,5 @@ public:
 		this->identifier = identifier;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name()<< " [" << identifier->getLexem() << "] " << std::endl;
-	}
 };
 #endif
