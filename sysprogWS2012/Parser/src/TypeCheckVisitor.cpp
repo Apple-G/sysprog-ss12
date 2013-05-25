@@ -1,4 +1,5 @@
 #include "TypeCheckVisitor.h"
+#include "CharHelper.h"
 #include <iostream>
 using namespace std;
 
