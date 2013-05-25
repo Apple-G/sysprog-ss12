@@ -14,10 +14,10 @@ class CodeGeneratorVisitor : public Visitor {
 	Buffer *writer;
 
 	/** Markenz�hler - wichtig f�r Rekursionen, damit sich Sprungmarken nicht wiederholen. */
-	unsigned int marken;
+	unsigned int label_count;
 
 	/** Gr��e f�r tempor�ren Puffer f�r Erzeugen der Marken. */
-	static const unsigned int MAX_MARKEN_BUFFER_SIZE = 20;
+	static const unsigned int MAX_LABEL_BUFFER_SIZE = 20;
 
 	/** Erzeugt eine Sprungmarke und schreibt diese in ein char Feld.
 	@param buf Hier wird das Ergebnis nullterminiert hingeschrieben.

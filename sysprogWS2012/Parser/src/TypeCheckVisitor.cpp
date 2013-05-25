@@ -23,26 +23,23 @@ TypeCheckVisitor::~TypeCheckVisitor(void) {
 void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned int column, char *lexem) {
 	operationsSuccessful = false; //wichtig für fehlererkennung
 
-
-	if (lexem != NULL)
-	{
-		this->writer->writeMessage(message);
-		this->writer->writeMessage(" in line ");
-		this->writer->writeMessage(CharHelper::convertInt(line));
-		this->writer->writeMessage(", column ");
-		this->writer->writeMessage(CharHelper::convertInt(column));
-		this->writer->writeMessage(", identifier ");
-		this->writer->writeMessage(lexem);
-		this->writer->writeMessage("\n");
-
-
-	}else {
-		this->writer->writeMessage(message);
-		this->writer->writeMessage(" in line ");
-		this->writer->writeMessage(CharHelper::convertInt(line));
-		this->writer->writeMessage(", column ");
-		this->writer->writeMessage(CharHelper::convertInt(column));
-		this->writer->writeMessage("\n");
+	if (lexem != NULL) {
+		this->writer->writeError(message);
+		this->writer->writeError(" in line ");
+		this->writer->writeError(CharHelper::convertInt(line));
+		this->writer->writeError(", column ");
+		this->writer->writeError(CharHelper::convertInt(column));
+		this->writer->writeError(", identifier ");
+		this->writer->writeError(lexem);
+		this->writer->writeError("\n");
+	}
+	else {
+		this->writer->writeError(message);
+		this->writer->writeError(" in line ");
+		this->writer->writeError(CharHelper::convertInt(line));
+		this->writer->writeError(", column ");
+		this->writer->writeError(CharHelper::convertInt(column));
+		this->writer->writeError("\n");
 	}
 }
 
