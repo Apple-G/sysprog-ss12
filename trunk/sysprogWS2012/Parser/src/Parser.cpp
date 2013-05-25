@@ -409,7 +409,7 @@ NodeStatement* Parser::statement() {
 				}
 				else {
 					delete whileStatement;
-					ErrorOutput("')'", temp->getRow(), temp->getColumn());
+					ErrorOutput("')' expected", temp->getRow(), temp->getColumn());
 					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
 //					printf("')' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 				}
@@ -417,7 +417,7 @@ NodeStatement* Parser::statement() {
 				newNode = whileStatement;
 			}
 			else {
-				ErrorOutput("'('", temp->getRow(), temp->getColumn());
+				ErrorOutput("'(' expected", temp->getRow(), temp->getColumn());
 				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
 //				printf("'(' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 			}
@@ -426,13 +426,14 @@ NodeStatement* Parser::statement() {
 		// Leere Statements sind nicht erlaubt!
 		case Token::SEMICOLON:
 			//ToDo: throw SyntaxErrorException("Empty Statement is not accepted!", temp->getRow(), temp->getColumn());
-			printf("Empty Statement is not accepted! (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
+			ErrorOutput("Empty Statement is not accepted!", temp->getRow(), temp->getColumn());
+//			printf("Empty Statement is not accepted! (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 			break;
 
 		// Statement in einem Declarations-Block
 		case Token::INT:
 			//ToDo: throw SyntaxErrorException("Statement expected", temp->getRow(), temp->getColumn());
-			printf("Statement expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
+			ErrorOutput("Statement expected", temp->getRow(), temp->getColumn());
 			break;
 
 		// Nichts hat gepasst
@@ -476,7 +477,7 @@ NodeExp2* Parser::exp2() {
 			temp = this->readNextToken();
 			if (temp->getType() != Token::R_PARENTHESIS) {
 				//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
-									printf("')' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
+				ErrorOutput("')' expected", temp->getRow(), temp->getColumn());
 			}
 			return expression;
 
@@ -511,7 +512,7 @@ NodeExp2* Parser::exp2() {
 
 		default:
 			//ToDo: throw SyntaxErrorException("Illegal expression.", temp->getRow(), temp->getColumn());
-			printf("Illegal expression. (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
+			ErrorOutput("Illegal expression.", temp->getRow(), temp->getColumn());
 	}
 
 	return 0;
@@ -536,7 +537,7 @@ NodeIndex* Parser::index() {
 		else {
 			delete index;
 			//ToDo: throw SyntaxErrorException("']' expected", temp->getRow(), temp->getColumn());
-			printf("']' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
+			ErrorOutput("']' expected", temp->getRow(), temp->getColumn());
 		}
 	}
 	else {
