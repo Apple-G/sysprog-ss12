@@ -41,7 +41,7 @@ class Parser
 	/**
 		Hilfsfunktion zur Ausgabe von Fehlern
 	*/
-	void ErrorOutput(char* message, int row, int column);
+	void errorOutput(char* message, int row, int column);
 
 	/**
 		Es folgen die Funktionen für jedes Nicht-Terminalsymbol mit deren Hilfe
