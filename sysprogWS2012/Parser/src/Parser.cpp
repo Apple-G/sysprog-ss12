@@ -49,7 +49,6 @@ void Parser::errorOutput(char* message, int row, int column) {
 	writer->writeError(", Column: ");
 	writer->writeError(CharHelper::convertInt(column));
 	writer->writeError(")\n");
-	printf("test");
 }
 
 Tree* Parser::parse() {
