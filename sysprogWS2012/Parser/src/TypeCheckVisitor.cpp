@@ -17,26 +17,31 @@ TypeCheckVisitor::TypeCheckVisitor(Buffer *writer) {
 
 TypeCheckVisitor::~TypeCheckVisitor(void) {
 }
-/*
-void TypeCheckVisitor::flushError(void) {
-	// Write to out - either custom buffer or stderr
-	if (this->writer) {
-		this->writer->writeMessage(this->errorMessage);
-	}
-	else {
-		fputs(errorMessage, stderr);
-	}
-}
-*/
+
+
 void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned int column, char *lexem) {
 	operationsSuccessful = false; //wichtig für fehlererkennung
 
 
 	if (lexem != NULL)
 	{
-		printf("%s in line %u, column %u, identifier: %s" , message, line, column, lexem);
+		this->writer->writeMessage(message);
+		this->writer->writeMessage(" in line ");
+		this->writer->writeMessage(line);
+		this->writer->writeMessage(", column ");
+		this->writer->writeMessage(column);
+		this->writer->writeMessage(", identifier ");
+		this->writer->writeMessage(lexem);
+		this->writer->writeMessage("\n");
+
+
 	}else {
-		printf("%s in line %u, column %u", message, line, column);
+		this->writer->writeMessage(message);
+		this->writer->writeMessage(" in line ");
+		this->writer->writeMessage(line);
+		this->writer->writeMessage(", column ");
+		this->writer->writeMessage(column);
+		this->writer->writeMessage("\n");
 	}
 }
 
