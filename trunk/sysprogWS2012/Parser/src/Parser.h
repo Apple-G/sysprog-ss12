@@ -12,7 +12,7 @@
 
 
 /**
-	�berpr�ft die Syntax des Programmcodes und erstellt den Strukturbaum.
+	Überprüft die Syntax des Programmcodes und erstellt den Strukturbaum.
 */
 class Parser
 {
@@ -21,6 +21,9 @@ class Parser
 	*/
 	Scanner *scanner;
 
+	/**
+		Buffer
+	*/
 	Buffer *writer;
 	/** 
 		Strukturbaum

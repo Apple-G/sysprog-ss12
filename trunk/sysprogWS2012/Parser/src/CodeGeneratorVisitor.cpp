@@ -6,7 +6,7 @@ using namespace std;
 CodeGeneratorVisitor::CodeGeneratorVisitor(Buffer *writer) {
 	operationsSuccessful = true;
 	this->writer = writer;
-	this->marken = 0;
+	this->label_count = 0;
 }
 
 
@@ -14,8 +14,8 @@ CodeGeneratorVisitor::~CodeGeneratorVisitor(void) {
 }
 
 void CodeGeneratorVisitor::generateJumpLabel(char *buf) {
-	buf = CharHelper::convertInt(marken);
-	marken++;
+	buf = CharHelper::convertInt(label_count);
+	label_count++;
 }
 
 void CodeGeneratorVisitor::visit(NodeProg *node) {
@@ -96,26 +96,26 @@ void CodeGeneratorVisitor::visit(NodeStatementBlock *node) {
 }
 
 void CodeGeneratorVisitor::visit(NodeStatementIfElse *node) {
-	char marke1[MAX_MARKEN_BUFFER_SIZE];
-	char marke2[MAX_MARKEN_BUFFER_SIZE];
+	char label1[MAX_LABEL_BUFFER_SIZE];
+	char label2[MAX_LABEL_BUFFER_SIZE];
 
-	generateJumpLabel(marke1);
-	generateJumpLabel(marke2);
+	generateJumpLabel(label1);
+	generateJumpLabel(label2);
 
 	node->getExpression()->accept(this);
-	writer->writeMessage(" JIN *marke"); // JIN *marke1
-	writer->writeMessage(marke1);
+	writer->writeMessage(" JIN #label"); // JIN #label1
+	writer->writeMessage(label1);
 
 	node->getIfStatement()->accept(this);
-	writer->writeMessage(" JMP *marke"); // JMP *marke2
-	writer->writeMessage(marke2);
-	writer->writeMessage(" *marke"); // *marke1 NOP
-	writer->writeMessage(marke1);
+	writer->writeMessage(" JMP #label"); // JMP #label2
+	writer->writeMessage(label2);
+	writer->writeMessage(" #label"); // #label1 NOP
+	writer->writeMessage(label1);
 	writer->writeMessage(" NOP");
 
 	node->getElseStatement()->accept(this);
-	writer->writeMessage(" *marke"); // *marke2 NOP
-	writer->writeMessage(marke2);
+	writer->writeMessage(" #label"); // #label2 NOP
+	writer->writeMessage(label2);
 	writer->writeMessage(" NOP");
 }
 
@@ -139,25 +139,25 @@ void CodeGeneratorVisitor::visit(NodeStatementRead *node) {
 }
 
 void CodeGeneratorVisitor::visit(NodeStatementWhile *node) {
-	char marke1[MAX_MARKEN_BUFFER_SIZE];
-	char marke2[MAX_MARKEN_BUFFER_SIZE];
+	char label1[MAX_LABEL_BUFFER_SIZE];
+	char label2[MAX_LABEL_BUFFER_SIZE];
 
-	generateJumpLabel(marke1);
-	generateJumpLabel(marke2);
+	generateJumpLabel(label1);
+	generateJumpLabel(label2);
 
-	writer->writeMessage(" *marke"); // *marke1 NOP
-	writer->writeMessage(marke1);
+	writer->writeMessage(" #label"); // #label1 NOP
+	writer->writeMessage(label1);
 	writer->writeMessage(" NOP");
 
 	node->getExpression()->accept(this);
-	writer->writeMessage(" JIN *marke"); // JIN *marke2
-	writer->writeMessage(marke2);
+	writer->writeMessage(" JIN #label"); // JIN #label2
+	writer->writeMessage(label2);
 
 	node->getStatement()->accept(this);
-	writer->writeMessage(" JMP *marke"); // JMP *marke1
-	writer->writeMessage(marke1);
-	writer->writeMessage(" *marke"); // *marke2 NOP
-	writer->writeMessage(marke2);
+	writer->writeMessage(" JMP #label"); // JMP #label1
+	writer->writeMessage(label1);
+	writer->writeMessage(" #label"); // #label2 NOP
+	writer->writeMessage(label2);
 	writer->writeMessage(" NOP");
 }
 

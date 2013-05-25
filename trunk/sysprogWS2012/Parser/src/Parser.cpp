@@ -43,12 +43,12 @@ Token* Parser::readNextToken() {
 }
 
 void Parser::errorOutput(char* message, int row, int column) {
-	writer->writeError(message);
-	writer->writeError(" (Row ");
-	writer->writeError(CharHelper::convertInt(row));
-	writer->writeError(", Column: ");
-	writer->writeError(CharHelper::convertInt(column));
-	writer->writeError(")\n");
+	this->writer->writeError(message);
+	this->writer->writeError(" (Row ");
+	this->writer->writeError(CharHelper::convertInt(row));
+	this->writer->writeError(", Column: ");
+	this->writer->writeError(CharHelper::convertInt(column));
+	this->writer->writeError(")\n");
 }
 
 Tree* Parser::parse() {
