@@ -22,7 +22,7 @@ class CodeGeneratorVisitor : public Visitor {
 	/** Erzeugt eine Sprungmarke und schreibt diese in ein char Feld.
 	@param buf Hier wird das Ergebnis nullterminiert hingeschrieben.
 	*/
-	virtual void generateJumpLabel(char *buf);
+	virtual int generateJumpLabel();
 
 public:
 	/** Erzeugt einen neuen Visitor und initialisiert internen Zustand.

@@ -13,9 +13,8 @@ CodeGeneratorVisitor::CodeGeneratorVisitor(Buffer *writer) {
 CodeGeneratorVisitor::~CodeGeneratorVisitor(void) {
 }
 
-void CodeGeneratorVisitor::generateJumpLabel(char *buf) {
-	buf = CharHelper::convertInt(label_count);
-	label_count++;
+int CodeGeneratorVisitor::generateJumpLabel() {
+	return label_count++;
 }
 
 void CodeGeneratorVisitor::visit(NodeProg *node) {
@@ -47,7 +46,7 @@ void CodeGeneratorVisitor::visit(NodeDecl *node) {
 	NodeIdentifier *identifier = node->getIdentifier();
 	NodeArray *arr = node->getArray();
 
-	writer->writeMessage(" DS ");
+	writer->writeMessage(" DS $");
 	writer->writeMessage(identifier->getLexem());
 
 	if (arr != NULL)
@@ -81,7 +80,7 @@ void CodeGeneratorVisitor::visit(NodeStatementAssign *node) {
 
 	exp->accept(this);
 
-	writer->writeMessage(" LA ");
+	writer->writeMessage(" LA $");
 	writer->writeMessage(identifier->getLexem());
 	
 	if (index != NULL)
@@ -96,11 +95,11 @@ void CodeGeneratorVisitor::visit(NodeStatementBlock *node) {
 }
 
 void CodeGeneratorVisitor::visit(NodeStatementIfElse *node) {
-	char label1[MAX_LABEL_BUFFER_SIZE];
-	char label2[MAX_LABEL_BUFFER_SIZE];
+	char* label1;
+	char* label2;
 
-	generateJumpLabel(label1);
-	generateJumpLabel(label2);
+	label1 = CharHelper::convertInt(generateJumpLabel());
+	label2 = CharHelper::convertInt(generateJumpLabel());
 
 	node->getExpression()->accept(this);
 	writer->writeMessage(" JIN #label"); // JIN #label1
@@ -129,7 +128,7 @@ void CodeGeneratorVisitor::visit(NodeStatementRead *node) {
 	NodeIdentifier *identifier = node->getIdentifier();
 
 	writer->writeMessage(" RDI");
-	writer->writeMessage(" LA ");
+	writer->writeMessage(" LA $");
 	writer->writeMessage(identifier->getLexem());
 
 	if (index != NULL)
@@ -139,11 +138,11 @@ void CodeGeneratorVisitor::visit(NodeStatementRead *node) {
 }
 
 void CodeGeneratorVisitor::visit(NodeStatementWhile *node) {
-	char label1[MAX_LABEL_BUFFER_SIZE];
-	char label2[MAX_LABEL_BUFFER_SIZE];
+	char* label1;
+	char* label2;
 
-	generateJumpLabel(label1);
-	generateJumpLabel(label2);
+	label1 = CharHelper::convertInt(generateJumpLabel());
+	label2 = CharHelper::convertInt(generateJumpLabel());
 
 	writer->writeMessage(" #label"); // #label1 NOP
 	writer->writeMessage(label1);
@@ -191,7 +190,7 @@ void CodeGeneratorVisitor::visit(NodeExp2IdentifierIndex* node) {
 	NodeIndex *index = node->getIndex();
 	NodeIdentifier *identifier = node->getIdentifier();
 
-	writer->writeMessage(" LA ");
+	writer->writeMessage(" LA $");
 	writer->writeMessage(identifier->getLexem());
 
 	if (index != NULL)
