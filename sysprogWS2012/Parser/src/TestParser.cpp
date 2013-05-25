@@ -7,19 +7,19 @@ using namespace std;
 int main(int argc, char **argv) {
 
 
-	Buffer* b = new Buffer("TestFilesParser/p1Test.txt");
+	Buffer* buffer = new Buffer("TestFilesParser/p1Test.txt");
 
 	//File Ausgabe
-	OutputHandlerBase* outfile = new OutputFileHandler("out.txt");
-	b->RegisterMessageHandler(outfile);
+	OutputHandlerBase* outFile = new OutputFileHandler("out.txt");
+	buffer->RegisterMessageHandler(outFile);
 
 	//Consolen Ausgabe
 	OutputHandlerBase* outConsole = new OutConsoleHandler();
-	b->RegisterMessageHandler(outConsole);
+	buffer->RegisterMessageHandler(outConsole);
 
-	Scanner* s = new Scanner(b);
-	Parser *p = new Parser(s, b);
-	Tree *t = p->parse();
+	Scanner* scanner = new Scanner(buffer);
+	Parser *parser = new Parser(scanner, buffer);
+	Tree *tree = parser->parse();
 
 	cout << endl << endl << "Test Parser Complete..." << endl;
 
