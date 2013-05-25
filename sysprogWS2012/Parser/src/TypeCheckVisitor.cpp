@@ -179,7 +179,7 @@ void TypeCheckVisitor::visit(NodeStatementBlock *node) {
 void TypeCheckVisitor::visit(NodeStatementIfElse *node) {
 	node->getExpression()->accept(this);
 	node->getIfStatement()->accept(this);
-	node->getElseStatement()->accept(this);CharHelper::convertInt(
+	node->getElseStatement()->accept(this);
 
 	if (node->getExpression()->getType() == Node::TYPE_ERROR) {
 		node->setType(Node::TYPE_ERROR);
