@@ -1,5 +1,5 @@
 #include "Parser.h"
-
+#include "CharHelper.h"
 #include "CodeGeneratorVisitor.h"
 #include "TypeCheckVisitor.h"
 
@@ -17,7 +17,7 @@ Parser::Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, Output
 Parser::Parser(Scanner* scanner, Buffer* buffer) {
 	this->scanner = scanner;
 	this->tree = new Tree();
-
+	this->writer = buffer;
 
 	//ToDo: Buffer für typeChecker und CodeGenerator anlegen
 
@@ -90,15 +90,19 @@ NodeDecls* Parser::decls() {
 		declaration->accept(this->codeGenerator);
 
 		// ;
-		Token *temp = this->readNextToken();
-		if (temp->getType() == Token::SEMICOLON) {
+		Token *tempToken = this->readNextToken();
+		if (tempToken->getType() == Token::SEMICOLON) {
 			// DECLS
 			declarations->addChild(this->decls());
 		} 
 		else {
 		//	throw SyntaxErrorException("';' expected", temp->getRow(), temp->getColumn());
-			//ToDo:
-			printf("';' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
+			writer->writeError(" ';' expected (Row ");
+			writer->writeError(CharHelper::convertInt(tempToken->getRow()));
+			writer->writeError(", Column: ");
+			writer->writeError(CharHelper::convertInt(tempToken->getColumn()));
+
+//			printf("';' expected (Row: %d, Column: %d)", tempToken->getRow(), tempToken->getColumn());
 			throw 1;
 		}
 	}

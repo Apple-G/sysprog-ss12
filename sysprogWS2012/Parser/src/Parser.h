@@ -21,6 +21,7 @@ class Parser
 	*/
 	Scanner *scanner;
 
+	Buffer *writer;
 	/** 
 		Strukturbaum
 	*/
