@@ -43,9 +43,8 @@ Token* Parser::readNextToken() {
 }
 
 void Parser::ErrorOutput(char* message, int row, int column) {
-	writer->writeError("'");
 	writer->writeError(message);
-	writer->writeError("' expected (Row ");
+	writer->writeError(" expected (Row ");
 	writer->writeError(CharHelper::convertInt(row));
 	writer->writeError(", Column: ");
 	writer->writeError(CharHelper::convertInt(column));
@@ -410,11 +409,7 @@ NodeStatement* Parser::statement() {
 				}
 				else {
 					delete whileStatement;
-					writer->writeError(" ')' expected (Row ");
-					writer->writeError(CharHelper::convertInt(tempToken->getRow()));
-					writer->writeError(", Column: ");
-					writer->writeError(CharHelper::convertInt(tempToken->getColumn()));
-					writer->writeError(")\n");
+					ErrorOutput(")", temp->getRow(), temp->getColumn());
 					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
 //					printf("')' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 				}
@@ -422,11 +417,7 @@ NodeStatement* Parser::statement() {
 				newNode = whileStatement;
 			}
 			else {
-				writer->writeError(" '(' expected (Row ");
-				writer->writeError(CharHelper::convertInt(tempToken->getRow()));
-				writer->writeError(", Column: ");
-				writer->writeError(CharHelper::convertInt(tempToken->getColumn()));
-				writer->writeError(")\n");
+				ErrorOutput("(", temp->getRow(), temp->getColumn());
 				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
 //				printf("'(' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 			}
