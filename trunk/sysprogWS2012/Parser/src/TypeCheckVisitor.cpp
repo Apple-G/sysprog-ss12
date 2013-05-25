@@ -29,25 +29,9 @@ void TypeCheckVisitor::flushError(void) {
 }
 */
 void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned int column, char *lexem) {
-	/*operationsSuccessful = false;
-	errorCount++;
+	operationsSuccessful = false; //wichtig für fehlererkennung
 
-	// Build message
-	int written = sprintf(errorMessage, "%s in line %u, column %u", message, line, column);
 
-	if (lexemLength) {
-		strcpy(errorMessage + written, ", identifier: ");
-		written += sizeof(", identifier: ") - 1;
-		strncpy(errorMessage + written, lexem, lexemLength);
-		written += lexemLength;
-	}
-
-	errorMessage[written]     = '\n';
-	errorMessage[written + 1] = 0;
-
-	// Write message
-	this->flushError();
-	*/
 	if (lexem != NULL)
 	{
 		printf("%s in line %u, column %u, identifier: %s" , message, line, column, lexem);

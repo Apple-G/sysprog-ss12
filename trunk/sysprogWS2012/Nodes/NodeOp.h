@@ -33,9 +33,6 @@ public:
 	  visitor->visit(this);
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
 };
 
 #endif /* NodeOp_H_ */

@@ -33,9 +33,6 @@ public:
 		this->expression = newExpression;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
 };
 
 

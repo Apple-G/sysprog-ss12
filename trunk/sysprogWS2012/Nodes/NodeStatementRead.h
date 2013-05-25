@@ -23,8 +23,8 @@ public:
 
 	/** Loescht den Knoten, seine Elemente und Nachfolger. */
 	virtual ~NodeStatementRead(void) {
-		delete identifier;
-		delete index;
+//		delete identifier;
+//		delete index;
 	}
 
 	/** Laesst einen Visitor zugreifen. */
@@ -60,9 +60,6 @@ public:
 		this->index = newIndex;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
 };
 
 #endif /* NodeStatementRead_H_ */

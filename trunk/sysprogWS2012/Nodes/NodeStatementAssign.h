@@ -25,9 +25,9 @@ public:
 
 	/** Loescht den Knoten, seine Elemente und Nachfolger. */
 	virtual ~NodeStatementAssign(void) {
-		delete identifier;
-		delete expression;
-		delete index;
+//		delete identifier;
+//		delete expression;
+//		delete index;
 	}
 
 	/** Laesst einen Visitor zugreifen. */
@@ -59,9 +59,6 @@ public:
 		this->index = newIndex;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
 };
 
 #endif /* NodeStatementAssign_H_ */

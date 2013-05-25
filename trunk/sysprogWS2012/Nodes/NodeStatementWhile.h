@@ -21,8 +21,8 @@ public:
 	}
 
 	virtual ~NodeStatementWhile(void) {
-		delete expression;
-		delete statement;
+//		delete expression;
+//		delete statement;
 	}
 
 	virtual void accept(Visitor* visitor) {
@@ -45,15 +45,6 @@ public:
 		this->statement = newStatement;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-		std::cout << "Start While" << std::endl;
-		if (statement != 0) {
-			statement->dump();
-		}
-		std::cout << "End While" << std::endl;
-
-	}
 };
 
 #endif /* NodeStatementWhile_H_ */

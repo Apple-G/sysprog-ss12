@@ -2,7 +2,6 @@
 #define NodeDecls_H_
 
 #include "Node.h"
-#include "NodeDecl.h"
 /**
  Abbildung des Knotens DECLS der Sprache der Aufgabenstellung.
 
@@ -22,8 +21,8 @@ public:
 	}
 
 	virtual ~NodeDecls(void) {
-		delete declaration;
-		delete nextDeclarations;
+//		delete declaration;
+//		delete nextDeclarations;
 	}
 
 	virtual void accept(Visitor* visitor) {
@@ -46,13 +45,7 @@ public:
 		this->nextDeclarations = newDeclarations;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-		declaration->dump();
-		if (nextDeclarations != 0) {
-			nextDeclarations->dump();
-		}
-	}
+
 };
 
 #endif

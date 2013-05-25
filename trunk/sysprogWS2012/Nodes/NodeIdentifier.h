@@ -1,7 +1,7 @@
 #ifndef NodeIdentifier_H_
 #define NodeIdentifier_H_
 #include "NodeLeaf.h"
-#include "SymboltableEntry.h"
+#include "../Symboltable/src/SymboltableEntry.h"
 
 /**
    Abbildung des Knotens IDENTIFIER der Sprache der Aufgabenstellung.

@@ -1,6 +1,6 @@
 #include "Parser_Tree.h"
-//#include "../../TypeCheck/TypeCheckVisitor.h"
-//#include "../../TypeCheck/CodeGeneratorVisitor.h"
+#include "TypeCheckVisitor.h"
+#include "CodeGeneratorVisitor.h"
 
 Tree::Tree(void) {
 	this->root = 0;
@@ -10,10 +10,6 @@ Tree::~Tree(void) {
 	delete this->root;
 }
 
-void Tree::dump() {
-	//cout << "Dump Tree" << endl;
-	this->root->dump();
-}
 
 void Tree::setRoot(NodeProg* node) {
 	this->root = node;
@@ -24,21 +20,16 @@ NodeProg* Tree::getRoot() {
 }
 
 void Tree::makeCode(Buffer *output) {
-	//ToDo:makeCode
-	//CodeGeneratorVisitor c(output);
-	//root->accept(&c);
+	CodeGeneratorVisitor c(output);
+	root->accept(&c);
 }
 
 bool Tree::typeCheck(Buffer *output) {
 
 	// Typecheck visitor
-	//ToDo: typeCheck
-	//TypeCheckVisitor t(output);
-	//root->accept(&t);
 
-	//bool success = t.completedWithoutErrors();
+	TypeCheckVisitor t(output);
+	root->accept(&t);
 
-	//return success;
-
-	return true;
+	return t.completedWithoutErrors();
 }

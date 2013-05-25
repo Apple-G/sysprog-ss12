@@ -49,9 +49,9 @@ Tree* Parser::parse() {
 	this->tree->setRoot(this->prog());
 
 	//ToDo: TypeCheck
-//	if (!this->typeChecker->completedWithoutErrors()) {
-//		fprintf(stderr, "Semantic check returned errors, code cannot be generated!\nPlease check 'errorSemantics.log'.\n");
-//	}
+	if (!this->typeChecker->completedWithoutErrors()) {
+		fprintf(stderr, "Semantic check returned errors, code cannot be generated!\nPlease check 'errorSemantics.log'.\n");
+	}
 
 	return this->tree;
 }
@@ -64,8 +64,8 @@ NodeProg* Parser::prog() {
 	root->addChild(this->statements());
 
 	/* --> JETZT TYPPRÜFUNG UND CODEGEN - VERSCHRÄNKUNG */
-	//root->accept(this->typeChecker);arrayAccess
-	//root->accept(this->codeGenerator);
+	root->accept(this->typeChecker);
+	root->accept(this->codeGenerator);
 
 	return root;
 }
@@ -86,8 +86,8 @@ NodeDecls* Parser::decls() {
 		declarations->addChild(declaration);
 
 		/* --> JETZT TYPPRÜFUNG UND CODEGEN - VERSCHRÄNKUNG */
-	//	declaration->accept(this->typeChecker);
-	//	declaration->accept(this->codeGenerator);
+		declaration->accept(this->typeChecker);
+		declaration->accept(this->codeGenerator);
 
 		// ;
 		Token *temp = this->readNextToken();
@@ -197,8 +197,8 @@ NodeStatements* Parser::statements() {
 
 	/* --> JETZT TYPPRÜFUNG UND CODEGEN - VERSCHRÄNKUNG */
 	// Nimmt man hier statements, werden viele NOPs erzeugt
-	//statement->accept(this->typeChecker);
-	//statement->accept(this->codeGenerator);
+	statement->accept(this->typeChecker);
+	statement->accept(this->codeGenerator);
 
 	// ;
 	Token *temp = this->readNextToken();

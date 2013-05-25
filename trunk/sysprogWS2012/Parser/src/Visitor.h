@@ -5,36 +5,37 @@
    welche vom Parser erzeugt wurde.
 
 */
+//#include "../Nodes/Node.h"
 class Node;
 // Vorw�rtsdeklaration wegen Cross-Include
 // Vorw�rtsdeklaration, damit die Datentypen in der Header verwendet werden k�nnen
 // unterhalb folgen Includes
-extern class NodeProg;
-extern class NodeDecls;
-extern class NodeDecl;
-extern class NodeArray;
-extern class NodeStatements;
-extern class NodeStatement;
-extern class NodeStatementAssign;
-extern class NodeStatementBlock;
-extern class NodeStatementIfElse;
-extern class NodeStatementPrint;
-extern class NodeStatementRead;
-extern class NodeStatementWhile;
-extern class NodeExp;
-extern class NodeExp2;
-extern class NodeExp2Exp;
-extern class NodeExp2IdentifierIndex;
-extern class NodeExp2Integer;
-extern class NodeExp2NegativeExp;
-extern class NodeExp2NotExp;
-extern class NodeIndex;
-extern class NodeOpExp;
-extern class NodeOp;
+class NodeProg;
+class NodeDecls;
+class NodeDecl;
+class NodeArray;
+class NodeStatements;
+class NodeStatement;
+class NodeStatementAssign;
+class NodeStatementBlock;
+class NodeStatementIfElse;
+class NodeStatementPrint;
+class NodeStatementRead;
+class NodeStatementWhile;
+class NodeExp;
+class NodeExp2;
+class NodeExp2Exp;
+class NodeExp2IdentifierIndex;
+class NodeExp2Integer;
+class NodeExp2NegativeExp;
+class NodeExp2NotExp;
+class NodeIndex;
+class NodeOpExp;
+class NodeOp;
 
-extern class NodeLeaf;
-extern class NodeIdentifier;
-extern class NodeInteger;
+class NodeLeaf;
+class NodeIdentifier;
+class NodeInteger;
 
 class Visitor {
 
@@ -79,29 +80,27 @@ public:
 	virtual void visit(NodeInteger *node) = 0;
 };
 
-#include "../Nodes/NodeProg.h"
-#include "../Nodes/NodeDecls.h"
-#include "../Nodes/NodeDecl.h"
-#include "../Nodes/NodeArray.h"
-#include "../Nodes/NodeStatements.h"
-#include "../Nodes/NodeStatement.h"
-#include "../Nodes/NodeStatementAssign.h"
-#include "../Nodes/NodeStatementBlock.h"
-#include "../Nodes/NodeStatementIfElse.h"
-#include "../Nodes/NodeStatementPrint.h"
-#include "../Nodes/NodeStatementRead.h"
-#include "../Nodes/NodeStatementWhile.h"
-
-#include "../Nodes/NodeExp.h"
-#include "../Nodes/NodeExp2.h"
-#include "../Nodes/NodeExp2Exp.h"
-#include "../Nodes/NodeExp2IdentifierIndex.h"
-#include "../Nodes/NodeExp2Integer.h"
-#include "../Nodes/NodeExp2NegativeExp.h"
-#include "../Nodes/NodeExp2NotExp.h"
-
-#include "../Nodes/NodeIndex.h"
-#include "../Nodes/NodeOpExp.h"
-#include "../Nodes/NodeOp.h"
+#include "../../Nodes/NodeProg.h"
+#include "../../Nodes/NodeDecls.h"
+#include "../../Nodes/NodeDecl.h"
+#include "../../Nodes/NodeArray.h"
+#include "../../Nodes/NodeStatements.h"
+#include "../../Nodes/NodeStatement.h"
+#include "../../Nodes/NodeStatementAssign.h"
+#include "../../Nodes/NodeStatementBlock.h"
+#include "../../Nodes/NodeStatementIfElse.h"
+#include "../../Nodes/NodeStatementPrint.h"
+#include "../../Nodes/NodeStatementRead.h"
+#include "../../Nodes/NodeStatementWhile.h"
+#include "../../Nodes/NodeExp.h"
+#include "../../Nodes/NodeExp2.h"
+#include "../../Nodes/NodeExp2Exp.h"
+#include "../../Nodes/NodeExp2IdentifierIndex.h"
+#include "../../Nodes/NodeExp2Integer.h"
+#include "../../Nodes/NodeExp2NegativeExp.h"
+#include "../../Nodes/NodeExp2NotExp.h"
+#include "../../Nodes/NodeIndex.h"
+#include "../../Nodes/NodeOpExp.h"
+#include "../../Nodes/NodeOp.h"
 
 #endif

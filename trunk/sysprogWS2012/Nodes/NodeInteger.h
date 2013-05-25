@@ -29,10 +29,6 @@ public:
 	  visitor->visit(this);
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-	}
-
 	virtual long getValue() {
 		return value;
 	}

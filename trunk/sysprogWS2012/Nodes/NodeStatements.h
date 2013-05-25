@@ -2,7 +2,7 @@
 #define Nodestatements_H_
 
 #include "Node.h"
-#include "NodeStatement.h"
+
 /**
  Abbildung des Knotens STATEMENTS der Sprache der Aufgabenstellung.
 
@@ -24,8 +24,8 @@ public:
 
 	/** Loescht den Knoten, seine Elemente und Nachfolger. */
 	virtual ~NodeStatements(void) {
-		delete statement;
-		delete nextStatements;
+//		delete statement;
+//		delete nextStatements;
 	}
 
 	/** Laesst einen Visitor zugreifen.
@@ -60,13 +60,6 @@ public:
 		this->nextStatements = newStatements;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-		statement->dump();
-		if (nextStatements != 0) {
-			nextStatements->dump();
-		}
-	}
 };
 
 #endif /* Nodestatements_H_ */

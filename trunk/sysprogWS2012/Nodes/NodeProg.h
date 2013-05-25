@@ -2,21 +2,6 @@
 #define NodeProg_H_
 
 #include "Node.h"
-#include "NodeDecls.h"
-#include "NodeStatements.h"
-
-
-
-
-#include "NodeExp.h"
-#include "NodeIndex.h"
-
-#include "NodeStatementAssign.h"
-#include "NodeStatementBlock.h"
-#include "NodeStatementIfElse.h"
-#include "NodeStatementPrint.h"
-#include "NodeStatementRead.h"
-#include "NodeStatementWhile.h"
 
 /**
    Abbildung des Knotens PROG der Sprache der Aufgabenstellung.
@@ -64,14 +49,6 @@ public:
 	virtual void addChild(NodeStatements* newStatements) {
 		//cout << "*New NodeProg child: NodeStatements" << endl;
 		this->statements = newStatements;
-	}
-
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-		std::cout << "Decs: \n ";
-		declarations->dump();
-		std::cout << "Statement: \n";
-		statements->dump();
 	}
 };
 

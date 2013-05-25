@@ -25,9 +25,9 @@ public:
 
 	/** Loescht den Knoten, seine Elemente und Nachfolger. */
 	virtual ~NodeStatementIfElse(void) {
-		delete expression;
-		delete ifStatement;
-		delete elseStatement;
+//		delete expression;
+//		delete ifStatement;
+//		delete elseStatement;
 	}
 
 	/** Laesst einen Visitor zugreifen. */
@@ -58,19 +58,6 @@ public:
 		this->elseStatement = newElseStatement;
 	}
 
-	virtual void dump() {
-		std::cout << typeid(this).name() << std::endl;
-		if (ifStatement != 0) {
-			std::cout << "Start if: " << std::endl;
-			ifStatement->dump();
-			std::cout << "End if: " << std::endl;
-		}
-		if (elseStatement != 0) {
-			std::cout << "Start Else: " << std::endl;
-			elseStatement->dump();
-			std::cout << "End Else: " << std::endl;
-		}
-	}
 };
 
 #endif /* NodeStatementIfElse_H_ */
