@@ -27,9 +27,9 @@ void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned in
 	{
 		this->writer->writeMessage(message);
 		this->writer->writeMessage(" in line ");
-		this->writer->writeMessage(line);
+		this->writer->writeMessage(CharHelper::convertInt(line));
 		this->writer->writeMessage(", column ");
-		this->writer->writeMessage(column);
+		this->writer->writeMessage(CharHelper::convertInt(column));
 		this->writer->writeMessage(", identifier ");
 		this->writer->writeMessage(lexem);
 		this->writer->writeMessage("\n");
@@ -38,9 +38,9 @@ void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned in
 	}else {
 		this->writer->writeMessage(message);
 		this->writer->writeMessage(" in line ");
-		this->writer->writeMessage(line);
+		this->writer->writeMessage(CharHelper::convertInt(line));
 		this->writer->writeMessage(", column ");
-		this->writer->writeMessage(column);
+		this->writer->writeMessage(CharHelper::convertInt(column));
 		this->writer->writeMessage("\n");
 	}
 }
@@ -178,7 +178,7 @@ void TypeCheckVisitor::visit(NodeStatementBlock *node) {
 void TypeCheckVisitor::visit(NodeStatementIfElse *node) {
 	node->getExpression()->accept(this);
 	node->getIfStatement()->accept(this);
-	node->getElseStatement()->accept(this);
+	node->getElseStatement()->accept(this);CharHelper::convertInt(
 
 	if (node->getExpression()->getType() == Node::TYPE_ERROR) {
 		node->setType(Node::TYPE_ERROR);
