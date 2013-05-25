@@ -44,7 +44,7 @@ Token* Parser::readNextToken() {
 
 void Parser::ErrorOutput(char* message, int row, int column) {
 	writer->writeError(message);
-	writer->writeError(" expected (Row ");
+	writer->writeError(" (Row ");
 	writer->writeError(CharHelper::convertInt(row));
 	writer->writeError(", Column: ");
 	writer->writeError(CharHelper::convertInt(column));
@@ -409,7 +409,7 @@ NodeStatement* Parser::statement() {
 				}
 				else {
 					delete whileStatement;
-					ErrorOutput(")", temp->getRow(), temp->getColumn());
+					ErrorOutput("')'", temp->getRow(), temp->getColumn());
 					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
 //					printf("')' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 				}
@@ -417,7 +417,7 @@ NodeStatement* Parser::statement() {
 				newNode = whileStatement;
 			}
 			else {
-				ErrorOutput("(", temp->getRow(), temp->getColumn());
+				ErrorOutput("'('", temp->getRow(), temp->getColumn());
 				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
 //				printf("'(' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 			}
