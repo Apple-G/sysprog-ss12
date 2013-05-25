@@ -42,6 +42,15 @@ Token* Parser::readNextToken() {
 	}
 }
 
+void Parser::ErrorOutput(char* message, int row, int column) {
+	writer->writeError("'");
+	writer->writeError(message);
+	writer->writeError("' expected (Row ");
+	writer->writeError(CharHelper::convertInt(row));
+	writer->writeError(", Column: ");
+	writer->writeError(CharHelper::convertInt(column));
+	writer->writeError(")\n");
+}
 
 Tree* Parser::parse() {
 
@@ -401,15 +410,25 @@ NodeStatement* Parser::statement() {
 				}
 				else {
 					delete whileStatement;
+					writer->writeError(" ')' expected (Row ");
+					writer->writeError(CharHelper::convertInt(tempToken->getRow()));
+					writer->writeError(", Column: ");
+					writer->writeError(CharHelper::convertInt(tempToken->getColumn()));
+					writer->writeError(")\n");
 					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
-					printf("')' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
+//					printf("')' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 				}
 
 				newNode = whileStatement;
 			}
 			else {
+				writer->writeError(" '(' expected (Row ");
+				writer->writeError(CharHelper::convertInt(tempToken->getRow()));
+				writer->writeError(", Column: ");
+				writer->writeError(CharHelper::convertInt(tempToken->getColumn()));
+				writer->writeError(")\n");
 				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
-				printf("'(' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
+//				printf("'(' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 			}
 			break;
 

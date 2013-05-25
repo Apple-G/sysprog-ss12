@@ -39,6 +39,11 @@ class Parser
 	Token *readNextToken();
 
 	/**
+		Hilfsfunktion zur Ausgabe von Fehlern
+	*/
+	void ErrorOutput(char* message, int row, int column);
+
+	/**
 		Es folgen die Funktionen für jedes Nicht-Terminalsymbol mit deren Hilfe
 		der rekursive Abstieg vollzogen werden kann.
 		@return: Pointer (Type: Node)
