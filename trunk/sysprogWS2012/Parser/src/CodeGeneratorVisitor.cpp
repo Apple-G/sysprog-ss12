@@ -49,8 +49,11 @@ void CodeGeneratorVisitor::visit(NodeDecl *node) {
 	writer->writeMessage(" DS $");
 	writer->writeMessage(identifier->getLexem());
 
-	if (arr != NULL)
+	if (arr != NULL) {
+		writer->writeMessage(" ");
 		arr->accept(this);
+		writer->writeMessage("\n");
+	}
 	else
 		writer->writeMessage(" 1\n");
 }

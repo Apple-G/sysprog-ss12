@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 	Buffer* buffer = new Buffer("TestFilesParser/p1Test.txt");
 
 	//File Ausgabe
-	OutputHandlerBase* outFile = new OutputFileHandler("out.txt");
+	OutputHandlerBase* outFile = new OutputFileHandler("out.code");
 	buffer->RegisterMessageHandler(outFile);
 
 //	//Consolen Ausgabe
