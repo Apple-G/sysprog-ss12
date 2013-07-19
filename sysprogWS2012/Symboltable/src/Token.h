@@ -32,6 +32,8 @@ public:
 				IF,					// if			23
 				ELSE,				// else			24
 				WHILE,				// while		25
+				TYPE_NONE,			//Kein Typ (noch nicht festgelegt [für Node]
+				IDENTIFIER_ARRAY, 	//Arraybezeichner [für Node]
 			};
 
 private:
@@ -41,7 +43,7 @@ private:
 	int column;
 //	unsigned int length;
 	Token::TokenType type;
-	SymboltableEntry* key;
+	SymboltableEntry* entry;
 public:
 	Token(void);
 /*
@@ -80,7 +82,8 @@ public:
 	static char* getTypeForOutput(int);
 	Token::TokenType getType();
 
-	//SymboltableEntry *getSymboltableEntry();
+	void setSymboltableEntry(SymboltableEntry *entry);
+	SymboltableEntry *getSymboltableEntry();
 
 };
 

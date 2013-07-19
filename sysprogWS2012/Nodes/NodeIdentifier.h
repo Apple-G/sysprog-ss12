@@ -9,8 +9,9 @@
 
 */
 class NodeIdentifier : public NodeLeaf {
-	/** Zugehoeriger Symboltabelleneintrag des Identifiers. */
+	SymboltableEntry *entry;/** Zugehoeriger Symboltabelleneintrag des Identifiers. */
 	char *lexem;
+	Node::TYPES tempType;
 
 public:
 	/** Erzeugt einen neuen Knoten, der mit einem Identifier verknüpft ist..
@@ -18,10 +19,12 @@ public:
 	@param column Spalte, in der der Identifier im Code steht.
 	@param symtabEntry Zum Identifier geh�render Symboltabelleneintrag für schnellen Zugriff.
 	*/
-	NodeIdentifier(int line, int column, char *lexem) {
+
+	NodeIdentifier(int line, int column, char *lexem, SymboltableEntry *entry) {
 		this->line = line;
 		this->column = column;
 		this->lexem = lexem;
+		this->entry = entry;
 	}
 
 	virtual ~NodeIdentifier(void) {
@@ -39,11 +42,36 @@ public:
 	@param newType Entsprechender Datentyp.
 	*/
 	virtual void setType(Node::TYPES newType) {
-		this->nodeType = newType;
+		this->tempType = newType;
+		switch (this->tempType) {
+			case Node::TYPE_NONE:
+				this->entry->setTokenType(Token::TYPE_NONE);
+				break;
+			case Node::TYPE_INTEGER:
+				this->entry->setTokenType(Token::IDENTIFIER);
+				break;
+			case Node::TYPE_INTEGER_ARRAY:
+				this->entry->setTokenType(Token::IDENTIFIER_ARRAY);
+				break;
+			case Node::TYPE_ERROR:
+				this->entry->setTokenType(Token::UNKNOWN);
+				break;
+		}
 	}
 
 	virtual Node::TYPES getType() {
-		return this->nodeType;
+		switch (this->entry->getTokenType()) {
+			case Token::TYPE_NONE:
+				return Node::TYPE_NONE;
+			case Token::IDENTIFIER:
+				return Node::TYPE_INTEGER;
+			case Token::IDENTIFIER_ARRAY:
+				return Node::TYPE_INTEGER_ARRAY;
+			case Token::UNKNOWN:
+				return Node::TYPE_ERROR;
+			default:
+				return this->tempType;
+		}
 	}
 
 	/** Gibt Zeiger auf Bezeichner des Identifiers zur�ck.

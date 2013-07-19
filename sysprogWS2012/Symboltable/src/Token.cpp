@@ -81,12 +81,17 @@ void Token::setColumn(int column){
 }
 //========================================================================
 
-/**
-* 
-**
-void Token::setLength(unsigned int length){
-	this->length = length;
-}*/
+void Token::setSymboltableEntry(SymboltableEntry *entry)
+{
+	this->entry = entry;
+}
+//========================================================================
+
+SymboltableEntry* Token::getSymboltableEntry(){
+	return this->entry;
+}
+
+
 //========================================================================
 
 char* Token::getLexem(){
@@ -160,8 +165,3 @@ Token::TokenType Token::getType()
 	return this->type;
 }
 
-/*
-unsigned int Token::getLength(){
-	return length;
-}
-*/

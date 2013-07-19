@@ -44,29 +44,11 @@ void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned in
 }
 
 /**
-	Startaufruf f�r Programm
+	Startaufruf fuer Programm
 */
 // typeCheck (PROG ::= DECLS STATEMENTS)
 void TypeCheckVisitor::visit(NodeProg *node) {
-	// DECLS Typ bestimmen wenn DECLS vorhanden
-	//if (node->getDeclarations())
-	//	node->getDeclarations()->accept(this);
-
-	// STATEMENTS Typ bestimmen wenn STATEMENTS vorhanden
-	//if (node->getStatements())
-	//	node->getStatements()->accept(this);
-
-	// Typ von Prog ist NONE, es gibt keinen R�ckgabetyp
 	node->setType(Node::TYPE_NONE);
-
-	/* Ausgabe: Keine Fehler oder Anzahl der Fehler */
-	// Write to out - either custom buffer or stderr
-	if (this->operationsSuccessful) {
-		sprintf(errorMessage, "No errors found, TypeCheck completed successfully.");
-	}
-	else {
-		sprintf(errorMessage, "\n- - - - - - - - - - - -\n%u errors found, please read the log above.\nHint: Start at the top, because some errors might be consequences of errors detected before.", this->errorCount);
-	}
 }
 
 /**
@@ -116,6 +98,9 @@ void TypeCheckVisitor::visit(NodeDecl *node) {
 		}
 		else {
 			identifier->setType(Node::TYPE_INTEGER);
+			this->writer->writeError("=> Set TYPE_INTEGER od [");
+			this->writer->writeError(identifier->getLexem());
+			this->writer->writeError("]\n");
 		}
 	}
 }
@@ -152,7 +137,7 @@ void TypeCheckVisitor::visit(NodeStatementAssign *node) {
 		index->accept(this);
 	
 	if (identifier->getType() == Node::TYPE_NONE) {
-		outputError("identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
+		outputError("#01-identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		node->setType(Node::TYPE_ERROR);
 	}
 	else if (exp->getType() == Node::TYPE_INTEGER && (
@@ -196,7 +181,7 @@ void TypeCheckVisitor::visit(NodeStatementRead *node) {
 	NodeIdentifier *identifier = node->getIdentifier();
 
 	if (identifier->getType() == Node::TYPE_NONE) {
-		outputError("identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
+		outputError("#02-identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		node->setType(Node::TYPE_ERROR);
 	}
 	else if (((identifier->getType() == Node::TYPE_INTEGER) && index == NULL)
@@ -247,7 +232,7 @@ void TypeCheckVisitor::visit(NodeExp2IdentifierIndex* node) {
 		index->accept(this);
 
 	if(identifier->getType() == Node::TYPE_NONE) {
-		outputError("identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
+		outputError("#03-identifier not defined", identifier->getLine(), identifier->getColumn(), identifier->getLexem());
 		node->setType(Node::TYPE_ERROR);
 	}
 	else if (identifier->getType() == Node::TYPE_INTEGER && index == NULL)

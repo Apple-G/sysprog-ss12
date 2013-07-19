@@ -3,24 +3,13 @@
 #include "CodeGeneratorVisitor.h"
 #include "TypeCheckVisitor.h"
 
-/*
-Parser::Parser(char *inFile, char *scannerLog, OutputBuffer *semanticLog, OutputBuffer *outFile) {
-	this->scanner = new Scanner(inFile, scannerLog);
-	this->tree = new Tree();
 
-	// Typecheck und Code-Generierung
-//ToDo:
-//	this->typeChecker = new TypeCheckVisitor(semanticLog);
-//	this->codeGenerator = new CodeGeneratorVisitor(outFile);
-}
-*/
 Parser::Parser(Scanner* scanner, Buffer* buffer) {
 	this->scanner = scanner;
 	this->tree = new Tree();
 	this->writer = buffer;
 
 	//ToDo: Buffer für typeChecker und CodeGenerator anlegen
-
 	this->typeChecker = new TypeCheckVisitor(buffer);
 	this->codeGenerator = new CodeGeneratorVisitor(buffer);
 }
@@ -58,7 +47,7 @@ Tree* Parser::parse() {
 
 	//ToDo: TypeCheck
 	if (!this->typeChecker->completedWithoutErrors()) {
-		fprintf(stderr, "Semantic check returned errors, code cannot be generated!\nPlease check 'errorSemantics.log'.\n");
+		fprintf(stderr, "aSemantic check returned errors, code cannot be generated!\nPlease check 'errorSemantics.log'.\n");
 	}
 
 	return this->tree;
@@ -118,7 +107,7 @@ NodeDecl* Parser::decl() {
 	NodeDecl* declaration;
 	Token *temp = this->readNextToken();
 	
-	// Epsilon Fall f�r DECLS
+	// Epsilon Fall fuer DECLS
 	if (temp == 0) {
 		return 0;
 	}
@@ -134,7 +123,7 @@ NodeDecl* Parser::decl() {
 		//identifier
 		temp = this->readNextToken();
 		if (temp->getType() == Token::IDENTIFIER) {
-			declaration->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem()));
+			declaration->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem(), temp->getSymboltableEntry()));
 		}
 		else {
 			//ToDo: throw SyntaxErrorException("Identifier expected", temp->getRow(), temp->getColumn());
@@ -175,11 +164,13 @@ NodeArray* Parser::array_() {
 				delete integer;
 				//ToDo: throw SyntaxErrorException("']' expected", temp->getRow(), temp->getColumn());
 				errorOutput("']' expected", temp->getRow(), temp->getColumn());
+				return 0;
 			}
 		}
 		else {
 			//ToDo: throw SyntaxErrorException("Integer expected", temp->getRow(), temp->getColumn());
 			errorOutput("Integer expected", temp->getRow(), temp->getColumn());
+			return 0;
 		}
 	}
 	// Epsilon
@@ -249,7 +240,7 @@ NodeStatement* Parser::statement() {
 			assign = new NodeStatementAssign();
 
 			//identifier
-			identifier = new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem());
+			identifier = new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem(), temp->getSymboltableEntry());
 			assign->addChild(identifier);
 
 			//INDEX
@@ -305,7 +296,7 @@ NodeStatement* Parser::statement() {
 				// IDENTIFIER
 				temp = this->readNextToken();
 				if (temp->getType() == Token::IDENTIFIER) {
-					read->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem()));
+					read->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem(), temp->getSymboltableEntry()));
 					// INDEX
 					read->addChild(this->index());
 
@@ -481,7 +472,7 @@ NodeExp2* Parser::exp2() {
 		// IDENTIFIER INDEX
 		case Token::IDENTIFIER:
 			indexNode = new NodeExp2IdentifierIndex();
-			indexNode->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem()));
+			indexNode->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem(), temp->getSymboltableEntry()));
 
 			// INDEX
 			indexNode->addChild(this->index());
