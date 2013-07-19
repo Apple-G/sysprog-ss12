@@ -6,21 +6,28 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
+	//argv[1] => INPUT-File
+	//argv[2] => OUTPUT-File (Code)
+	//argv[3] => Error-File //TODo
 
-	Buffer* buffer = new Buffer("TestFilesParser/p1Test.txt");
+	if (argc < 2)
+	return EXIT_FAILURE;
 
-	//File Ausgabe
-	OutputHandlerBase* outFile = new OutputFileHandler("out.code");
-	buffer->RegisterMessageHandler(outFile);
+	Buffer* buffer = new Buffer(argv[1]); /* "TestFilesParser/p1Test.txt" */
 
-//	//Consolen Ausgabe
-//	OutputHandlerBase* outConsole = new OutConsoleHandler();
-//	buffer->RegisterMessageHandler(outConsole);
+		//File Ausgabe
+		OutputHandlerBase* outFile = new OutputFileHandler(argv[2]);
+		buffer->RegisterMessageHandler(outFile);
 
-	Scanner* scanner = new Scanner(buffer);
-	Parser *parser = new Parser(scanner, buffer);
-	Tree *tree = parser->parse();
+	//	//Consolen Ausgabe
+	//	OutputHandlerBase* outConsole = new OutConsoleHandler();
+	//	buffer->RegisterMessageHandler(outConsole);
 
-	cout << endl << endl << "Test Parser Complete..." << endl;
+		Scanner* scanner = new Scanner(buffer);
+		Parser *parser = new Parser(scanner, buffer);
+		Tree *tree = parser->parse();
+		buffer->CloseAll();
 
+		cout << endl << endl << "Test Parser Complete..." << endl;
+		return EXIT_SUCCESS;
 }
