@@ -79,6 +79,7 @@ public:
 
 	Parser(void);
 	Parser(Scanner*, Buffer*);
+	Parser(Scanner*, Buffer*, Buffer*, Buffer*);
 	
 	/**
 		Erstellt einen Strukturbaum und pr�ft auf die Syntax

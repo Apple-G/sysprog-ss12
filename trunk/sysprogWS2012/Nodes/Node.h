@@ -34,7 +34,7 @@ public:
 		TYPE_OP_SMALLER,			/*!< '<' Kleiner */
 		TYPE_OP_EQUAL,				/*!< '=' Gleichheit */
 		TYPE_OP_UNEQUAL,			/*!< '<!>' Ungleichheit */
-		TYPE_OP_AND					/*!< '&' Logisches Und */
+		TYPE_OP_AND,					/*!< '&' Logisches Und */
 	};
 
 protected:

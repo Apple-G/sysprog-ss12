@@ -174,10 +174,14 @@ Token* Scanner::getNextToken() {
 		if (!buffer->isEOF()) {
 			lastToken = automat->nextToken();
 			if (lastToken.getLexem()[0] != '\0') {
+				 // Einfügen in Symboltabelle
 				if (lastToken.getType() == Token::IDENTIFIER) {
 					SymboltableEntry* entry = table->insert(
-							lastToken.getLexem(), lastToken.getType());
-					lastToken.setType(entry->getTokenType());
+							lastToken.getLexem(), Token::TYPE_NONE);
+					if (entry->getTokenType() != Token::TYPE_NONE){
+						lastToken.setType(entry->getTokenType());
+					}
+					lastToken.setSymboltableEntry(entry);
 				}
 			}
 		}
@@ -195,6 +199,7 @@ Token* Scanner::getNextToken() {
 	t->setLexem(lastToken.getLexem());
 	t->setNumber(lastToken.getNumber());
 	t->setType(lastToken.getType());
+	t->setSymboltableEntry(lastToken.getSymboltableEntry());
 
 	return t;
 }
