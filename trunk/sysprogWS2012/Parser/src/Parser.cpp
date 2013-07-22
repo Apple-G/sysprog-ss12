@@ -9,7 +9,6 @@ Parser::Parser(Scanner* scanner, Buffer* buffer) {
 	this->tree = new Tree();
 	this->writer = buffer;
 
-	//ToDo: Buffer für typeChecker und CodeGenerator anlegen
 	this->typeChecker = new TypeCheckVisitor(buffer);
 	this->codeGenerator = new CodeGeneratorVisitor(buffer);
 }
@@ -45,7 +44,6 @@ Tree* Parser::parse() {
 	//this->scanner->checkFile();
 	this->tree->setRoot(this->prog());
 
-	//ToDo: TypeCheck
 	if (!this->typeChecker->completedWithoutErrors()) {
 		fprintf(stderr, "Semantic check returned errors.\n");
 	}
@@ -93,10 +91,7 @@ NodeDecls* Parser::decls() {
 			declarations->addChild(this->decls());
 		} 
 		else {
-		//	throw SyntaxErrorException("';' expected", temp->getRow(), temp->getColumn());
 			errorOutput("';' expected",tempToken->getRow(),tempToken->getColumn());
-
-//			printf("';' expected (Row: %d, Column: %d)", tempToken->getRow(), tempToken->getColumn());
 			throw 1;
 		}
 	}
@@ -162,13 +157,11 @@ NodeArray* Parser::array_() {
 			}
 			else {
 				delete integer;
-				//ToDo: throw SyntaxErrorException("']' expected", temp->getRow(), temp->getColumn());
 				errorOutput("']' expected", temp->getRow(), temp->getColumn());
 				return 0;
 			}
 		}
 		else {
-			//ToDo: throw SyntaxErrorException("Integer expected", temp->getRow(), temp->getColumn());
 			errorOutput("Integer expected", temp->getRow(), temp->getColumn());
 			return 0;
 		}
@@ -207,8 +200,8 @@ NodeStatements* Parser::statements() {
 		statements->addChild(this->statements());
 	}
 	else {
-		//ToDo: throw SyntaxErrorException("';' expected", temp->getRow(), temp->getColumn());
 		errorOutput("';' expected", temp->getRow(), temp->getColumn());
+		//return 0;
 	}
 
 	return statements;
@@ -254,8 +247,8 @@ NodeStatement* Parser::statement() {
 			}
 			else {
 				delete assign;
-				//ToDo: throw SyntaxErrorException(" '=' expected", temp->getRow(), temp->getColumn());
 				errorOutput(" '=' expected", temp->getRow(), temp->getColumn());
+				//return 0;
 			}
 
 			newNode = assign;
@@ -274,13 +267,13 @@ NodeStatement* Parser::statement() {
 				temp = this->readNextToken();
 				if (temp->getType() != Token::R_PARENTHESIS) {
 					delete print;
-					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
 					errorOutput("')' expected", temp->getRow(), temp->getColumn());
+					return 0;
 				}
 			}
 			else {
-				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
 				errorOutput("'(' expected", temp->getRow(), temp->getColumn());
+				//return 0;
 			}
 
 			newNode = print;
@@ -304,19 +297,16 @@ NodeStatement* Parser::statement() {
 					temp = this->readNextToken();
 					if (temp->getType() != Token::R_PARENTHESIS) {
 						delete read;
-						//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
 						errorOutput("')' expected", temp->getRow(), temp->getColumn());
 					}
 					newNode = read;
 				}
 				else {
 					delete read;
-					//ToDo; throw SyntaxErrorException("Identifier expected", temp->getRow(), temp->getColumn());
 					errorOutput("Identifier expected", temp->getRow(), temp->getColumn());
 				}
 			}
 			else {
-				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
 				errorOutput("'(' expected", temp->getRow(), temp->getColumn());
 			}
 			break;
@@ -331,7 +321,6 @@ NodeStatement* Parser::statement() {
 			temp = this->readNextToken();
 			if (temp->getType() != Token::R_BRACE) {
 				delete block;
-				//ToDo: throw SyntaxErrorException("'}' expected", temp->getRow(), temp->getColumn());
 				errorOutput("'}' expected", temp->getRow(), temp->getColumn());
 			}
 
@@ -362,19 +351,16 @@ NodeStatement* Parser::statement() {
 					}
 					else {
 						delete ifElse;
-						//ToDo: throw SyntaxErrorException("else expected", temp->getRow(), temp->getColumn());
 						errorOutput("else expected", temp->getRow(), temp->getColumn());
 					}
 					newNode = ifElse;
 				}
 				else {
 					delete ifElse;
-					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
 					errorOutput("')' expected", temp->getRow(), temp->getColumn());
 				}
 			}
 			else {
-				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
 				errorOutput("'(' expected", temp->getRow(), temp->getColumn());
 			}
 			break;
@@ -398,29 +384,22 @@ NodeStatement* Parser::statement() {
 				else {
 					delete whileStatement;
 					errorOutput("')' expected", temp->getRow(), temp->getColumn());
-					//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
-//					printf("')' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 				}
 
 				newNode = whileStatement;
 			}
 			else {
 				errorOutput("'(' expected", temp->getRow(), temp->getColumn());
-				//ToDo: throw SyntaxErrorException("'(' expected", temp->getRow(), temp->getColumn());
-//				printf("'(' expected (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 			}
 			break;
 
 		// Leere Statements sind nicht erlaubt!
 		case Token::SEMICOLON:
-			//ToDo: throw SyntaxErrorException("Empty Statement is not accepted!", temp->getRow(), temp->getColumn());
 			errorOutput("Empty Statement is not accepted!", temp->getRow(), temp->getColumn());
-//			printf("Empty Statement is not accepted! (Row: %d, Column: %d)", temp->getRow(), temp->getColumn());
 			break;
 
 		// Statement in einem Declarations-Block
 		case Token::INT:
-			//ToDo: throw SyntaxErrorException("Statement expected", temp->getRow(), temp->getColumn());
 			errorOutput("Statement expected", temp->getRow(), temp->getColumn());
 			break;
 
@@ -464,7 +443,6 @@ NodeExp2* Parser::exp2() {
 			// )
 			temp = this->readNextToken();
 			if (temp->getType() != Token::R_PARENTHESIS) {
-				//ToDo: throw SyntaxErrorException("')' expected", temp->getRow(), temp->getColumn());
 				errorOutput("')' expected", temp->getRow(), temp->getColumn());
 			}
 			return expression;
@@ -499,7 +477,6 @@ NodeExp2* Parser::exp2() {
 			return notExpNode;
 
 		default:
-			//ToDo: throw SyntaxErrorException("Illegal expression.", temp->getRow(), temp->getColumn());
 			errorOutput("Illegal expression.", temp->getRow(), temp->getColumn());
 	}
 
@@ -524,7 +501,6 @@ NodeIndex* Parser::index() {
 		}
 		else {
 			delete index;
-			//ToDo: throw SyntaxErrorException("']' expected", temp->getRow(), temp->getColumn());
 			errorOutput("']' expected", temp->getRow(), temp->getColumn());
 		}
 	}
