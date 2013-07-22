@@ -98,9 +98,6 @@ void TypeCheckVisitor::visit(NodeDecl *node) {
 		}
 		else {
 			identifier->setType(Node::TYPE_INTEGER);
-			this->writer->writeError("=> Set TYPE_INTEGER od [");
-			this->writer->writeError(identifier->getLexem());
-			this->writer->writeError("]\n");
 		}
 	}
 }
