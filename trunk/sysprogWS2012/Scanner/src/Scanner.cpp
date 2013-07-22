@@ -179,7 +179,12 @@ Token* Scanner::getNextToken() {
 					SymboltableEntry* entry = table->insert(
 							lastToken.getLexem(), Token::TYPE_NONE);
 					if (entry->getTokenType() != Token::TYPE_NONE){
-						lastToken.setType(entry->getTokenType());
+						if (entry->getTokenType() == Token::IDENTIFIER_ARRAY)
+						{
+							lastToken.setType(Token::IDENTIFIER);
+						}else {
+							lastToken.setType(entry->getTokenType());
+						}
 					}
 					lastToken.setSymboltableEntry(entry);
 				}

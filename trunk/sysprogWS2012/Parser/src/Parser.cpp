@@ -47,7 +47,7 @@ Tree* Parser::parse() {
 
 	//ToDo: TypeCheck
 	if (!this->typeChecker->completedWithoutErrors()) {
-		fprintf(stderr, "aSemantic check returned errors, code cannot be generated!\nPlease check 'errorSemantics.log'.\n");
+		fprintf(stderr, "Semantic check returned errors.\n");
 	}
 
 	return this->tree;
