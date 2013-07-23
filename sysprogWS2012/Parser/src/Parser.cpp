@@ -121,7 +121,6 @@ NodeDecl* Parser::decl() {
 			declaration->addChild(new NodeIdentifier(temp->getRow(), temp->getColumn(), temp->getLexem(), temp->getSymboltableEntry()));
 		}
 		else {
-			//ToDo: throw SyntaxErrorException("Identifier expected", temp->getRow(), temp->getColumn());
 			errorOutput("Identifier expected", temp->getRow(), temp->getColumn());
 		}
 	}

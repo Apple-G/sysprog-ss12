@@ -61,10 +61,6 @@ void CodeGeneratorVisitor::visit(NodeDecl *node) {
 void CodeGeneratorVisitor::visit(NodeArray *node) {
 
 	writer->writeMessage(CharHelper::convertLong(node->getInteger()->getValue()));
-
-	/*
-	alternativ nur den integer wert speichern, siehe Seite 72 bei Aufgabe 2
-	*/
 }
 
 void CodeGeneratorVisitor::visit(NodeStatements *node) {
