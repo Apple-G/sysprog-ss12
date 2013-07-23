@@ -46,7 +46,6 @@ void TypeCheckVisitor::outputError(char *message, unsigned int line, unsigned in
 /**
 	Startaufruf fuer Programm
 */
-// typeCheck (PROG ::= DECLS STATEMENTS)
 void TypeCheckVisitor::visit(NodeProg *node) {
 	node->setType(Node::TYPE_NONE);
 }
